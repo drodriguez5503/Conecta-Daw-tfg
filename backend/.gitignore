@@ -1,0 +1,67 @@
+# Archivos de Python
+*.pyc
+__pycache__/
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Archivos de Django
+*.sqlite3
+*.log
+local_settings.py
+media/
+
+# Archivos de IDEs
+.idea/
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+
+# Archivos de compilación
+*.mo
+*.pot
+
+# Archivos estáticos recopilados
+static/
+
+# Archivos de pip
+*.dist-info/
+.DS_Store
+
+# Archivos de bases de datos
+*.sqlite3
+*.psql
+
+# Archivos de media subidos por el usuario
+/media
+
+# Archivos de caché
+.cache/
+
+# Archivos de cobertura
+.coverage
+
+# Archivos de PyInstaller
+dist/
+build/
+*.spec
+
+# Archivos de logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.bak
+
+# Archivos de Docker (si usas Docker)
+docker-compose.yml
+Dockerfile
+
+# Archivos de entorno
+.env
+
+# Misceláneos
+*.orig
+*.rej
