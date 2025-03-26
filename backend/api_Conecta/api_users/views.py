@@ -33,3 +33,14 @@ class LoginView(APIView):
 class CheckTokenView(APIView):
     def get(self, request):
         return Response({"message": "Token is valid"}, status=status.HTTP_200_OK)
+
+
+class GetUserByUsernameView(APIView):
+
+    def get(self, request, username):
+        try:
+            user = User.objects.get(username=username)
+            serializer = UserSerializer(user)
+            return Response({"user": serializer.data}, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({"message":"User not found"}, status=status.HTTP_404_NOT_FOUND)
