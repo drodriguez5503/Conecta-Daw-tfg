@@ -10,13 +10,16 @@ class ProjectListCreate(generics.ListCreateAPIView):
     serializer_class = ProjectSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def create(self, request, *args, **kwargs):
+    def get_queryset(self):
+        if isinstance(self.request.user, User):
+            return Project.objects.filter(users=self.request.user)
+        else:
+            return Project.objects.none()
 
+    def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
         project = serializer.save(users=[request.user])
-
         response_serializer = ProjectSerializer(project)
         return Response(response_serializer.data, status=status.HTTP_201_CREATED)
 
@@ -24,6 +27,12 @@ class ProjectRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        if isinstance(self.request.user, User):
+            return Project.objects.filter(users=self.request.user)
+        else:
+            return Project.objects.none()
 
 class AddUserToProject(generics.UpdateAPIView):
     queryset = Project.objects.all()
