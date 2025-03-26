@@ -1,5 +1,7 @@
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, permissions
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, ValidationError
 
 from api_projects.models import Project
 from .models import Note, Tag, Link
@@ -24,7 +26,7 @@ class NoteListCreate(generics.ListCreateAPIView):
     def perform_create(self, serializer):
 
         project_id = self.kwargs['project_id']
-        project = Project.objects.get(id=project_id)
+        project = get_object_or_404(Project, id=project_id)
 
         if self.request.user not in project.users.all():
             raise PermissionDenied("Can not create note on a Project that you are not a part of")
@@ -58,6 +60,58 @@ class NoteRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 
         instance.delete()
 
+class LinkListCreate(generics.ListCreateAPIView):
+    queryset = Link.objects.all()
+    serializer_class = LinkSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Link.objects.filter(originNote__project__users=self.request.user)
+        return Link.objects.none()
+
+    def perform_create(self, serializer):
+        originNote = serializer.validated_data['originNote']
+        destinationNote = serializer.validated_data['destinationNote']
+
+        if not originNote or not destinationNote:
+            raise PermissionDenied("Both origin and destination notes must be provided.")
+
+        if originNote.project != destinationNote.project:
+            raise PermissionDenied("Can not create links between notes of different projects.")
+
+        if Link.objects.filter(
+                Q(originNote=originNote, destinationNote=destinationNote) |
+                Q(originNote=destinationNote, destinationNote=originNote)
+        ).exists():
+            raise ValidationError("This link already exists.")
+
+        serializer.save(originNote=originNote, destinationNote=destinationNote)
+
+class LinkRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Link.objects.all()
+    serializer_class = LinkSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        return Link.objects.filter(originNote__project__users=self.request.user)
+
+    def delete(self, request, *args, **kwargs):
+        link = self.get_object()
+        if request.user not in link.originNote.project.users.all():
+            raise PermissionDenied("You do not have permission to delete this link.")
+        return super().delete(request, *args, **kwargs)
+
+class ProjectLinksList(generics.ListAPIView):
+    serializer_class = LinkSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        project_id = self.kwargs['project_id']
+        user = self.request.user
+
+        return Link.objects.filter(originNote__project_id=project_id, originNote__project__users=user)
+
 class TagListCreate(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
@@ -68,12 +122,4 @@ class TagRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TagSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-class LinkListCreate(generics.ListCreateAPIView):
-    queryset = Link.objects.all()
-    serializer_class = LinkSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-class LinkRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Link.objects.all()
-    serializer_class = LinkSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
