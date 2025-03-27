@@ -36,7 +36,6 @@ class CheckTokenView(APIView):
 
 
 class GetUserByUsernameView(APIView):
-
     def get(self, request, username):
         try:
             user = User.objects.get(username=username)

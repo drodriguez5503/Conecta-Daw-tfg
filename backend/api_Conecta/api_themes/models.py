@@ -1,11 +1,11 @@
 from django.db import models
 
-from api_Conecta.api_notes.models import Note
+from api_notes.models import Note
 
 
 class Theme (models.Model):
     name = models.CharField(max_length=255)
-    description = models.TextField
+    description = models.TextField()
     linkedNotes = models.ManyToManyField(Note, related_name="themes")
 
     def __str__(self):

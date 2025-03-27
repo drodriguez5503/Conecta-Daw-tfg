@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'api_users',
     'api_projects',
     'api_notes',
+    'api_themes',
 ]
 
 REST_FRAMEWORK = {
