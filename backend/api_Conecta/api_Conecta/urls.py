@@ -25,5 +25,6 @@ urlpatterns = [
     path('api/', include('api_users.urls')),
     path('api/', include('api_projects.urls')),
     path('api/', include('api_notes.urls')),
+    path('api/', include('api_themes.urls'))
 
 ]
