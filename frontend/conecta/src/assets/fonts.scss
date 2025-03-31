@@ -1,0 +1,20 @@
+@font-face {
+    font-family: "IBM Plex Mono";
+    src: url("./fonts/IBMPlexMono-Regular.ttf") format("truetype");
+    font-weight: 400; /* 300: light, 400: regular, 500: medium, 600: semibold, 700: bold, 800: black.. */
+    font-style: normal; /*normal o italic (italic es cursiva) */
+}
+
+@font-face {
+    font-family: "IBM Plex Mono";
+    src: url("./fonts/IBMPlexMono-SemiBold.ttf") format("truetype");
+    font-weight: 600; /* 300: light, 400: regular, 500: medium, 600: semibold, 700: bold, 800: black.. */
+    font-style: normal; /*normal o italic (italic es cursiva) */
+}
+
+@font-face {
+    font-family: "Afacad";
+    src: url("./fonts/Afacad-Regular.ttf") format("truetype");
+    font-weight: 400; /* 300: light, 400: regular, 500: medium, 600: semibold, 700: bold, 800: black.. */
+    font-style: normal; /*normal o italic (italic es cursiva) */
+}
