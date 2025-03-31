@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
 
-from api_Conecta.api_projects.models import Project
-from api_Conecta.api_themes.models import Theme, AIAnalysis
-from api_Conecta.api_themes.serializers import ThemeSerializer, AIAnalysisSerializer
+from api_projects.models import Project
+from api_themes.models import Theme, AIAnalysis
+from api_themes.serializers import ThemeSerializer, AIAnalysisSerializer
 
 
 class ThemeListCreate(generics.ListCreateAPIView):

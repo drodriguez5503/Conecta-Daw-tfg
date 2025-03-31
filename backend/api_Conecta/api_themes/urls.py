@@ -1,6 +1,6 @@
-from api_Conecta.api_notes.urls import urlpatterns
-from api_Conecta.api_notes.views import LinkListCreate
-from api_Conecta.api_themes.views import ThemeListCreate, ThemeRetrieveUpdateDestroy, AIAnalysisListCreate, \
+from api_notes.urls import urlpatterns
+from api_notes.views import LinkListCreate
+from api_themes.views import ThemeListCreate, ThemeRetrieveUpdateDestroy, AIAnalysisListCreate, \
     AIAnalysisRetrieveUpdateDestroy
 from django.urls import path
 
