@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 from datetime import timedelta
 from pathlib import Path
+import firebase_admin
+from firebase_admin import credentials
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -110,11 +112,18 @@ DATABASES = {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'conecta_tfg',
             'USER': 'postgres',
-            'PASSWORD': '<PASSWORD>',
+            'PASSWORD': 'vigo@2003',
             'HOST': 'localhost',
             'PORT': '5432',
         }
 }
+
+FIREBASE_CREDENTIALS_PATH = "config/firebase-credentials.json"
+
+cred = credentials.Certificate(FIREBASE_CREDENTIALS_PATH)
+firebase_admin.initialize_app(cred, {
+    'databaseURL' : 'https://conecta-be370-default-rtdb.europe-west1.firebasedatabase.app/',
+})
 
 
 

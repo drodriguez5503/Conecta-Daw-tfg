@@ -1,6 +1,7 @@
 from django.db import models
 from api_users.models import User
 from api_projects.models import Project
+from firebase_admin import db
 
 class Note(models.Model):
     title = models.CharField(max_length=255)
