@@ -65,3 +65,6 @@ Dockerfile
 # Misceláneos
 *.orig
 *.rej
+
+#firebase
+firebase-credentials.json
