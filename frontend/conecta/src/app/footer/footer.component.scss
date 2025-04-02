@@ -5,10 +5,50 @@
 }
 
 .follow-us {
+    font-family: "IBM Plex Mono" !important;
     color: rgb(118, 118, 118);
 }
 
 .div-footer {
     margin-left: 35px;
     margin-right: 35px;
+}
+
+.terms-nav {
+    font-family: "IBM Plex Mono" !important;
+    &:hover {
+    color: #FF8200 !important;
+    }
+}
+
+.privacy-nav {
+    font-family: "IBM Plex Mono" !important;
+    &:hover {
+    color: #FF8200 !important;
+    }
+}
+
+.contac-nav {
+    font-family: "IBM Plex Mono" !important;
+    &:hover {
+    color: #FF8200 !important;
+    }
+}
+
+.twitter {
+    font-family: "IBM Plex Mono" !important;
+    &:hover {
+    color: #FF8200 !important;
+    }
+}
+
+.instagram {
+    font-family: "IBM Plex Mono" !important;
+    &:hover {
+    color: #FF8200 !important;
+    }
+}
+
+.copyright {
+    font-family: "IBM Plex Mono" !important;
 }

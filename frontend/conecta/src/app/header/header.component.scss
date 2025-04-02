@@ -15,5 +15,29 @@
 .boton-account {
     border-radius: 20px;
     padding: 5px 15px;
-    background-color: #FC9918;
+    background-color: #FF8200;
+
+    font-family: "IBM Plex Mono" !important;
+    font-weight: 400;
+
+    &:hover {
+    background-color: #ffffff !important;
+    }
+}
+
+
+.home-nav {
+    &:hover {
+    color: #FF8200 !important;
+    }
+}
+
+.about-nav {
+    &:hover {
+    color: #FF8200 !important;
+    }
+}
+
+.menu {
+    font-family: "IBM Plex Mono" !important;
 }
