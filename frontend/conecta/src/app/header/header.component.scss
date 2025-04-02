@@ -1,3 +1,14 @@
+#header {
+    position: fixed;
+    top: 0; /* Asegura que el header se pegue a la parte superior */
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Asegura que el header esté por encima de otros elementos */
+    /* Mantén los estilos existentes */
+    /* ... */
+}
+
+
 .logo-naranja {
     width: 35px;
 }
