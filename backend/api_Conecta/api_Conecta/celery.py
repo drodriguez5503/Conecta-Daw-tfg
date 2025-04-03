@@ -16,6 +16,6 @@ from celery.schedules import crontab
 app.conf.beat_schedule = {
     'sync_firebase_every_minute': {
         'task': 'api_notes.tasks.sync_data_from_firebase',
-        'schedule': crontab(minute='*/1'),  # Cada 1 minuto
+        'schedule': crontab(minute='*/1'),
     },
 }

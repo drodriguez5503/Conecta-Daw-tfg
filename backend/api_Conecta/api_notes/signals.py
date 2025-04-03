@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from .models import Note, Tag, Link
@@ -7,11 +9,19 @@ from firebase_admin import db
 @receiver(post_save, sender=Note)
 def sync_postgres_to_firebase(sender, instance, **kwargs):
     ref = db.reference(f'projects/{instance.project.id}/notes/{instance.id}')
+    created_at = instance.createdAt
+    modified_at = instance.modifiedAt
+
+    if isinstance(created_at, str) and created_at:
+        created_at = datetime.fromisoformat(created_at)
+    elif created_at is None:
+        created_at = datetime.now()
+
     ref.set({
         "title": instance.title,
         "content": instance.content,
-        "createdAt": instance.createdAt.isoformat(),
-        "modifiedAt": instance.modifiedAt.isoformat(),
+        "createdAt": created_at.isoformat(),
+        "modifiedAt": modified_at.isoformat(),
         "author": instance.author.id,
         "tags": [tag.id for tag in instance.tags.all()],
     })
