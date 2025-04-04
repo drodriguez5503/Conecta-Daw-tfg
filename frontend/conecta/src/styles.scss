@@ -4,3 +4,34 @@
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 
+/* Estilos para navegadores basados en WebKit (Chrome, Safari, Edge Chromium) */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: darken(#000000, 10%);
+}
+
+::-webkit-scrollbar-track {
+    background-color: #000000;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+/* Estilos para Firefox */
+body {
+    scrollbar-width: thin; /* O "auto" */
+    scrollbar-color: #000000 #000000; /* thumb track */
+}
