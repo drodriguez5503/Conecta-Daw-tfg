@@ -1,26 +1,29 @@
 <nav id="header" class="navbar navbar-expand-lg navbar-dark bg-black px-4">
+<!-- Imagotipo -->
     <div class="container-fluid">
-        <!-- Imagotipo -->
         <a class="navbar-brand d-flex align-items-center" href="#">
             <img src="naranja.png" alt="Logo" width="40" class="me-2">
             <span class="conecta">Conecta</span>
         </a>
-
-        <!-- Menú -->
-        <div class="menu collapse navbar-collapse justify-content-center">
+<!-- Menu -->
+        <div class="menu collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
                 <li>
-                <a class="home-nav nav-link text-white" href="#">home</a>
+                    <a class="home-nav nav-link text-white" href="#">home</a>
                 </li>
                 <li>
-                <a class="about-nav nav-link text-white" href="#about">about us</a>
+                    <a class="about-nav nav-link text-white" href="#about">about us</a>
                 </li>
             </ul>
         </div>
-
-        <!-- Botón Account -->
-        <div>
-            <button class="boton-account text-black">Account</button>
+<!-- Botón Account -->
+        <div class="d-flex align-items-center">
+            <button class="boton-account text-black d-none d-lg-block">Account</button>
+            
         </div>
+<!-- Botón hamburguesa -->
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
 </nav>
