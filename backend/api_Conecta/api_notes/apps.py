@@ -10,6 +10,6 @@ class ApiNotesConfig(AppConfig):
         import api_notes.signals
         post_migrate.connect(self.sync_firebase_on_ready, sender=self)
 
-    def sync_firebase_on_ready(sender, **kwargs):
+    def sync_firebase_on_ready(self, **kwargs):
         from .firebase_sync import sync_data_from_firebase
         sync_data_from_firebase()
