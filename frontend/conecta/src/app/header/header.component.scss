@@ -1,11 +1,10 @@
 #header {
     position: fixed;
-    top: 0; /* Asegura que el header se pegue a la parte superior */
+    top: 0;
     left: 0;
     right: 0;
-    z-index: 1000; /* Asegura que el header esté por encima de otros elementos */
-    /* Mantén los estilos existentes */
-    /* ... */
+    z-index: 1000;
+    
 }
 
 
@@ -14,7 +13,7 @@
 }
 .conecta {
     font-size: 35px;
-    font-family: afacad !important; 
+    font-family: afacad !important;
 }
 
 .nav-link {
@@ -51,4 +50,17 @@
 
 .menu {
     font-family: "IBM Plex Mono" !important;
+}
+
+/* Media query para pantallas más pequeñas (hasta 991px) */
+@media (max-width: 991px) {
+    .menu {
+        display: none !important; /* Oculta el menú */
+    }
+
+    .boton-account {
+        display: none !important; /* Oculta el botón de Account */
+    } 
+
+    
 }
