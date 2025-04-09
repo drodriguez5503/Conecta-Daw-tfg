@@ -23,4 +23,7 @@ export class HomeComponent {
   GoSignin() {
     this.router.navigate(['sign-in']);
   }
+  GoSignup() {
+    this.router.navigate(['sign-up']);
+  }
 }

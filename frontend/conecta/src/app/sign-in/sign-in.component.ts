@@ -27,6 +27,10 @@ export class SignInComponent {
     })
   }
 
+  GoToSignUp(){
+    this.router.navigate(['sign-up']);
+  }
+
   onSubmit(){
     if(this.loginForm.valid){
       next: (data:any)=>{

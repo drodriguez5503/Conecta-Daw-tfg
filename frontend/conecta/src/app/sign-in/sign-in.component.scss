@@ -52,7 +52,7 @@ body {
     font-weight: bold;
     border-radius: 15px;
     padding: 6px;
-    width: 100%;
+    width: 40%;
     font-size: 0.9rem; /* Más compacto */
     cursor: pointer;
     font-family: "IBM Plex Mono" !important;
@@ -70,6 +70,7 @@ body {
     text-decoration: none;
     margin-top: 3px;
     font-family: "IBM Plex Mono" !important;
+    cursor: pointer
 }
 
 .register-text {
@@ -82,4 +83,5 @@ body {
 .register-link {
     color: #FF8200;
     text-decoration: none;
+    cursor: pointer
 }
