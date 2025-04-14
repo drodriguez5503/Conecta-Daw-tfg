@@ -1,1 +1,19 @@
-<p>sign-in works!</p>
+<div class="d-flex flex-column justify-content-center align-items-center" style="height: 100vh; background-color: #000;">
+    <div class="text-center">
+        <img src="blanco.png" alt="Imagen" class="imagen">
+    </div>
+    <div class="container form-container">
+        <p class="title">Sign in to your account</p>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <input type="email" class="form-control custom-input" placeholder="email" formControlName="email">
+            </div>
+            <div class="mb-3 d-flex flex-column">
+                <a class="forgot-password pb-1 text-end px-2">Forgot password?</a>
+                <input type="password" class="form-control custom-input" placeholder="password" formControlName="password">
+            </div>
+            <button type="submit" class="btn custom-btn" [disabled]="loginForm.invalid">Sign in</button>
+            <p class="register-text">Don’t have an account? <a class="register-link" (click)="GoToSignUp()">Create an account</a></p>
+        </form>
+    </div>
+</div>
