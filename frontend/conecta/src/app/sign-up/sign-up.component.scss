@@ -61,7 +61,9 @@ body {
 .custom-btn:hover {
     background-color: white;
     color: #FF8200;
+
 }
+
 
 .login-text {
     color: white;
@@ -73,5 +75,19 @@ body {
 .login-link {
     color: #FF8200;
     text-decoration: none;
-    cursor: pointer
+    cursor: pointer;
+
+    &:hover {
+        
+        color: #ffffff !important;
+    }
+}
+
+.hover-click {
+    &:hover {
+        cursor: pointer;
+        color: #ffffff;
+        transform: scale(1.2);
+        transition: transform 0.2s ease-in-out; /* Añade una transición suave */
+    }
 }
