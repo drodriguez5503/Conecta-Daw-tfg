@@ -1,0 +1,54 @@
+.sidebar {
+    background-color: #303030 !important;
+    position: fixed; /* Fija el sidebar a la ventana del navegador */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+    width: auto; /* Ajusta el ancho según el contenido o un valor fijo */
+    padding-top: 20px; /* Añade un poco de padding superior */
+    padding-bottom: 20px; /* Añade un poco de padding inferior */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los contenedores horizontalmente */
+    justify-content: space-between; /* Espacia los contenedores (top e bottom) */
+    z-index: 1; /* Establece el z-index por debajo del header */
+    padding-right: 10px; /* Espacio a la derecha del sidebar */
+    padding-left: 10px; /* Espacio a la izquierda del sidebar */
+    padding-top: 60px;
+}
+
+.container-logo-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #7B7B7B;
+
+    i {
+        font-size: 1.5rem; /* Ajusta el tamaño de los iconos */
+        margin-bottom: 15px; /* Espacio entre los iconos superiores */
+
+        &:last-child {
+            margin-bottom: 0; /* Elimina el margen inferior del último icono superior */
+        }
+    }
+}
+
+.container-logo-bottom {
+    display: flex;
+    align-items: center;
+    color: #7B7B7B;
+}
+
+.container-logo-bottom i {
+    font-size: 1.5rem; /* Ajusta el tamaño del icono inferior */
+}
+
+/* Efecto del sidebar al pasar el ratón por encima */
+.hover-click {
+    &:hover {
+        cursor: pointer;
+        color: #ffffff;
+        transform: scale(1.2);
+        transition: transform 0.2s ease-in-out; /* Añade una transición suave */
+    }
+}

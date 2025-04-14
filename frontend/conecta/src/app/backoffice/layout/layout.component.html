@@ -1,11 +1,10 @@
-<app-header-backoffice></app-header-backoffice>
 
-<div class="container">    
-    <div>
+
+<div class="app-container">
+    <app-header-backoffice></app-header-backoffice>
+    <app-sidebar></app-sidebar>
+
+    <div class="main-content">
         <router-outlet></router-outlet>
-    </div>
-
-    <div>
-        <app-sidebar></app-sidebar>
-    </div>
+    </div>    
 </div>
