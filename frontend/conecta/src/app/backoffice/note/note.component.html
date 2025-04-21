@@ -1,1 +1,5 @@
-<p>note works!</p>
+<div class="grid-stack" #gridStackElement >
+    <div class="grid-stack-item" *ngFor="let item of gridItems" [attr.data-gs-x]="item.x" [attr.data-gs-y]="item.y" [attr.data-gs-w]="item.w" [attr.data-gs-h]="item.h">
+        <div class="grid-stack-item-content">{{ item.content }}</div>
+    </div>
+</div>

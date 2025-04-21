@@ -11,7 +11,8 @@ import {HomeComponent} from './home/home.component';
     RouterOutlet,
     FooterComponent,
     CommonModule,
-    HomeComponent
+    HomeComponent,
+    
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
