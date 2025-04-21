@@ -1,1 +1,22 @@
-<p>contact works!</p>
+<div class="d-flex flex-column justify-content-center align-items-center" style="height: 100vh; background-color: #000;">
+    <div class="text-center">
+        <img src="blanco.png" alt="Imagen" class="imagen">
+    </div>
+    <div class="container form-container d-flex flex-column align-items-center">
+        <p class="title">Contact with us</p>
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()"> 
+            <div class="mb-3 d-flex justify-content-center">
+                <input type="name" class="form-control custom-input" placeholder="full name" formControlName="name">
+            </div>
+            <div class="mb-3 d-flex justify-content-center">
+                <input type="email" class="form-control custom-input" placeholder="email" formControlName="email">
+            </div>
+            <div class="mb-3 d-flex justify-content-center">
+                <textarea class="custom-textarea" placeholder="message..." formControlName="message"></textarea>
+            </div>
+            <div class="d-flex justify-content-center">
+            <button type="submit" class="btn custom-btn" [disabled]="contactForm.invalid">Send</button>
+            </div>
+        </form>  
+    </div>
+</div>
