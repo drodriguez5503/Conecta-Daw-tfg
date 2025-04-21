@@ -54,3 +54,10 @@
 .copyright {
     font-family: "IBM Plex Mono" !important;
 }
+
+footer {
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
+}

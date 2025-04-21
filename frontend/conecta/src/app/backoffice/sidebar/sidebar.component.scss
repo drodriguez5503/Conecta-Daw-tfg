@@ -52,3 +52,10 @@
         transition: transform 0.2s ease-in-out; /* Añade una transición suave */
     }
 }
+
+aside {
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
+}

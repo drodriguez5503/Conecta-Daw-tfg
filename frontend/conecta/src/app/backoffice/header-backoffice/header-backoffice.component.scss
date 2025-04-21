@@ -22,3 +22,9 @@
         }
     }
 }
+div {
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
+}
