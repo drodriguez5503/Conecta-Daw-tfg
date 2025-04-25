@@ -8,6 +8,7 @@ import { SidebarComponent } from './backoffice/sidebar/sidebar.component';
 import { HeaderBackofficeComponent } from './backoffice/header-backoffice/header-backoffice.component';
 import { NoteComponent } from './backoffice/note/note.component';
 import { ConectionsComponent } from './backoffice/conections/conections.component';
+import { UserComponent } from './backoffice/user/user.component';
 
 export const routes: Routes = [
 
@@ -25,6 +26,7 @@ export const routes: Routes = [
             {path: "sidebar", component: SidebarComponent},
             {path: "note", component: NoteComponent},
             {path: "conections", component: ConectionsComponent},
+            {path: "user", component: UserComponent},
             
         ]
     },
