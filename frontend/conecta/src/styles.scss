@@ -36,3 +36,49 @@ body {
     scrollbar-color: #000000 #000000;
     background-color: black; color: white;
 }
+
+/* popup signging out */
+.swal2-container--dark {
+    .swal2-popup {
+    background-color: #434343 !important;
+    color: #ffffff !important;
+    font-family: "IBM Plex Mono", monospace !important;
+    }
+
+    .swal2-loader {
+    border: 0.25em solid #FF8200 !important;
+    border-top-color: transparent !important;
+    -webkit-animation: swal2-rotate 1s linear infinite;
+            animation: swal2-rotate 1s linear infinite;
+    }
+
+    @-webkit-keyframes swal2-rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+    }
+    }
+
+    @keyframes swal2-rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+    }
+    }
+
+    .swal2-loader svg {
+    fill: #FF8200 !important;
+    }
+
+    .swal2-loader svg path {
+    fill: #FF8200 !important;
+    }
+}
