@@ -82,3 +82,35 @@ body {
     fill: #FF8200 !important;
     }
 }
+
+    /*popup edit user*/
+    .swal2-container--dark {
+        .swal2-input {
+            background-color: #252525!important;
+            color: #eee !important;
+            border-radius: 15px;
+            border: none;
+        }
+        
+        .swal2-confirm {
+            background-color: #ff8200 !important;
+            color: #000 !important;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .swal2-cancel {
+            background-color: transparent !important;
+            color: #ccc !important;
+            border: 1px solid #999 !important;
+            border-radius: 20px;
+            
+        }
+    
+        
+        .swal2-title {
+            color: #ff8200 !important;
+            font-size: 1.5rem;
+            
+        }
+    }

@@ -19,18 +19,23 @@ export class UserComponent {
       html:
         `<input id="swal-input1" class="swal2-input" placeholder="Nombre" value="${this.name}">` +
         `<input id="swal-input2" class="swal2-input" placeholder="Email" type="email" value="${this.email}">` +
-        `<input id="swal-input3" class="swal2-input" placeholder="Contraseña" type="password" value="${this.password}">`,
+        `<input id="swal-input3" class="swal2-input" placeholder="Contraseña" type="password">`,
       focusConfirm: false,
       showCancelButton: true,
       confirmButtonText: 'Save',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        container: 'swal2-container--dark'
+      },
       preConfirm: () => {
         return {
-          name: (document.getElementById('swal-input1') as HTMLInputElement).value,
+          nombre: (document.getElementById('swal-input1') as HTMLInputElement).value,
           email: (document.getElementById('swal-input2') as HTMLInputElement).value,
           password: (document.getElementById('swal-input3') as HTMLInputElement).value
         };
       }
     });
+    
 
     if (formValues) {
       // Actualizamos los datos en pantalla
