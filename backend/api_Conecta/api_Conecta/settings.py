@@ -202,7 +202,7 @@ LOGGING = {
         },
     },
     'loggers': {
-        '': {  # Este logger raíz captura todo
+        '': {
             'handlers': ['console', 'file'],
             'level': 'INFO',
         },
