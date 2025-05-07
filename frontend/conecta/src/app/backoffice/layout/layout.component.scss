@@ -6,3 +6,8 @@
     }
 }
 
+.app-container.with-panel {
+    margin-right: 300px; // ancho del panel si deseas empujar
+    transition: margin-right 0.3s ease;
+}
+

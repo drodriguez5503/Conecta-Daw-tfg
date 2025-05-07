@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,6 +9,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  @Output() toggleFolderPanel = new EventEmitter<void>();
+
+  emitToggleFolderPanel(): void {
+    this.toggleFolderPanel.emit();
+  }
+
   constructor(private router: Router) {}
 
   navigateTo(route: string): void {
