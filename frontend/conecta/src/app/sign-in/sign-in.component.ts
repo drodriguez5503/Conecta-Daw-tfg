@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
+import { CredentialsService } from '../services/auth/credentials.service';
+import { LoginInterface } from '../services/interfaces/user-interface';
+import { TokenService } from '../services/auth/token.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -20,6 +23,8 @@ export class SignInComponent {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private CredentialsService: CredentialsService,
+    private tokenService: TokenService
   ){
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.minLength(3)]],
@@ -33,10 +38,17 @@ export class SignInComponent {
 
   onSubmit(){
     if(this.loginForm.valid){
-      next: (data:any)=>{
-        console.log(data);
-        this.router.navigate(['']);
-      }
+      this.CredentialsService.login(this.loginForm.value as LoginInterface).subscribe({
+        next: (data:any)=>{
+          console.log(data);
+          this.tokenService.saveTokens(data.token, "234")
+          this.router.navigate(['']);
+        },
+        error: (error:any)=>{
+          console.log(error);
+          alert('Error al iniciar sesion');
+        }
+      });
     }else{
       console.log('Formulario no valido');
       alert('Formulario no valido');
