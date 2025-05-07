@@ -3,6 +3,7 @@ import { HeaderBackofficeComponent } from '../header-backoffice/header-backoffic
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
 
+
 @Component({
   selector: 'app-layout',
   standalone: true,

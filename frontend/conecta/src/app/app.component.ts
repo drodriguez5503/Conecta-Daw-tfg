@@ -3,6 +3,7 @@ import { RouterOutlet, Router} from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { CommonModule } from '@angular/common';
 import {HomeComponent} from './home/home.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ import {HomeComponent} from './home/home.component';
     RouterOutlet,
     FooterComponent,
     CommonModule,
-    HomeComponent
+    HomeComponent,
+    
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
