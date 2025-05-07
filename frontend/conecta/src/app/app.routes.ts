@@ -9,6 +9,7 @@ import { HeaderBackofficeComponent } from './backoffice/header-backoffice/header
 import { NoteComponent } from './backoffice/note/note.component';
 import { ConectionsComponent } from './backoffice/conections/conections.component';
 import { UserComponent } from './backoffice/user/user.component';
+import { FolderPanelComponent } from './backoffice/folder-panel/folder-panel.component';
 
 export const routes: Routes = [
 
@@ -27,6 +28,7 @@ export const routes: Routes = [
             {path: "note", component: NoteComponent},
             {path: "conections", component: ConectionsComponent},
             {path: "user", component: UserComponent},
+            {path: "folder-panel", component: FolderPanelComponent},
             
         ]
     },
