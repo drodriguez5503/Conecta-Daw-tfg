@@ -7,9 +7,12 @@
     </div>
     <div class="container form-container d-flex flex-column align-items-center">
         <p class="title">Create an account</p>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"> 
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()"> 
             <div class="mb-3 d-flex justify-content-center">
-                <input type="name" class="form-control custom-input" placeholder="name" formControlName="name">
+                <input type="name" class="form-control custom-input" placeholder="name" formControlName="fullName">
+            </div>
+            <div class="mb-3 d-flex justify-content-center">
+                <input type="name" class="form-control custom-input" placeholder="username" formControlName="username">
             </div>
             <div class="mb-3 d-flex justify-content-center">
                 <input type="email" class="form-control custom-input" placeholder="email" formControlName="email">
@@ -18,7 +21,7 @@
                 <input type="password" class="form-control custom-input" placeholder="password" formControlName="password">
             </div>
             <div class="d-flex justify-content-center">
-            <button type="submit" class="btn custom-btn" [disabled]="loginForm.invalid">Sign up</button>
+            <button type="submit" class="btn custom-btn" [disabled]="registerForm.invalid">Sign up</button>
             </div>
             <p class="login-text">Already have an account? <a (click)="GoToSignIn()" class="login-link">Sign in</a></p>
         </form>  
