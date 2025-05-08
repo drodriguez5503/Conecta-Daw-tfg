@@ -23,10 +23,14 @@
 }
 
 .panel-content {
-    flex-grow: 1;
+    display: block;
+    align-items-center: end;
+    justify-content: space-between; // separa texto e íconos
     padding: 1rem;
     color: #fff;
     overflow: auto;
+
+    
 }
 
 .resizer {
@@ -36,5 +40,29 @@
     position: absolute;
     right: 0;
     top: 0;
+}
+
+.file {
+    &:hover {
+        background-color: #636363;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    padding: 1px;
+    margin: 2px;
+}
+.folder {
+    &:hover {
+        background-color: #636363;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    padding: 1px;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin: 2px;
+}
+p {
+    font-family: "IBM Plex Mono" !important;
 }
 
