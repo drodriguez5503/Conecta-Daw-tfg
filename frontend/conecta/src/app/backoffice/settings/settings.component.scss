@@ -1,0 +1,39 @@
+:host {
+    position: fixed;
+    top: 40px;
+    left: 35px; // Ancho del sidebar
+    height: calc(100vh - 30px);
+    background-color: #212121;
+    z-index: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.settings {
+    display: flex;
+    flex-direction: row;
+    width: var(--panel-width, 300px);
+    min-width: 200px;
+    max-width: 600px;
+    height: 100%;
+    background-color: #212121;
+    box-shadow: 2px 0 8px rgba(44, 44, 44, 0.3);
+    position: relative;
+}
+
+.panel-content {
+    flex-grow: 1;
+    padding: 1rem;
+    color: #fff;
+    overflow: auto;
+}
+
+.resizer {
+    width: 5px;
+    cursor: ew-resize;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+

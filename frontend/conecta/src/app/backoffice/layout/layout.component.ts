@@ -4,6 +4,7 @@ import { HeaderBackofficeComponent } from '../header-backoffice/header-backoffic
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
 import { NgIf, NgClass } from '@angular/common';
+import { SettingsComponent } from "../settings/settings.component";
 
 @Component({
   selector: 'app-layout',
@@ -14,15 +15,22 @@ import { NgIf, NgClass } from '@angular/common';
     RouterOutlet,
     FolderPanelComponent,
     NgIf,
-    NgClass
-  ],
+    NgClass,
+    SettingsComponent
+],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
   showFolderPanel = false;
+  showSettingsPanel = false;
 
   toggleFolderPanel() {
     this.showFolderPanel = !this.showFolderPanel;
   }
+  toggleSettingsPanel() {
+    this.showSettingsPanel = !this.showSettingsPanel;
+  }
+
 }
+

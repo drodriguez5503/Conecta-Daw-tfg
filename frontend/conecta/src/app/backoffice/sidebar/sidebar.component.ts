@@ -10,9 +10,13 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent {
   @Output() toggleFolderPanel = new EventEmitter<void>();
+  @Output() toggleSettingsPanel = new EventEmitter<void>();
 
   emitToggleFolderPanel(): void {
-    this.toggleFolderPanel.emit();
+    this.toggleFolderPanel.emit();    
+  }
+  emitToggleSettingsPanel(): void {
+    this.toggleSettingsPanel.emit();    
   }
 
   constructor(private router: Router) {}
