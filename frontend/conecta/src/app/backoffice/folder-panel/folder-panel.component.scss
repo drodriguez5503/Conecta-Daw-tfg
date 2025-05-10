@@ -23,14 +23,25 @@
 }
 
 .panel-content {
-    display: block;
-    align-items-center: end;
-    justify-content: space-between; // separa texto e íconos
+    display: flex;
+    align-items: flex-start; // Alinea los elementos al inicio (arriba)
+    justify-content: space-between;
     padding: 1rem;
     color: #fff;
     overflow: auto;
+    width: 100%;
+}
 
-    
+
+.icons {
+    display: flex;
+    align-items: flex-start; // Asegura que los iconos también se alineen arriba dentro de su contenedor
+
+}
+
+.icons {
+    display: flex; // Para alinear los iconos horizontalmente si fuera necesario
+    align-items: center;
 }
 
 .resizer {
@@ -64,5 +75,5 @@
 }
 p {
     font-family: "IBM Plex Mono" !important;
+    margin: 0; // Resetear márgenes del párrafo para un mejor control del layout
 }
-
