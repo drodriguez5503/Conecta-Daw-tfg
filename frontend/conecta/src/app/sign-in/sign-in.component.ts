@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular
 import { CredentialsService } from '../services/auth/credentials.service';
 import { LoginInterface } from '../services/interfaces/user-interface';
 import { TokenService } from '../services/auth/token.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,7 +12,8 @@ import { TokenService } from '../services/auth/token.service';
   imports: [
     ReactiveFormsModule,
     RouterLink,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'

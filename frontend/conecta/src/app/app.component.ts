@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     CommonModule,
     HomeComponent,
-    
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

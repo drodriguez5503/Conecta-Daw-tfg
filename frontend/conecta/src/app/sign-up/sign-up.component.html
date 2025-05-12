@@ -3,11 +3,11 @@
         <a href="#home">
             <img src="blanco.png" alt="Imagen" class="imagen hover-click">
         </a>
-        
+
     </div>
     <div class="container form-container d-flex flex-column align-items-center">
         <p class="title">Create an account</p>
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()"> 
+        <form [formGroup]="registerForm" (click)="onSubmit()">
             <div class="mb-3 d-flex justify-content-center">
                 <input type="name" class="form-control custom-input" placeholder="name" formControlName="fullName">
             </div>
@@ -24,6 +24,6 @@
             <button type="submit" class="btn custom-btn" [disabled]="registerForm.invalid">Sign up</button>
             </div>
             <p class="login-text">Already have an account? <a (click)="GoToSignIn()" class="login-link">Sign in</a></p>
-        </form>  
+        </form>
     </div>
 </div>
