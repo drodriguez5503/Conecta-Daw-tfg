@@ -88,3 +88,12 @@ body {
 .custom-textarea::placeholder {
     color: #bbb;                         /* Placeholder más suave */
 }
+
+.hover-click {
+    &:hover {
+        cursor: pointer;
+        color: #ffffff;
+        transform: scale(1.2);
+        transition: transform 0.2s ease-in-out; /* Añade una transición suave */
+    }
+}
