@@ -1,0 +1,79 @@
+:host {
+    position: fixed;
+    top: 40px;
+    left: 35px; // Ancho del sidebar
+    height: calc(100vh - 30px);
+    background-color: #212121;
+    z-index: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.folder-panel {
+    display: flex;
+    flex-direction: row;
+    width: var(--panel-width, 300px);
+    min-width: 200px;
+    max-width: 600px;
+    height: 100%;
+    background-color: #212121;
+    box-shadow: 2px 0 8px rgba(44, 44, 44, 0.3);
+    position: relative;
+    margin-left: 10px;
+}
+
+.panel-content {
+    display: flex;
+    align-items: flex-start; // Alinea los elementos al inicio (arriba)
+    justify-content: space-between;
+    padding: 1rem;
+    color: #fff;
+    overflow: auto;
+    width: 100%;
+}
+
+
+.icons {
+    display: flex;
+    align-items: flex-start; // Asegura que los iconos también se alineen arriba dentro de su contenedor
+
+}
+
+.icons {
+    display: flex; // Para alinear los iconos horizontalmente si fuera necesario
+    align-items: center;
+}
+
+.resizer {
+    width: 5px;
+    cursor: ew-resize;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.file {
+    &:hover {
+        background-color: #636363;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    padding: 1px;
+    margin: 2px;
+}
+.folder {
+    &:hover {
+        background-color: #636363;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    padding: 1px;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin: 2px;
+}
+p {
+    font-family: "IBM Plex Mono" !important;
+    margin: 0; // Resetear márgenes del párrafo para un mejor control del layout
+}

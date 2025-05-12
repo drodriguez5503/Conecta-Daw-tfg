@@ -1,13 +1,13 @@
 import { Component, HostListener, Renderer2 } from '@angular/core';
 
 @Component({
-  selector: 'app-settings',
+  selector: 'app-folder-panel',
   standalone: true,
   imports: [],
-  templateUrl: './settings.component.html',
-  styleUrl: './settings.component.scss'
+  templateUrl: './folder-panel.component.html',
+  styleUrl: './folder-panel.component.scss'
 })
-export class SettingsComponent {
+export class FolderPanelComponent {
   private resizing = false;
 
   constructor(private renderer: Renderer2) {}
@@ -22,7 +22,7 @@ export class SettingsComponent {
   onMouseMove(event: MouseEvent) {
     if (!this.resizing) return;
 
-    const newWidth = event.clientX - 80;
+    const newWidth = event.clientX - 80; // 80 = sidebar width
     const min = 200;
     const max = 600;
     const width = Math.max(min, Math.min(max, newWidth));
