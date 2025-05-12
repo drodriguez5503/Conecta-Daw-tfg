@@ -37,6 +37,11 @@ body {
     background-color: black; color: white;
 }
 
+/* Estilo específico para el backoffice */
+body.backoffice-layout {
+    background-color: #434343;
+}
+
 /* popup signging out */
 .swal2-container--dark {
     .swal2-popup {

@@ -8,7 +8,8 @@
 }
 
 .app-container.with-panel {
-    margin-right: 300px; // ancho del panel si deseas empujar
+    margin-right: 0; // Elimina el margen derecho
+    margin-left: 300px; // Mueve el margen al lado izquierdo si es necesario
     transition: margin-left 0.3s ease;
 }
 

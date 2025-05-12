@@ -1,11 +1,10 @@
     :host {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    min-height: 90vh; /* Asegura que el body ocupe al menos el 100% de la altura de la ventana */
-    background-color: #434343 ; /* Un fondo oscuro para contrastar */
-    margin: 0; /* Elimina el margen predeterminado del body */
-    font-family: "IBM Plex Mono"; /* Aplica la fuente monoespaciada al body para que herede */
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;    
+    margin: 0;
+    font-family: "IBM Plex Mono";
     }
 
     .profile-container {
@@ -13,11 +12,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 300px; /* Ajusta el ancho según necesites */
+    width: 300px;
     padding: 20px;
-    background-color: #252525; /* Un gris oscuro */
+    background-color: #252525;
     border-radius: 10px;
-    font-family: inherit; /* Hereda la fuente del body */
+    font-family: inherit;
 
     &::selection {
         background-color: #ff8400;
@@ -31,20 +30,20 @@
 
     .profile-icon {
     font-size: 3rem;
-    color: #ffffff; /* Un gris claro para el icono */
+    color: #ffffff;
     }
 
     .profile-form {
     width: 100%;    
     display: flex;
-    flex-direction: column; /* Asegura que los elementos internos se apilen verticalmente */
-    align-items: center; /* Centra horizontalmente los elementos hijos */
+    flex-direction: column;
+    align-items: center;
 
     }
 
     .form-group {
     margin-bottom: 15px;
-    width: 100%; /* Asegura que los campos de entrada ocupen todo el ancho del formulario */
+    width: 100%;
     }
 
     label {
@@ -52,8 +51,8 @@
     color: #ccc;
     margin-bottom: 5px;
     font-size: 0.9rem;
-    width: 100%; /* Asegura que las etiquetas también ocupen todo el ancho si es necesario */
-    text-align: left; /* Alinea el texto de la etiqueta a la izquierda */
+    width: 100%;
+    text-align: left;
     }
 
     .form-control {
@@ -71,7 +70,7 @@
     }
 
     .edit-btn {
-    background-color: #ff8400; /* Un naranja similar */
+    background-color: #ff8400;
     color: #000000;
     border: none;
     padding: 10px 15px;
@@ -79,7 +78,6 @@
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s ease;
-    /* Ya no necesitamos estilos flex aquí, el centrado lo hará el padre */
     
         &:hover {
         background-color: #ff8400d3;
