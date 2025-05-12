@@ -1,9 +1,18 @@
 .main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; // Asegura que ocupe toda la altura de la pantalla
     background-color: margin-left margin-right margin-top margin-bottom #434343 !important; 
     color: white !important;
     
     .logo { 
         width: 0px;
+    }
+    .backoffice-image {
+        max-width: 50%; // Ajusta el tamaño de la imagen
+        max-height: 50%; // Asegura que no exceda el contenedor
+        object-fit: contain; // Mantiene las proporciones de la imagen
     }
 }
 
