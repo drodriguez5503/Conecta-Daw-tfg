@@ -3,9 +3,8 @@
 <app-sidebar (toggleFolderPanel)="toggleFolderPanel()"></app-sidebar>
 
 <div class="app-container mt-5 ms-5"  [ngClass]="{'with-panel': showFolderPanel}">
-    <div class="main-content">
-        <img src="./gris-oscuro.png" alt="Backoffice Logo" class="backoffice-image">
-    <router-outlet></router-outlet>
+    <div class="main-content">        
+        <router-outlet></router-outlet>
     </div>
 </div>
 
