@@ -2,7 +2,7 @@
 
 <app-sidebar (toggleFolderPanel)="toggleFolderPanel()" (toggleSettingsPanel)="toggleSettingsPanel()"></app-sidebar>
 
-<div class="app-container mt-5 ms-5" [ngClass]="{'with-panel': showFolderPanel}">
+<div class="app-container mt-5 ms-5"  [ngClass]="{'with-panel': showFolderPanel}">
     <div class="main-content">
     <router-outlet></router-outlet>
     </div>
