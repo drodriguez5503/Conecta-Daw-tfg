@@ -19,6 +19,7 @@
     background-color: #212121;
     box-shadow: 2px 0 8px rgba(44, 44, 44, 0.3);
     position: relative;
+    margin-left: 10px;
 }
 
 .panel-content {
@@ -35,5 +36,10 @@
     position: absolute;
     right: 0;
     top: 0;
+}
+
+p {
+    font-family: "IBM Plex Mono" !important;
+    margin: 0;
 }
 

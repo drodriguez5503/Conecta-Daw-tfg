@@ -4,6 +4,7 @@ import { HeaderBackofficeComponent } from '../header-backoffice/header-backoffic
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
 import { NgIf, NgClass } from '@angular/common';
+import { SettingsComponent } from '../settings/settings.component';
 
 @Component({
   selector: 'app-layout',
@@ -13,6 +14,7 @@ import { NgIf, NgClass } from '@angular/common';
     SidebarComponent,
     RouterOutlet,
     FolderPanelComponent,
+    SettingsComponent,
     NgIf,
     NgClass,
 ],
@@ -21,6 +23,7 @@ import { NgIf, NgClass } from '@angular/common';
 })
 export class LayoutComponent {
   showFolderPanel = false;
+  showSettingsPanel = false;
 
   ngOnInit(): void {
     document.body.classList.add('backoffice-layout'); // Agrega la clase al body
@@ -32,7 +35,16 @@ export class LayoutComponent {
 
   toggleFolderPanel() {
     this.showFolderPanel = !this.showFolderPanel;
+    if (this.showFolderPanel) {
+      this.showSettingsPanel = false;
+    }
   } 
 
+  toggleSettingsPanel() {
+    this.showSettingsPanel = !this.showSettingsPanel;
+    if (this.showSettingsPanel) {
+      this.showFolderPanel = false;
+    }
+  }
 }
 

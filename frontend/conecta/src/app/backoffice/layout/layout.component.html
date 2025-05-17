@@ -1,8 +1,8 @@
 <app-header-backoffice></app-header-backoffice>
 
-<app-sidebar (toggleFolderPanel)="toggleFolderPanel()"></app-sidebar>
+<app-sidebar (toggleFolderPanel)="toggleFolderPanel()" (toggleSettingsPanel)="toggleSettingsPanel()"></app-sidebar>
 
-<div class="app-container mt-5 ms-5"  [ngClass]="{'with-panel': showFolderPanel}">
+<div class="app-container mt-5 ms-5"  [ngClass]="{'with-panel': showFolderPanel || showSettingsPanel}">
     <div class="main-content">        
         <router-outlet></router-outlet>
     </div>
@@ -10,3 +10,4 @@
 
 <!-- FolderPanel solo se muestra si la variable está activa -->
 <app-folder-panel *ngIf="showFolderPanel"></app-folder-panel>
+<app-settings *ngIf="showSettingsPanel"></app-settings>
