@@ -71,21 +71,33 @@ export class FolderPanelComponent {
   deleteNote(index: number) {
     Swal.fire({
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      html: '<span style="color:rgb(255, 255, 255);">You won\'t be able to revert this!</span>',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
-      
+      cancelButtonText: 'Cancel',
+      background: '#434343',
+      customClass: {
+      popup: 'swal2-popup swal2-container--dark',
+      confirmButton: 'swal2-confirm',
+      cancelButton: 'swal2-cancel',
+      title: 'swal2-title'
+      }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.notes.splice(index, 1);
-        Swal.fire({
-          title: 'Deleted!',
-          text: 'Your file has been deleted.',
-          icon: 'success'
-        });
+      this.notes.splice(index, 1);
+      Swal.fire({
+        title: 'Deleted!',
+        html: '<span style="color:rgb(255, 255, 255);">Your file has been deleted.</span>',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        background: '#434343',
+        customClass: {
+          popup: 'swal2-popup swal2-container--dark',
+          confirmButton: 'swal2-confirm',
+          title: 'swal2-title'
+        }
+      });
       }
     });
   }
