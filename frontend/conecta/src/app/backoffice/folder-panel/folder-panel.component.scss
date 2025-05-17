@@ -24,33 +24,42 @@
 
 .panel-content {
     display: flex;
-    align-items: flex-start; // Alinea los elementos al inicio (arriba)
-    justify-content: space-between;
-    padding: 1rem;
-    color: #fff;
-    overflow: auto;
+    flex-direction: column;
     width: 100%;
 }
 
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.panel-header p {
+    flex-grow: 1;
+    padding: 1rem;
+    color: #fff;
+    overflow: auto;
+}
 
 .icons {
     display: flex;
-    align-items: flex-start; // Asegura que los iconos también se alineen arriba dentro de su contenedor
-
-}
-
-.icons {
-    display: flex; // Para alinear los iconos horizontalmente si fuera necesario
     align-items: center;
+    gap: 8px;
 }
 
-.resizer {
-    width: 5px;
-    cursor: ew-resize;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
+.notes-list--top {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.notes-list {
+    margin-top: 1rem;
 }
 
 .file {
@@ -76,4 +85,53 @@
 p {
     font-family: "IBM Plex Mono" !important;
     margin: 0; // Resetear márgenes del párrafo para un mejor control del layout
+}
+
+.note-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    background: #232323;
+    border-radius: 6px;
+    padding: 4px 8px;
+    width: 100%;
+}
+
+.note-icon {
+    font-size: 1.3rem;
+    color: #8B8B8B;
+    margin-right: 10px;
+}
+
+.note-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 1rem;
+    outline: none;
+    border-bottom: 1px solid #444;
+    padding: 2px 4px;
+    border-radius: 0;
+    
+}
+
+.note-input[readonly] {
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+}
+
+.note-delete {
+    color: #c7c7c7;
+    font-size: 1rem;
+    margin-left: 10px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.note-delete:hover {
+    opacity: 1;
+    color: #c7c7c7;
 }
