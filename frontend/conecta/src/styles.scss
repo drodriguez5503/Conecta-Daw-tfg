@@ -4,19 +4,19 @@
 
 /* Estilos para navegadores basados en WebKit (Chrome, Safari, Edge Chromium) */
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #000000;
+    background-color: #353535;
     border-radius: 5px;
     border: 2px solid transparent;
     background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: darken(#000000, 10%);
+    background-color: darken(#353535, 0%); //
 }
 
 ::-webkit-scrollbar-track {
