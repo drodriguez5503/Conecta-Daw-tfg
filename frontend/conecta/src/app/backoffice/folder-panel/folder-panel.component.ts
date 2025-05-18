@@ -15,7 +15,26 @@ export class FolderPanelComponent {
 
   notes: Array<{ name: string; editing: boolean }> = [];
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2) {
+    this.loadNotes();
+  }
+
+  loadNotes() {
+    const notesJson = localStorage.getItem('folderPanelNotes');
+    if (notesJson) {
+      try {
+        this.notes = JSON.parse(notesJson);
+      } catch (e) {
+        this.notes = [];
+      }
+    }
+  }
+
+  //las notas se guardan en el folder-panel
+  // y se guardan en el localStorage
+  saveNotes() {
+    localStorage.setItem('folderPanelNotes', JSON.stringify(this.notes)); // Guardar en localStorage 
+  }
 
   startResizing(event: MouseEvent) {
     this.resizing = true;
@@ -45,6 +64,7 @@ export class FolderPanelComponent {
 
   addNote() {
     this.notes.push({ name: '', editing: true });
+    this.saveNotes();
     setTimeout(() => {
       const inputs = document.querySelectorAll('.note-input');
       if (inputs.length) {
@@ -65,7 +85,7 @@ export class FolderPanelComponent {
 
   saveNote(index: number) {
     this.notes[index].editing = false;
-    // Aquí podrías guardar en backend si lo necesitas
+    this.saveNotes();
   }
 
   deleteNote(index: number) {
@@ -86,6 +106,7 @@ export class FolderPanelComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.notes.splice(index, 1);
+        this.saveNotes();
         Swal.fire({
           title: 'Deleted!',
           html: '<span style="color:rgb(255, 255, 255);">Your file has been deleted.</span>',

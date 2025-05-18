@@ -16,9 +16,9 @@
                     [readonly]="!note.editing"
                     (blur)="saveNote(i)"
                     (keydown.enter)="saveNote(i)"
-                    (click)="editNote(i)"
                     placeholder="Nueva nota..."
                 />
+                <i class="bi bi-pencil-square note-edit" (click)="editNote(i)"></i>
                 <i *ngIf="note.name" class="bi bi-x-lg note-delete" (click)="deleteNote(i)"></i>
             </div>
         </div>
