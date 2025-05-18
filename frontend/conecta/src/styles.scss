@@ -38,24 +38,33 @@ body {
 /* Estilo específico para el backoffice */
 body.backoffice-layout {
     background-color: #434343;
+
+    
 }
 
 
 .swal2-container--dark {
-    font-family: "IBM Plex Mono", monospace !important;
-
+    font-family: "IBM Plex Mono", monospace !important;    
+    
     .swal2-popup {
-        background-color: #434343 !important;
+        background: rgba(29, 29, 29, 0.568) !important; // Cristalino y translúcido, más oscuro para folder-panel
+        backdrop-filter: blur(5px); // Efecto borroso
+        -webkit-backdrop-filter: blur(5px); // Soporte Safari
         color: #fff !important;
         font-family: inherit !important;
         border-radius: 15px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(172, 172, 172, 0.18);
     }
 
     .swal2-input {
         background-color: #252525!important;
         color: #eee !important;
         border-radius: 15px;
-        border: none;
+        border: 1px solid #414141 !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+        
     }
 
     .swal2-loader {
@@ -98,8 +107,31 @@ body.backoffice-layout {
     .swal2-confirm {
         background-color: #ff8200 !important;
         color: #000 !important;
-        border-radius: 20px;
         font-weight: bold;
+        
+        backdrop-filter: blur(5px); // Efecto borroso
+        -webkit-backdrop-filter: blur(5px); // Soporte Safari
+        color: #fff !important;
+        font-family: inherit !important;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(172, 172, 172, 0.18);        
+        .swal2-container--dark {
+            font-family: "IBM Plex Mono", monospace !important;
+            .swal2-popup {
+                background: rgba(29, 29, 29, 0.568) !important;
+                backdrop-filter: blur(5px) !important;
+                -webkit-backdrop-filter: blur(5px) !important;
+                color: #fff !important;
+                font-family: inherit !important;
+                border-radius: 15px !important;
+                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+                border: 1px solid rgba(172, 172, 172, 0.18) !important;
+            }
+            // ...otros estilos...
+        }
+
+        
     }
 
     .swal2-cancel {
@@ -107,10 +139,51 @@ body.backoffice-layout {
         color: #ccc !important;
         border: 1px solid #999 !important;
         border-radius: 20px;
+
+
+        
+        backdrop-filter: blur(5px); // Efecto borroso
+        -webkit-backdrop-filter: blur(5px); // Soporte Safari
+        color: #fff !important;
+        font-family: inherit !important;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(172, 172, 172, 0.18);
     }
 
     .swal2-title {
         color: #ff8200 !important;
         font-size: 1.5rem;
+    }
+}
+
+/* Estilo exclusivo para el popup de folder-panel */
+.swal2-container--folder-panel {
+    font-family: "IBM Plex Mono", monospace !important;
+    .swal2-popup {
+        background: rgba(29, 29, 29, 0.568) !important;
+        backdrop-filter: blur(5px) !important;
+        -webkit-backdrop-filter: blur(5px) !important;
+        color: #fff !important;
+        font-family: inherit !important;
+        border-radius: 15px !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+        border: 1px solid rgba(172, 172, 172, 0.18) !important;
+    }
+    .swal2-confirm {
+        background-color: #ff8200 !important;
+        color: #ffffff !important;
+        border-radius: 20px !important;
+        font-weight: bold !important;
+    }
+    .swal2-cancel {
+        background-color: transparent !important;
+        color: #ccc !important;
+        border: 1px solid #999 !important;
+        border-radius: 20px !important;
+    }
+    .swal2-title {
+        color: #ff8200 !important;
+        font-size: 1.5rem !important;
     }
 }

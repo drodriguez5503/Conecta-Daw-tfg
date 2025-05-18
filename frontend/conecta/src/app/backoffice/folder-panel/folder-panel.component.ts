@@ -76,28 +76,28 @@ export class FolderPanelComponent {
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'Cancel',
-      background: '#434343',
       customClass: {
-      popup: 'swal2-popup swal2-container--dark',
-      confirmButton: 'swal2-confirm',
-      cancelButton: 'swal2-cancel',
-      title: 'swal2-title'
+        container: 'swal2-container--folder-panel',
+        popup: 'swal2-popup',
+        confirmButton: 'swal2-confirm',
+        cancelButton: 'swal2-cancel',
+        title: 'swal2-title'
       }
     }).then((result) => {
       if (result.isConfirmed) {
-      this.notes.splice(index, 1);
-      Swal.fire({
-        title: 'Deleted!',
-        html: '<span style="color:rgb(255, 255, 255);">Your file has been deleted.</span>',
-        icon: 'success',
-        confirmButtonText: 'OK',
-        background: '#434343',
-        customClass: {
-          popup: 'swal2-popup swal2-container--dark',
-          confirmButton: 'swal2-confirm',
-          title: 'swal2-title'
-        }
-      });
+        this.notes.splice(index, 1);
+        Swal.fire({
+          title: 'Deleted!',
+          html: '<span style="color:rgb(255, 255, 255);">Your file has been deleted.</span>',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          customClass: {
+            container: 'swal2-container--folder-panel',
+            popup: 'swal2-popup',
+            confirmButton: 'swal2-confirm',
+            title: 'swal2-title'
+          }
+        });
       }
     });
   }
