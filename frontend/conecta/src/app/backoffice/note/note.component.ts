@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -7,6 +7,8 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 	standalone: true,
 	imports: [NgbNavModule],
 	templateUrl: './note.component.html',
+	styleUrls: ['./note.component.scss'],
+	encapsulation: ViewEncapsulation.None,
 	styles: `
 		.close {
 			font-size: 1.4rem;
@@ -19,29 +21,24 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 	`,
 })
 export class NoteComponent {
-close($event: MouseEvent,_t3: any) {
-throw new Error('Method not implemented.');
-}
-add($event: MouseEvent) {
-throw new Error('Method not implemented.');
-}
-active: any;
-navs: any;
-
-}
-export class NgbdNavDynamic {
 	navs = [1, 2, 3, 4, 5];
 	counter = this.navs.length + 1;
-	active: number | undefined;
+	active: number = this.navs[0];
 
 	close(event: MouseEvent, toRemove: number) {
 		this.navs = this.navs.filter((id) => id !== toRemove);
+		if (this.active === toRemove && this.navs.length) {
+			this.active = this.navs[0];
+		}
 		event.preventDefault();
 		event.stopImmediatePropagation();
 	}
 
 	add(event: MouseEvent) {
 		this.navs.push(this.counter++);
+		if (!this.active) {
+			this.active = this.navs[0];
+		}
 		event.preventDefault();
 	}
 }
