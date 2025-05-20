@@ -1,3 +1,4 @@
+
 .boton-account {
     border-radius: 20px;
     padding: 5px 15px;
@@ -6,6 +7,7 @@
     &:hover {
     background-color: #ffffff !important;
     }
+    
 }
 
 .sign-in {
@@ -64,26 +66,84 @@
 
 .parrafo {
     font-family: "IBM Plex Mono" !important;
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
 }
 
 .contenedor-texto-diagrama {
     font-family: "IBM Plex Mono" !important;
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
 }
 
 .contenedor-texto-team {
     font-family: "IBM Plex Mono" !important;
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
 }
 
 .contenedor-texto-other {
     font-family: "IBM Plex Mono" !important;
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
 }
 
 .contenedor-texto-about {
     font-family: "IBM Plex Mono" !important;
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
 }
 
 .titulo {
     font-family: afacad !important;
     font-size: 65px;
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
 }
 
+br {
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
+}
+
+img {
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
+}
+
+button {
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
+}
+
+a {
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
+}
+
+p {
+    &::selection {
+        background-color: #ff8400;
+        color: #ffffff;
+    }
+}
