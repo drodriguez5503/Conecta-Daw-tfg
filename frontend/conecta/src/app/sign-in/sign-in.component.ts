@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular
 import { CredentialsService } from '../services/auth/credentials.service';
 import { LoginInterface } from '../services/interfaces/user-interface';
 import { TokenService } from '../services/auth/token.service';
+import { UseStateService } from '../services/auth/use-state.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -24,10 +25,11 @@ export class SignInComponent {
     private router: Router,
     private fb: FormBuilder,
     private CredentialsService: CredentialsService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private useStateService: UseStateService
   ){
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.minLength(3)]],
+      username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(3)]]
     })
   }
@@ -41,7 +43,8 @@ export class SignInComponent {
       this.CredentialsService.login(this.loginForm.value as LoginInterface).subscribe({
         next: (data:any)=>{
           console.log(data);
-          this.tokenService.saveTokens(data.token, "234")
+          this.tokenService.saveTokens(data.token, "234");
+          this.useStateService.save(this.loginForm.value.username);
           this.router.navigate(['']);
         },
         error: (error:any)=>{
