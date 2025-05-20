@@ -22,7 +22,7 @@ export const routes: Routes = [
 
     //backoffice
     {
-        path: "backoffice", canActivate: [authGuard], component: LayoutComponent, children: [
+        path: "backoffice",  component: LayoutComponent, children: [
             {path: "header-backoffice", component: HeaderBackofficeComponent},
             {path: "sidebar", component: SidebarComponent},
             {path: "note", component: NoteComponent},
