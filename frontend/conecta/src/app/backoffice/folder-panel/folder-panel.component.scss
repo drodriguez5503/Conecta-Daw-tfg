@@ -1,0 +1,190 @@
+:host {
+    position: fixed;
+    top: 40px;
+    left: 35px; // Ancho del sidebar
+    height: calc(100vh - 30px);
+    background-color: #212121;
+    z-index: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.folder-panel {
+    display: flex;
+    flex-direction: row;
+    width: var(--panel-width, 325px); // Cambia el tamaño de apertura inicial
+    min-width: 200px;
+    max-width: 600px;
+    height: 100%;
+    background-color: #212121;
+    box-shadow: 2px 0 8px rgba(44, 44, 44, 0.3);
+    position: relative;
+    margin-left: 10px;
+    margin-right: 0; // Elimina el margen derecho aquí
+    transition: width 0.1s cubic-bezier(0.4,0,0.2,1); // Más rápido
+    padding-right: 10px;
+}
+
+.resizer {
+    width: 8px;
+    cursor: ew-resize;
+    background: linear-gradient(90deg, #232323 60%, #444 100%);
+    height: 100%;
+    position: absolute; // Cambia a absolute para que siga el panel
+    right: 0; // Siempre al borde derecho del folder-panel
+    top: 0;
+    z-index: 20;
+    border-radius: 0 4px 4px 0;
+    transition: background 0.2s ease-in-out;
+}
+
+.resizer:hover {
+    background: linear-gradient(90deg, #444 60%, #232323 100%);
+}
+
+.panel-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding-right: 10px;
+}
+
+.panel-header p {
+    flex-grow: 1;
+    padding: 1rem;
+    color: #fff;
+    overflow: auto;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.notes-list--top {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    max-height: 100vh; // Limita la altura máxima de la lista;
+    overflow-y: auto; // Permite el scroll vertical
+    scrollbar-width: thin;
+    scrollbar-color: #444 #232323;
+    padding-right: 24px; // Más espacio entre el scroll y las notas
+}
+
+.notes-list--top::-webkit-scrollbar {
+    width: 1px;
+    background: #232323;
+}
+.notes-list--top::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+.notes-list {
+    margin-top: 1rem;
+    margin-left: 5px;
+    margin-right: 5px;
+    
+}
+
+.file {
+    &:hover {
+        background-color: #636363;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    padding: 1px;
+    margin: 2px;
+}
+.folder {
+    &:hover {
+        background-color: #636363;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    padding: 1px;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin: 2px;
+}
+p {
+    font-family: "IBM Plex Mono" !important;
+    margin: 0; // Resetear márgenes del párrafo para un mejor control del layout
+}
+
+.note-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    background: #232323;
+    border-radius: 6px;
+    padding: 4px 8px;
+    width: 100%; // Más ancho para la nota
+    margin-right: 0; // Elimina separación extra si la hay
+}
+
+.note-icon {
+    font-size: 1.3rem;
+    color: #8B8B8B;
+    margin-right: 10px;
+}
+
+.note-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 1rem;
+    outline: none;
+    border-bottom: 1px solid #444;
+    padding: 2px 4px;
+    border-radius: 0;
+    
+}
+
+.note-input[readonly] {
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+}
+
+.note-delete {
+    color: #c7c7c7;
+    font-size: 1rem;
+    margin-left: 10px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.note-delete:hover {
+    opacity: 1;
+    color: #ff8200;
+}
+
+.note-edit {
+    color: #c7c7c7;
+    font-size: 1rem;
+    margin-left: 10px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.note-edit:hover {
+    opacity: 1;
+    color: #ebebeb;
+}

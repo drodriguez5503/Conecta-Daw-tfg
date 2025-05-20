@@ -1,24 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import './assets/fonts';
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 
 /* Estilos para navegadores basados en WebKit (Chrome, Safari, Edge Chromium) */
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #000000;
+    background-color: #353535;
     border-radius: 5px;
     border: 2px solid transparent;
     background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: darken(#000000, 10%);
+    background-color: darken(#353535, 0%); //
 }
 
 ::-webkit-scrollbar-track {
@@ -37,12 +35,36 @@ body {
     background-color: black; color: white;
 }
 
-/* popup signging out */
+/* Estilo específico para el backoffice */
+body.backoffice-layout {
+    background-color: #434343;
+
+    
+}
+
+
 .swal2-container--dark {
+    font-family: "IBM Plex Mono", monospace !important;    
+    
     .swal2-popup {
-    background-color: #434343 !important;
-    color: #ffffff !important;
-    font-family: "IBM Plex Mono", monospace !important;
+        background: rgba(29, 29, 29, 0.568) !important; // Cristalino y translúcido, más oscuro para folder-panel
+        backdrop-filter: blur(5px); // Efecto borroso
+        -webkit-backdrop-filter: blur(5px); // Soporte Safari
+        color: #fff !important;
+        font-family: inherit !important;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(172, 172, 172, 0.18);
+    }
+
+    .swal2-input {
+        background-color: #252525!important;
+        color: #eee !important;
+        border-radius: 15px;
+        border: 1px solid #414141 !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+        
     }
 
     .swal2-loader {
@@ -81,36 +103,87 @@ body {
     .swal2-loader svg path {
     fill: #FF8200 !important;
     }
+
+    .swal2-confirm {
+        background-color: #ff8200 !important;
+        color: #000 !important;
+        font-weight: bold;
+        
+        backdrop-filter: blur(5px); // Efecto borroso
+        -webkit-backdrop-filter: blur(5px); // Soporte Safari
+        color: #fff !important;
+        font-family: inherit !important;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(172, 172, 172, 0.18);        
+        .swal2-container--dark {
+            font-family: "IBM Plex Mono", monospace !important;
+            .swal2-popup {
+                background: rgba(29, 29, 29, 0.568) !important;
+                backdrop-filter: blur(5px) !important;
+                -webkit-backdrop-filter: blur(5px) !important;
+                color: #fff !important;
+                font-family: inherit !important;
+                border-radius: 15px !important;
+                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+                border: 1px solid rgba(172, 172, 172, 0.18) !important;
+            }
+            // ...otros estilos...
+        }
+
+        
+    }
+
+    .swal2-cancel {
+        background-color: transparent !important;
+        color: #ccc !important;
+        border: 1px solid #999 !important;
+        border-radius: 20px;
+
+
+        
+        backdrop-filter: blur(5px); // Efecto borroso
+        -webkit-backdrop-filter: blur(5px); // Soporte Safari
+        color: #fff !important;
+        font-family: inherit !important;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(172, 172, 172, 0.18);
+    }
+
+    .swal2-title {
+        color: #ff8200 !important;
+        font-size: 1.5rem;
+    }
 }
 
-    /*popup edit user*/
-    .swal2-container--dark {
-        .swal2-input {
-            background-color: #252525!important;
-            color: #eee !important;
-            border-radius: 15px;
-            border: none;
-        }
-        
-        .swal2-confirm {
-            background-color: #ff8200 !important;
-            color: #000 !important;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-        
-        .swal2-cancel {
-            background-color: transparent !important;
-            color: #ccc !important;
-            border: 1px solid #999 !important;
-            border-radius: 20px;
-            
-        }
-    
-        
-        .swal2-title {
-            color: #ff8200 !important;
-            font-size: 1.5rem;
-            
-        }
+/* Estilo exclusivo para el popup de folder-panel */
+.swal2-container--folder-panel {
+    font-family: "IBM Plex Mono", monospace !important;
+    .swal2-popup {
+        background: rgba(29, 29, 29, 0.568) !important;
+        backdrop-filter: blur(5px) !important;
+        -webkit-backdrop-filter: blur(5px) !important;
+        color: #fff !important;
+        font-family: inherit !important;
+        border-radius: 15px !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+        border: 1px solid rgba(172, 172, 172, 0.18) !important;
     }
+    .swal2-confirm {
+        background-color: #ff8200 !important;
+        color: #ffffff !important;
+        border-radius: 20px !important;
+        font-weight: bold !important;
+    }
+    .swal2-cancel {
+        background-color: transparent !important;
+        color: #ccc !important;
+        border: 1px solid #999 !important;
+        border-radius: 20px !important;
+    }
+    .swal2-title {
+        color: #ff8200 !important;
+        font-size: 1.5rem !important;
+    }
+}

@@ -1,8 +1,8 @@
-
 .grid-stack {
     font-family: "IBM Plex Mono";
-    background-color: #434343;
+    background-color: #2d2d2d;
 }
+
 
 .grid-stack-item {
     margin-bottom: 100px; /* Ajusta este valor al espacio vertical que desees */
@@ -92,8 +92,77 @@
 
 div {
     &::selection {
-        background-color: #ff8400;
+        background-color: #ffffff;
         color: #ffffff;
     }
+}
+
+/* Tabs estilo Visual Studio Code */
+.nav-tabs {
+  background: #434343;
+  border: none;
+  padding: 0 8px;
+  height: 36px;
+  display: flex;
+  align-items: flex-end;
+  box-shadow: none;
+  margin: 0;
+}
+
+.nav-tabs .nav-link {
+  color: #e8e8e8;
+  background: transparent;
+  border: none;
+  border-radius: 6px 6px 0 0;
+  margin-right: 2px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.98rem;
+  min-width: 110px;
+  min-height: 32px;
+  padding: 0 18px 0 12px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: background 0.15s, color 0.15s;
+  opacity: 0.85;
+}
+
+.nav-tabs .nav-link.active {
+  background: #1e1e23;
+  color: #fff;
+  font-weight: 500;
+  box-shadow: 0 2px 0 #b8b8b8 inset;
+  opacity: 1;
+}
+
+.nav-tabs .nav-link:hover {
+  background: #31343b;
+  color: #fff;
+  opacity: 1;
+}
+
+.btn-close {
+  color: #bfc7d5;
+  opacity: 0.6;
+  margin-left: 10px;
+  font-size: 1.1em;
+  transition: opacity 0.2s, color 0.2s;
+  padding: 0 4px;
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1;
+  z-index: 2;
+}
+
+.btn-close:hover {
+  color: #ffffff;
+  opacity: 1;
 }
 

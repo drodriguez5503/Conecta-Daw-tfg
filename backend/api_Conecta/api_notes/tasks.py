@@ -21,16 +21,16 @@ def sync_data_from_firebase():
 
             if firebase_notes:
                 for note_id, note_data in firebase_notes.items():
-                    # Extraer datos de la nota
+
                     note_title = note_data.get('title', '')
                     note_content = note_data.get('content', '')
                     note_author = note_data.get('author', None)
                     created_at = note_data.get('createdAt', None)
                     modified_at = note_data.get('modifiedAt', None)
 
-                    # Buscar si la nota ya existe en PostgreSQL por ID de Firebase
+
                     note, created = Note.objects.update_or_create(
-                        id=note_id,  # Usar el ID de Firebase como clave primaria
+                        id=note_id,
                         defaults={
                             'title': note_title,
                             'content': note_content,

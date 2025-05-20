@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular
 import { CredentialsService } from '../services/auth/credentials.service';
 import { LoginInterface } from '../services/interfaces/user-interface';
 import { TokenService } from '../services/auth/token.service';
+import {HttpClientModule} from '@angular/common/http';
 import { UseStateService } from '../services/auth/use-state.service';
 
 @Component({
@@ -12,7 +13,8 @@ import { UseStateService } from '../services/auth/use-state.service';
   imports: [
     ReactiveFormsModule,
     RouterLink,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'

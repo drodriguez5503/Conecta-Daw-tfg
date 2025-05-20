@@ -1,8 +1,20 @@
 .main-content {
-    background-color: #434343 !important; color: white !important;
+    background-color: margin-left margin-right margin-top margin-bottom #434343 !important; 
+    color: white !important;
     
-    .logo {
+    .logo { 
         width: 0px;
     }
+    .backoffice-image {
+        max-width: 30%; // Ajusta el tamaño de la imagen
+        max-height: 30%; // Asegura que no exceda el contenedor
+        object-fit: contain; // Mantiene las proporciones de la imagen
+    }
+}
+
+.app-container.with-panel {
+    margin-right: 0; // Elimina el margen derecho
+    margin-left: 300px; // Mueve el margen al lado izquierdo si es necesario
+    transition: margin-left 0.3s ease;
 }
 

@@ -1,15 +1,20 @@
-<div class="grid-stack" #gridStackElement>
-    <div class="grid-stack-item" *ngFor="let item of gridItems; let i = index"
-        [attr.data-gs-x]="item.x"
-        [attr.data-gs-y]="item.y"
-        [attr.data-gs-w]="item.w"
-        [attr.data-gs-h]="item.h">
-    <div class="grid-stack-item-content" (click)="editNote(i)">
-        <h2 *ngIf="!editingIndex[i]" class="note-title-display">{{ item.title }}</h2>
-        <input *ngIf="editingIndex[i]" type="text" [(ngModel)]="gridItems[i].title" class="note-title-edit" (blur)="saveNote(i)">
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+	@for (id of navs; track id) {
+		<li [ngbNavItem]="id">
+			<button ngbNavLink style="position: relative;">
+				Tab {{ id }}
+				<span class="btn-close ms-3 fw-light" (click)="close($event, id)">×</span>
+			</button>
+			<ng-template ngbNavContent>
+				<p>Tab {{ id }} content</p>
+			</ng-template>
+		</li>
+	}
+	<li class="nav-item" role="presentation">
+		<button type="button" class="nav-link" (click)="add($event)">...</button>
+	</li>
+</ul>
 
-        <div *ngIf="!editingIndex[i]" class="note-content-display">{{ item.content }}</div>
-        <textarea *ngIf="editingIndex[i]" [(ngModel)]="gridItems[i].content" class="note-content-edit" (blur)="saveNote(i)"></textarea>
-    </div>
-    </div>
-</div>
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+<pre>Active: {{ active }}</pre>
