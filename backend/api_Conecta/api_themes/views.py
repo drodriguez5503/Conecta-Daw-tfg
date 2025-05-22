@@ -1,7 +1,11 @@
+from django.http import Http404
 from rest_framework import generics, permissions, status
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from sentence_transformers import SentenceTransformer, util
+
+from api_projects.models import Project
 from .serializers import AIAnalysisSerializer
 from .models import Note, Theme, AIAnalysis
 from django.conf import settings
@@ -17,51 +21,48 @@ class ThemeListCreateView(generics.ListCreateAPIView):
     serializer_class = ThemeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-
-class ThemeDetailView(generics.RetrieveUpdateDestroyAPIView):
+class ThemeListView(generics.ListAPIView):
     queryset = Theme.objects.all()
     serializer_class = ThemeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_queryset(self):
+        user = self.request.user
+        project_id = self.kwargs['project_id']
+        try:
+            project = Project.objects.get(id=project_id)
+        except Project.DoesNotExist:
+            raise Http404("Proyecto no encontrado")
+
+        if user not in project.users.all():
+            raise PermissionDenied("No tienes permiso para ver este proyecto.")
+
+        themes = Theme.objects.filter(linkedNotes__project=project).distinct()
+
+        return themes
+
+    def admin_themes(self):
+        user = self.request.user
+        if user.is_superuser:
+            return Theme.objects.all()
+        return None
 
 
-class AIAnalysisCreateView(generics.CreateAPIView):
-
+class AIAnalysisListView(generics.ListAPIView):
     serializer_class = AIAnalysisSerializer
     permission_classes = [permissions.IsAuthenticated]
-    model = SentenceTransformer(settings.SENTENCE_TRANSFORMER_MODEL)
 
-    def create(self, request, *args, **kwargs):
-        note_id = request.data.get('note')
-        theme_ids = request.data.get('identifiedTheme', [])
+    def get_queryset(self):
+        user = self.request.user
+        project_id = self.kwargs['project_id']
+        try:
+            project = Project.objects.get(id=project_id)
+        except Project.DoesNotExist:
+            raise Http404("Project not found")
 
-        note = get_object_or_404(Note, id=note_id)
-        themes = Theme.objects.filter(id__in=theme_ids)
+        if user not in project.users.all():
+            raise PermissionDenied("You are not authorized to view this project.")
 
-        if len(themes) != len(theme_ids):
-            return Response(
-                {"error": "One or more Theme IDs are invalid."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
 
-        note_similarity = self.perform_ai_analysis(note)
-        al_analysis = AIAnalysis.objects.create(note=note, noteSimilarity=note_similarity)
-        al_analysis.identified_theme.set(themes)
-
-        serializer = self.get_serializer(al_analysis)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    def perform_ai_analysis(self, note):
-        note_similarity = {}
-        notes_to_compare = Note.objects.filter(project=note.project).exclude(id=note.id)
-
-        if notes_to_compare:
-            other_note_contents = [other_note.content for other_note in notes_to_compare]
-            other_note_embeddings = self.model.encode(other_note_contents, convert_to_tensor=True)
-            note_embeddings = self.model.encode(note.content, convert_to_tensor=True)
-
-            for i, other_note in enumerate(notes_to_compare):
-                similarity = util.pytorch_cos_sim(note_embeddings, other_note_embeddings[i]).item()
-                note_similarity[str(other_note.id)] = similarity
-
-        return note_similarity
+        ai_analyses = AIAnalysis.objects.filter(note__project=project)
+        return ai_analyses
