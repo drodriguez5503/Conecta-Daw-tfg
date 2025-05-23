@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular
 import { CredentialsService } from '../services/auth/credentials.service';
 import { LoginInterface } from '../services/interfaces/user-interface';
 import { TokenService } from '../services/auth/token.service';
-import {HttpClientModule} from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,7 +12,6 @@ import {HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule,
     RouterLink,
     RouterModule,
-    HttpClientModule
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
@@ -29,7 +27,7 @@ export class SignInComponent {
     private tokenService: TokenService
   ){
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.minLength(3)]],
+      username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(3)]]
     })
   }
@@ -42,9 +40,8 @@ export class SignInComponent {
     if(this.loginForm.valid){
       this.CredentialsService.login(this.loginForm.value as LoginInterface).subscribe({
         next: (data:any)=>{
-          console.log(data);
-          this.tokenService.saveTokens(data.token, "234")
-          this.router.navigate(['']);
+          this.tokenService.saveTokens(data.access, data.refresh)
+          this.router.navigate(['backoffice']);
         },
         error: (error:any)=>{
           console.log(error);

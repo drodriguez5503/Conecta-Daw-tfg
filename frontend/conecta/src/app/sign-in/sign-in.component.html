@@ -3,13 +3,13 @@
         <a href="#home">
             <img src="blanco.png" alt="Imagen" class="imagen hover-click">
         </a>
-        
+
     </div>
     <div class="container form-container">
         <p class="title">Sign in to your account</p>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
-                <input type="email" class="form-control custom-input" placeholder="email" formControlName="email">
+                <input type="text" class="form-control custom-input" placeholder="username" formControlName="username">
             </div>
             <div class="mb-3 d-flex flex-column">
                 <a class="forgot-password pb-1 text-end px-2">Forgot password?</a>

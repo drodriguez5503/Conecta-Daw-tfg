@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import {TokenService} from '../../services/auth/token.service';
 
 @Component({
   selector: 'app-header-backoffice',
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrl: './header-backoffice.component.scss'
 })
 export class HeaderBackofficeComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private tokenService: TokenService) {}
 
   logout(route: string): void {
     Swal.fire({
@@ -23,7 +24,7 @@ export class HeaderBackofficeComponent {
       },
       timer: 1555,
       willClose: () => {
-        console.log('Cerrando sesión...');
+        this.tokenService.removeTokens();
         this.router.navigate([route]);
       },
       customClass: {
