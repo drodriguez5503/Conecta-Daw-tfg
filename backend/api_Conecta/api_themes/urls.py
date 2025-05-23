@@ -1,12 +1,10 @@
-from api_notes.urls import urlpatterns
-from api_notes.views import LinkListCreate
-from api_themes.views import ThemeListCreate, ThemeRetrieveUpdateDestroy, AIAnalysisListCreate, \
-    AIAnalysisRetrieveUpdateDestroy
+
+from api_themes.views import ThemeListCreateView, AIAnalysisListView, ThemeListView
 from django.urls import path
 
 urlpatterns = [
-    path('themes/', ThemeListCreate.as_view(), name='theme-list-create'),
-    path('themes/<int:pk>/', ThemeRetrieveUpdateDestroy.as_view(), name='theme-detail'),
-    path('ai-analysis/', AIAnalysisListCreate.as_view(), name='ai-analysis-list-create'),
-    path('ai-analysis/<int:pk>/', AIAnalysisRetrieveUpdateDestroy.as_view(), name='ai-analysis-detail'),
+    path('themes/', ThemeListCreateView.as_view(), name='theme-list-create'),
+    path('themes/<int:project_id>/', ThemeListView.as_view(), name='project-themes'),
+    path('ai-analysis/<int:project_id>', AIAnalysisListView.as_view(), name='ai-analysis-list'),
+
 ]

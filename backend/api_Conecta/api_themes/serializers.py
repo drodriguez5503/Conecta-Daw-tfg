@@ -10,5 +10,5 @@ class ThemeSerializer(serializers.ModelSerializer):
 class AIAnalysisSerializer(serializers.ModelSerializer):
     class Meta:
         model = AIAnalysis
-        fields = ('id', 'note', 'identifiedTheme', 'noteSimilarity')
+        fields = ('id', 'note', 'identified_theme', 'noteSimilarity')
 

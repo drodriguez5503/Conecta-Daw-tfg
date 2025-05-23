@@ -105,6 +105,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'api_Conecta.wsgi.application'
 
+SENTENCE_TRANSFORMER_MODEL = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
