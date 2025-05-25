@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular
 import { CredentialsService } from '../services/auth/credentials.service';
 import { LoginInterface } from '../services/interfaces/user-interface';
 import { TokenService } from '../services/auth/token.service';
-import {HttpClientModule} from '@angular/common/http';
 import { UseStateService } from '../services/auth/use-state.service';
 
 @Component({
@@ -14,7 +13,6 @@ import { UseStateService } from '../services/auth/use-state.service';
     ReactiveFormsModule,
     RouterLink,
     RouterModule,
-    HttpClientModule
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
@@ -44,10 +42,8 @@ export class SignInComponent {
     if(this.loginForm.valid){
       this.CredentialsService.login(this.loginForm.value as LoginInterface).subscribe({
         next: (data:any)=>{
-          console.log(data);
-          this.tokenService.saveTokens(data.token, "234");
-          this.useStateService.save(this.loginForm.value.username);
-          this.router.navigate(['']);
+          this.tokenService.saveTokens(data.access, data.refresh)
+          this.router.navigate(['backoffice']);
         },
         error: (error:any)=>{
           console.log(error);
