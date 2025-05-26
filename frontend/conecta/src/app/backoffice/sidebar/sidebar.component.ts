@@ -5,6 +5,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UseStateService } from '../../services/auth/use-state.service';
 import { CredentialsService } from '../../services/auth/credentials.service';
+import { ChangeDetectorRef } from '@angular/core';
+import { ProjectService } from '../../services/notes/project.service';
+import { ProjectCreate } from '../../services/interfaces/project';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -20,16 +24,22 @@ export class SidebarComponent implements OnInit {
   @Input() collapsed: boolean = false;
   showProjectForm: boolean = false;
   projectName: string = '';
-  user: any;
+  user: any=null;
+  projects: ProjectCreate[] = [];
+  showProjects: boolean = false;
 
 constructor(
   private credentialsService: CredentialsService,
+  private cd: ChangeDetectorRef,
+  private projectService: ProjectService
 ){}
  ngOnInit(): void {
       this.credentialsService.getUserInfo().subscribe({
       next: (data) => {
         this.user = data;
         console.log('Usuario cargado:', data);
+        this.cd.detectChanges();
+        this.loadProjects();
       },
       error: (err) => {
         console.error('Error al obtener el usuario', err);
@@ -37,21 +47,47 @@ constructor(
     });
  }
 
+ loadProjects() {
+  this.projectService.getProjects().subscribe({
+    next: (projects) => {
+      this.projects = projects;
+      console.log('Proyectos cargados:', projects);
+    },
+    error: (err) => {
+      console.error('Error al cargar proyectos', err);
+    }
+  });
+}
+
 toggleProjectForm() {
   this.showProjectForm = !this.showProjectForm;
   if (!this.showProjectForm) this.projectName = '';
 }
 
   createProject() {
-    if (this.projectName.trim()) {
-      console.log('Proyecto creado:', this.projectName);
-      // Aquí va la lógica real para crear el proyecto
-      this.toggleProjectForm();
-    }
+  const trimmedName = this.projectName.trim();
+
+  if (trimmedName) {
+    const newProject: ProjectCreate = {
+      name: trimmedName,
+    };
+
+    this.projectService.createProject(newProject).subscribe({
+      next: (response) => {
+        console.log('Proyecto creado exitosamente:', response);
+        this.toggleProjectForm(); // cierra el formulario
+        this.projectName = '';    // limpia el campo
+        // puedes emitir un evento o recargar la lista si estás mostrándola
+      },
+      error: (err) => {
+        console.error('Error al crear proyecto', err);
+      }
+    });
   }
+}
 
-  
-  
+toggleProjectsList() {
+  this.showProjects = !this.showProjects;
 
-  
+}
 }

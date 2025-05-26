@@ -1,9 +1,9 @@
 <div class="sidebar-container text-black" [class.hide-me]="collapsed">
   <!-- Íconos y contenido del sidebar -->
-   <div class="user-profile d-flex align-items-center p-3">
-  <div class="avatar me-2"></div>
-  <span class="user-name text-white fw-bold">{{ user?.username }}</span>
-</div>
+   <div class="user-profile d-flex align-items-center p-3" *ngIf="user">
+     <div class="avatar me-2"></div>
+     <span class="user-name text-white fw-bold" >{{ user.username }}</span>
+   </div>
    <div class="d-flex flex-column justify-content-between align-items-center p-3">
     <button class="btn btn-danger w-100 mb-3 px-1" (click)="toggleProjectForm()"> <!-- siempre visible -->
       <i class="bi bi-plus-circle px-2"></i>
@@ -19,7 +19,16 @@
 
   <nav>
     <ul>
-      <li><i class="bi bi-folder2-open"></i> <span>Proyectos</span></li>
+      <li (click)="toggleProjectsList()">
+        <i class="bi bi-folder2-open"></i> 
+        <span>Proyectos</span>
+      </li>
+      <ul *ngIf="showProjects" class="list-unstyled ps-4 mt-2" style="font-size: 0.9rem;">
+        <li *ngFor="let project of projects" class="text-white">
+          <i class="bi bi-folder me-2 text-warning"></i> {{ project.name }}
+        </li>
+      </ul>
+
       <li><i class="bi bi-people"></i> <span>Equipos</span></li>
       <li><i class="bi bi-person"></i> <span>Perfil</span></li>
       <li><i class="bi bi-gear"></i> <span>Ajustes</span></li>

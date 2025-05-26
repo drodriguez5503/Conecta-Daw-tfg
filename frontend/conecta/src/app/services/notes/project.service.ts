@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {enviroment} from '../../../enviroments/enviroment';
 import {Project} from '../interfaces/project';
+import { ProjectCreate } from '../interfaces/project';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ProjectService {
 
   constructor(private http: HttpClient) { }
 
-  createProject(project:Project){
+  createProject(project:ProjectCreate){
     return this.http.post<any>(`${enviroment.apiUrl}/projects/`,project );
   }
 
