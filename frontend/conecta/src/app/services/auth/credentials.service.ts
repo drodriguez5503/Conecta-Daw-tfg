@@ -18,4 +18,16 @@ export class CredentialsService {
   register(credentials:UserInterface): Observable<any> {
     return this.http.post<any>(`${enviroment.apiUrl}/register/`, credentials);
   }
+
+   getUserByUserName(username:string): Observable<any> {
+    return this.http.get<any>(`${enviroment.apiUrl}/users/${username}/`);
+  }
+
+  getUserById(id:string): Observable<any> {
+    return this.http.get<any>(`${enviroment.apiUrl}/users/${id}/`);
+  }
+
+  getUserInfo(): Observable<any> {
+    return this.http.get<any>(`${enviroment.apiUrl}/users/info/`);
+  }
 }

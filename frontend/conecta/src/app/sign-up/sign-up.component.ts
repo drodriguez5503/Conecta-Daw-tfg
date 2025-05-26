@@ -7,6 +7,7 @@ import { UserInterface } from '../services/interfaces/user-interface';
 import {HttpClientModule} from '@angular/common/http';
 
 
+
 @Component({
   selector: 'app-sign-up',
   standalone: true,

@@ -5,6 +5,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
 import { NgIf, NgClass } from '@angular/common';
 import { SettingsComponent } from '../settings/settings.component';
+import { SidebarStatusService } from '../../services/status/sidebar-status.service';
 
 @Component({
   selector: 'app-layout',
@@ -21,30 +22,47 @@ import { SettingsComponent } from '../settings/settings.component';
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
-export class LayoutComponent {
-  showFolderPanel = false;
+export class LayoutComponent  {
+  isCollapsed = false;
   showSettingsPanel = false;
 
-  ngOnInit(): void {
-    document.body.classList.add('backoffice-layout'); // Agrega la clase al body
-  }
+  constructor(
+    private sidebarStatus: SidebarStatusService,
+  ) { }
+  handleSidebarToggle() {
+  this.isCollapsed = !this.isCollapsed;
+}
 
-  ngOnDestroy(): void {
-    document.body.classList.remove('backoffice-layout'); // Elimina la clase al salir del backoffice
-  }
+  
 
-  toggleFolderPanel() {
-    this.showFolderPanel = !this.showFolderPanel;
-    if (this.showFolderPanel) {
-      this.showSettingsPanel = false;
-    }
-  } 
 
-  toggleSettingsPanel() {
-    this.showSettingsPanel = !this.showSettingsPanel;
-    if (this.showSettingsPanel) {
-      this.showFolderPanel = false;
-    }
-  }
+
+
+
+
+
+
+
+  // ngOnInit(): void {
+  //   document.body.classList.add('backoffice-layout'); // Agrega la clase al body
+  // }
+
+  // ngOnDestroy(): void {
+  //   document.body.classList.remove('backoffice-layout'); // Elimina la clase al salir del backoffice
+  // }
+
+  // toggleFolderPanel() {
+  //   this.showFolderPanel = !this.showFolderPanel;
+  //   if (this.showFolderPanel) {
+  //     this.showSettingsPanel = false;
+  //   }
+  // } 
+
+  // toggleSettingsPanel() {
+  //   this.showSettingsPanel = !this.showSettingsPanel;
+  //   if (this.showSettingsPanel) {
+  //     this.showFolderPanel = false;
+  //   }
+  // }
 }
 
