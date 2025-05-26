@@ -126,7 +126,7 @@ DATABASES = {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'conecta_tfg',
             'USER': 'postgres',
-            'PASSWORD': '<PASSWORD>',
+            'PASSWORD': 'vigo@2003',
             'HOST': 'localhost',
             'PORT': '5432',
         }
