@@ -34,4 +34,8 @@ export class CredentialsService {
   getUserById(id:string): Observable<any> {
     return this.http.get<any>(`${enviroment.apiUrl}/users/${id}/`);
   }
+
+  getUserInfo(): Observable<any> {
+    return this.http.get<any>(`${enviroment.apiUrl}/users/info/`);
+  }
 }
