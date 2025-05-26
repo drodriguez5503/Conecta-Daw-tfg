@@ -19,7 +19,15 @@ export class CredentialsService {
     return this.http.post<any>(`${enviroment.apiUrl}/register/`, credentials);
   }
 
-   getUserByUserName(username:string): Observable<any> {
+  checkToken(): Observable<any> {
+    return this.http.get<any>(`${enviroment.apiUrl}/check-token/`);
+  }
+
+  refreshToken(): Observable<any> {
+    return this.http.get<any>(`${enviroment.apiUrl}/token/refresh/`);
+  }
+
+  getUserByUserName(username:string): Observable<any> {
     return this.http.get<any>(`${enviroment.apiUrl}/users/${username}/`);
   }
 

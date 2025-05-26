@@ -1,7 +1,9 @@
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, status
 from rest_framework.exceptions import PermissionDenied, ValidationError
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from api_projects.models import Project
 from .models import Note, Tag, Link
@@ -59,6 +61,20 @@ class NoteRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
             raise PermissionDenied("Can not delete note on a Project that you are not a part of.")
 
         instance.delete()
+
+class GetNoteById(APIView):
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self,request, id):
+        try:
+            note = Note.objects.get(id=id)
+            serializer = NoteSerializer(note)
+            return Response({"note": serializer.data}, status=status.HTTP_200_OK)
+        except Note.DoesNotExist:
+            return Response({"message":"Note not found"}, status=status.HTTP_404_NOT_FOUND)
+
 
 class LinkListCreate(generics.ListCreateAPIView):
     queryset = Link.objects.all()

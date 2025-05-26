@@ -43,3 +43,17 @@ class GetUserByUsernameView(APIView):
             return Response({"user": serializer.data}, status=status.HTTP_200_OK)
         except User.DoesNotExist:
             return Response({"message":"User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+class GetUserByIdView(APIView):
+    def get(self, request, id):
+        try:
+            user = User.objects.get(id=id)
+            serializer = UserSerializer(user)
+            return Response({"user": serializer.data}, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({"message":"User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+class GetUserInformationView(APIView):
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response({"user": serializer.data}, status=status.HTTP_200_OK)
