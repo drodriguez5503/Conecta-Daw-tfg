@@ -6,6 +6,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SidebarComponent } from './backoffice/sidebar/sidebar.component';
 import { HeaderBackofficeComponent } from './backoffice/header-backoffice/header-backoffice.component';
+import { authGuard } from './services/guards/auth.guard.service';
 import { NoteComponent } from './backoffice/note/note.component';
 import { ConectionsComponent } from './backoffice/conections/conections.component';
 import { UserComponent } from './backoffice/user/user.component';
@@ -21,7 +22,7 @@ export const routes: Routes = [
 
     //backoffice
     {
-        path: "backoffice", component: LayoutComponent, children: [
+        path: "backoffice",  component: LayoutComponent, children: [
             {path: "header-backoffice", component: HeaderBackofficeComponent},
             {path: "sidebar", component: SidebarComponent},
             {path: "note", component: NoteComponent},

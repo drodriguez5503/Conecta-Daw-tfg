@@ -3,3 +3,4 @@ export interface Project {
   name: string;
   users: string[];
 }
+export type ProjectCreate = Pick<Project, 'name'>;
