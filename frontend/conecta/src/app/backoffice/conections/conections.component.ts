@@ -77,8 +77,8 @@ export class ConectionsComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!this.graph.hasNode(noteId)) {
         this.graph.addNode(noteId, {
           label: `Nota ${noteId}`,
-          x: Math.random() * 100,
-          y: Math.random() * 100,
+          x: Math.random(),
+          y: Math.random(),
           size: 10,
           color: '#007bff'
         });
@@ -103,9 +103,27 @@ export class ConectionsComponent implements OnInit, AfterViewInit, OnDestroy {
             weight: similarityValue,
             size: similarityValue * 2
           });
+        } else {
+          this.graph.addEdge(source, target, {
+            label: null,
+            originalLabel: null,
+            color: 'rgba(0, 0, 0, 0)',
+            weight: similarityValue,
+            size: 0.0001
+          });
+
         }
       });
     });
+
+
+    this.projectAnalysis.forEach((item) => {
+      const noteId = item.note.toString();
+        this.graph.setNodeAttribute(noteId, "x", Math.random() * 10 - 5);
+        this.graph.setNodeAttribute(noteId, "y", Math.random() * 10 - 5);
+
+    });
+
   }
 
   initSigma(): void {
