@@ -23,10 +23,16 @@
         </div>
 <!-- Botón hamburguesa personalizado -->
         <label class="burger d-lg-none" for="burger-menu-toggle">
-            <input type="checkbox" id="burger-menu-toggle">
+            <input type="checkbox" id="burger-menu-toggle" (change)="toggleMobileMenu()">
             <span></span>
             <span></span>
             <span></span>
         </label>
+<!-- Menú móvil sticky debajo del header -->
+        <div class="mobile-sticky-menu d-lg-none" *ngIf="showMobileMenu">
+            <a class="mobile-link" href="#" (click)="goToSection('home'); $event.preventDefault()">home</a>
+            <a class="mobile-link" href="#about" (click)="goToSection('about'); $event.preventDefault()">about us</a>
+            <button class="mobile-link" (click)="GoToSignIn()">Account</button>
+        </div>
     </div>
 </nav>

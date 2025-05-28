@@ -3,8 +3,8 @@
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
-    
+    z-index: 4000; /* Aumenta el z-index para estar siempre por encima del menú sticky y el contenido */
+    width: 100vw;
 }
 
 
@@ -140,5 +140,47 @@ nav {
 @media (max-width: 991px) {
   .burger {
     display: block;
+  }
+}
+
+.mobile-sticky-menu {
+  position: fixed;
+  top: 60px; /* altura del header */
+  left: 0;
+  width: 100vw;
+  background: #232323;
+  z-index: 3000;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 32px;
+  padding: 18px 0 12px 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.mobile-sticky-menu .mobile-link {
+  color: #fff;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.1em;
+  text-decoration: none;
+  padding: 8px 18px;
+  border: none;
+  background: none;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.mobile-sticky-menu .mobile-link:hover {
+  background: #ff8400;
+  color: #232323;
+}
+
+@media (min-width: 992px) {
+  .mobile-sticky-menu {
+    display: none !important;
   }
 }
