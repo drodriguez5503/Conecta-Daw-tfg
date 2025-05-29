@@ -3,8 +3,8 @@
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
-    
+    z-index: 4000; /* Aumenta el z-index para estar siempre por encima del menú sticky y el contenido */
+    width: 100vw;
 }
 
 
@@ -70,4 +70,117 @@ nav {
         background-color: #ff8400;
         color: #ffffff;
     }
+}
+
+/* Botón hamburguesa personalizado (Uiverse.io by Cevorob) */
+.burger {
+  position: relative;
+  width: 40px;
+  height: 30px;
+  background: transparent;
+  cursor: pointer;
+  display: none;
+}
+
+.burger input {
+  display: none;
+}
+
+.burger span {
+  display: block;
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: rgb(221, 221, 221);
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: .25s ease-in-out;
+}
+
+.burger span:nth-of-type(1) {
+  top: 0px;
+  transform-origin: left center;
+}
+
+.burger span:nth-of-type(2) {
+  top: 50%;
+  transform: translateY(-50%);
+  transform-origin: left center;
+}
+
+.burger span:nth-of-type(3) {
+  top: 100%;
+  transform-origin: left center;
+  transform: translateY(-100%);
+}
+
+.burger input:checked ~ span:nth-of-type(1) {
+  transform: rotate(45deg);
+  top: 0px;
+  left: 5px;
+}
+
+.burger input:checked ~ span:nth-of-type(2) {
+  width: 0%;
+  opacity: 0;
+}
+
+.burger input:checked ~ span:nth-of-type(3) {
+  transform: rotate(-45deg);
+  top: 28px;
+  left: 5px;
+}
+
+.burger input:checked ~ span {
+  background: #ff8400;
+}
+
+@media (max-width: 991px) {
+  .burger {
+    display: block;
+  }
+}
+
+.mobile-sticky-menu {
+  position: fixed;
+  top: 60px; /* altura del header */
+  left: 0;
+  width: 100vw;
+  background: #232323;
+  z-index: 3000;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 32px;
+  padding: 18px 0 12px 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.mobile-sticky-menu .mobile-link {
+  color: #fff;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.1em;
+  text-decoration: none;
+  padding: 8px 18px;
+  border: none;
+  background: none;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.mobile-sticky-menu .mobile-link:hover {
+  background: #ff8400;
+  color: #232323;
+}
+
+@media (min-width: 992px) {
+  .mobile-sticky-menu {
+    display: none !important;
+  }
 }
