@@ -1,61 +1,153 @@
-.sidebar {
-    background-color: #303030 !important;
-    position: fixed; /* Fija el sidebar a la ventana del navegador */
-    top: 0;
-    left: 0;
-    height: 100vh; /* Ocupa el 100% de la altura de la ventana */
-    width: auto; /* Ajusta el ancho según el contenido o un valor fijo */
-    padding-top: 20px; /* Añade un poco de padding superior */
-    padding-bottom: 20px; /* Añade un poco de padding inferior */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centra los contenedores horizontalmente */
-    justify-content: space-between; /* Espacia los contenedores (top e bottom) */
-    z-index: 1; /* Establece el z-index por debajo del header */
-    padding-right: 10px; /* Espacio a la derecha del sidebar */
-    padding-left: 10px; /* Espacio a la izquierda del sidebar */
-    padding-top: 60px;
-}
+// .sidebar {
+//     background-color: #303030 !important;
+//     position: fixed; /* Fija el sidebar a la ventana del navegador */
+//     top: 0;
+//     left: 0;
+//     height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+//     width: auto; /* Ajusta el ancho según el contenido o un valor fijo */
+//     padding-top: 20px; /* Añade un poco de padding superior */
+//     padding-bottom: 20px; /* Añade un poco de padding inferior */
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center; /* Centra los contenedores horizontalmente */
+//     justify-content: space-between; /* Espacia los contenedores (top e bottom) */
+//     z-index: 1; /* Establece el z-index por debajo del header */
+//     padding-right: 10px; /* Espacio a la derecha del sidebar */
+//     padding-left: 10px; /* Espacio a la izquierda del sidebar */
+//     padding-top: 60px;
+// }
 
-.container-logo-top {
+// .container-logo-top {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     color: #7B7B7B;
+
+//     i {
+//         font-size: 1.5rem; /* Ajusta el tamaño de los iconos */
+//         margin-bottom: 15px; /* Espacio entre los iconos superiores */
+
+//         &:last-child {
+//             margin-bottom: 0; /* Elimina el margen inferior del último icono superior */
+//         }
+//     }
+// }
+
+// .container-logo-bottom {
+//     display: flex;
+//     align-items: center;
+//     color: #7B7B7B;
+// }
+
+// .container-logo-bottom i {
+//     font-size: 1.5rem; /* Ajusta el tamaño del icono inferior */
+// }
+
+// /* Efecto del sidebar al pasar el ratón por encima */
+// .hover-click {
+//     &:hover {
+//         cursor: pointer;
+//         color: #ffffff;
+//         transform: scale(1.2);
+//         transition: transform 0.2s ease-in-out; /* Añade una transición suave */
+//     }
+// }
+
+// aside {
+//     &::selection {
+//         background-color: #ff8400;
+//         color: #ffffff;
+//     }
+// }
+.sidebar-container {
+  width: 225px;
+  height: calc(100vh - 43px); // altura total menos el header
+  transition: width 0.3s;
+  overflow-x: hidden;
+  background-color: #303030;
+
+  &.hide-me {
+    width: 64px; // ancho colapsado
+    span, h2 {
+      display: none !important;
+    }
+
+    ul li {
+      justify-content: center;
+    }
+
+    button {
+      justify-content: center;
+    }
+  }
+
+  button.icon-button {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    color: #7B7B7B;
+    gap: 8px;
+    width: 100%;
+    padding: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
 
     i {
-        font-size: 1.5rem; /* Ajusta el tamaño de los iconos */
-        margin-bottom: 15px; /* Espacio entre los iconos superiores */
-
-        &:last-child {
-            margin-bottom: 0; /* Elimina el margen inferior del último icono superior */
-        }
+      font-size: 18px;
     }
-}
+  }
 
-.container-logo-bottom {
-    display: flex;
-    align-items: center;
-    color: #7B7B7B;
-}
+  ul {
+    list-style: none;
+    padding: 0;
 
-.container-logo-bottom i {
-    font-size: 1.5rem; /* Ajusta el tamaño del icono inferior */
-}
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
 
-/* Efecto del sidebar al pasar el ratón por encima */
-.hover-click {
-    &:hover {
-        cursor: pointer;
-        color: #ffffff;
-        transform: scale(1.2);
-        transition: transform 0.2s ease-in-out; /* Añade una transición suave */
+      &:hover {
+        background-color: #f0f0f0;
+      }
+
+      i {
+        font-size: 20px;
+      }
     }
+  }
 }
 
-aside {
-    &::selection {
-        background-color: #ff8400;
-        color: #ffffff;
-    }
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050; // mayor que el sidebar/header si es necesario
+}
+
+.custom-modal {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
+  
+}
+.user-profile {
+  background-color: #272626;
+  border-bottom: 1px solid #444;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #aaa; // simula una foto de perfil
 }

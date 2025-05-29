@@ -1,27 +1,93 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SidebarStatusService } from '../../services/status/sidebar-status.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { UseStateService } from '../../services/auth/use-state.service';
+import { CredentialsService } from '../../services/auth/credentials.service';
+import { ChangeDetectorRef } from '@angular/core';
+import { ProjectService } from '../../services/notes/project.service';
+import { ProjectCreate } from '../../services/interfaces/project';
+
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent {
-  @Output() toggleFolderPanel = new EventEmitter<void>();
-  @Output() toggleSettingsPanel = new EventEmitter<void>();
+export class SidebarComponent implements OnInit {
+  @Input() collapsed: boolean = false;
+  showProjectForm: boolean = false;
+  projectName: string = '';
+  user: any=null;
+  projects: ProjectCreate[] = [];
+  showProjects: boolean = false;
 
-  emitToggleFolderPanel(): void {
-    this.toggleFolderPanel.emit();    
-  }
-  emitToggleSettingsPanel(): void {
-    this.toggleSettingsPanel.emit();    
-  }
+constructor(
+  private credentialsService: CredentialsService,
+  private cd: ChangeDetectorRef,
+  private projectService: ProjectService
+){}
+ ngOnInit(): void {
+      this.credentialsService.getUserInfo().subscribe({
+      next: (data) => {
+        this.user = data;
+        console.log('Usuario cargado:', data);
+        this.cd.detectChanges();
+        this.loadProjects();
+      },
+      error: (err) => {
+        console.error('Error al obtener el usuario', err);
+      }
+    });
+ }
 
-  constructor(private router: Router) {}
+ loadProjects() {
+  this.projectService.getProjects().subscribe({
+    next: (projects) => {
+      this.projects = projects;
+      console.log('Proyectos cargados:', projects);
+    },
+    error: (err) => {
+      console.error('Error al cargar proyectos', err);
+    }
+  });
+}
 
-  navigateTo(route: string): void {
-    this.router.navigate([route]); // Navega a la ruta especificada
+toggleProjectForm() {
+  this.showProjectForm = !this.showProjectForm;
+  if (!this.showProjectForm) this.projectName = '';
+}
+
+  createProject() {
+  const trimmedName = this.projectName.trim();
+
+  if (trimmedName) {
+    const newProject: ProjectCreate = {
+      name: trimmedName,
+    };
+
+    this.projectService.createProject(newProject).subscribe({
+      next: (response) => {
+        console.log('Proyecto creado exitosamente:', response);
+        this.toggleProjectForm(); // cierra el formulario
+        this.projectName = '';    // limpia el campo
+        // puedes emitir un evento o recargar la lista si estás mostrándola
+      },
+      error: (err) => {
+        console.error('Error al crear proyecto', err);
+      }
+    });
   }
+}
+
+toggleProjectsList() {
+  this.showProjects = !this.showProjects;
+
+}
 }
