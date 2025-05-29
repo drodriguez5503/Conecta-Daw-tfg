@@ -1,11 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
 	selector: 'ngbd-nav-dynamic',
 	standalone: true,
-	imports: [NgbNavModule],
+	imports: [NgbNavModule, FormsModule],
 	templateUrl: './note.component.html',
 	styleUrls: ['./note.component.scss'],
 	encapsulation: ViewEncapsulation.None,
@@ -25,8 +26,18 @@ export class NoteComponent {
 	counter = this.navs.length + 1;
 	active: number = this.navs[0];
 
+	notes: { [id: number]: { title: string; content: string } } = {};
+
+	constructor() {
+		// Inicializa una nota vacía para cada tab
+		this.navs.forEach(id => {
+			this.notes[id] = { title: '', content: '' };
+		});
+	}
+
 	close(event: MouseEvent, toRemove: number) {
 		this.navs = this.navs.filter((id) => id !== toRemove);
+		delete this.notes[toRemove];
 		if (this.active === toRemove && this.navs.length) {
 			this.active = this.navs[0];
 		}
@@ -35,10 +46,21 @@ export class NoteComponent {
 	}
 
 	add(event: MouseEvent) {
-		this.navs.push(this.counter++);
+		this.navs.push(this.counter);
+		this.notes[this.counter] = { title: '', content: '' };
+		this.counter++;
 		if (!this.active) {
 			this.active = this.navs[0];
 		}
 		event.preventDefault();
+	}
+
+	// Guarda la nota (por ahora solo muestra un alert, puedes implementar persistencia real)
+	saveNote(id: number) {
+		const note = this.notes[id];
+		if (note) {
+			localStorage.setItem(`note_${id}`, JSON.stringify(note));
+			alert('Nota guardada: ' + (note.title || 'Sin título'));
+		}
 	}
 }
