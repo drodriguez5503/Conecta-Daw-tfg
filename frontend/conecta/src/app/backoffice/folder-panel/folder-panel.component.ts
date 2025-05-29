@@ -2,6 +2,10 @@ import { Component, HostListener, Renderer2 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Project } from '../../services/interfaces/project';
+import { ComunicationService } from '../../services/comunication/comunication.service';
+import { NoteService } from '../../services/notes/note.service';
+import { NoteCreate } from '../../services/interfaces/note';
 
 @Component({
   selector: 'app-folder-panel',
@@ -11,14 +15,92 @@ import Swal from 'sweetalert2';
   styleUrl: './folder-panel.component.scss'
 })
 export class FolderPanelComponent {
-  private resizing = false;
+  //////1 Variables sara
+  newNoteTitle = '';
+  currentProject: Project | null = null;
+  showNoteModal = false;
+  ///////2
 
+  private resizing = false;
   notes: Array<{ name: string; editing: boolean }> = [];
 
-  constructor(private renderer: Renderer2) {
-    this.loadNotes();
+  constructor(
+    private renderer: Renderer2,
+    //////////////1 inyeccion sara
+    private comunicationService: ComunicationService,
+    private noteService: NoteService
+    ////////////////2
+  
+  ) {
+    //this.loadNotes();
+     this.loadNotesFromAPI();
+  }
+  /////////////////////////////////////////////1 funciones sara
+   ngOnInit() {
+    this.comunicationService.projectCom$.subscribe((project) => {
+      this.currentProject = project;
+      this.loadNotesFromAPI(); // Cargar notas al iniciar
+    });
   }
 
+ addNote1() {
+  this.newNoteTitle = '';
+  this.showNoteModal = true;
+}
+
+cancelNoteCreation() {
+  this.showNoteModal = false;
+}
+
+confirmCreateNote() {
+  if (!this.newNoteTitle.trim() || !this.currentProject) return;
+
+  const newNote = {
+    title: this.newNoteTitle,
+    project: this.currentProject.id,
+    content: '.', // Asegúrate de enviar contenido si es obligatorio
+  };
+console.log('📦 Payload enviado a la API:', newNote);
+  this.noteService.createNote(this.currentProject, newNote).subscribe({
+    next: (createdNote) => {
+      this.notes.push(createdNote); //{ name: createdNote.title, editing: false } Necesitaba quitar esto para pasar las notas por id
+      this.saveNotes();
+      this.showNoteModal = false;
+    },
+    error: (err) => {
+      console.error('Error al crear la nota', err);
+    }
+  });
+}
+loadNotesFromAPI() {
+  if (!this.currentProject) return;
+
+  this.noteService.getNotesInProject(this.currentProject).subscribe({
+
+      
+    next: (notesFromApi) => {
+      console.log('📥 Respuesta de la API:', notesFromApi);
+      this.notes = notesFromApi.map((note: any) => ({
+        ...note,
+        name: note.title,
+        editing: false
+      }));
+      this.saveNotes(); // opcional: guardar en localStorage si quieres conservarlos al refrescar
+    },
+    error: (err) => {
+      console.error('Error al cargar las notas desde la API', err);
+    }
+  });
+}
+
+selectNote(note: any) {
+  this.comunicationService.selectNote(note);
+  console.log('📄 Nota clicada:', note); 
+}
+
+
+
+////////TOCADO POR SARA///////////////////////2
   loadNotes() {
     const notesJson = localStorage.getItem('folderPanelNotes');
     if (notesJson) {

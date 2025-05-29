@@ -24,10 +24,15 @@
         <span>Proyectos</span>
       </li>
       <ul *ngIf="showProjects" class="list-unstyled ps-4 mt-2" style="font-size: 0.9rem;">
-        <li *ngFor="let project of projects" class="text-white">
-          <i class="bi bi-folder me-2 text-warning"></i> {{ project.name }}
-        </li>
-      </ul>
+        <li
+          *ngFor="let project of projects"
+          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+          (click)="navigateToProject(project)"
+    >
+      <i class="bi bi-folder2-open me-2"></i> 
+      <span class="flex-grow-1">{{ project.name }}</span>
+    </li>
+</ul>
 
       <li><i class="bi bi-people"></i> <span>Equipos</span></li>
       <li><i class="bi bi-person"></i> <span>Perfil</span></li>

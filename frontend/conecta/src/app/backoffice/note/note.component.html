@@ -1,3 +1,6 @@
+
+<div class="note-wrapper" [ngClass]="{ 'folder-panel-open': isFolderPanelVisible }">
+
 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
 	@for (id of navs; track id) {
 		<li [ngbNavItem]="id">
@@ -18,3 +21,5 @@
 <div [ngbNavOutlet]="nav" class="mt-2"></div>
 
 <pre>Active: {{ active }}</pre>
+<p>{{project?.name}}</p>
+</div>
