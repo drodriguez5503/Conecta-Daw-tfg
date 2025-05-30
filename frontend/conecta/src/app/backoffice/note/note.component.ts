@@ -5,6 +5,7 @@ import { Project } from '../../services/interfaces/project';
 import { ComunicationService } from '../../services/comunication/comunication.service';
 import { CommonModule } from '@angular/common';
 import { Note } from '../../services/interfaces/note';
+import { NoteService } from '../../services/notes/note.service';
 
 @Component({
 	selector: 'ngbd-nav-dynamic',
@@ -34,36 +35,41 @@ export class NoteComponent implements OnInit {
 	isFolderPanelVisible = false;
 	selectedNotes: Note[] = [];
 	constructor( 
-		private communicationService: ComunicationService
-		
+		private communicationService: ComunicationService,
+		private noteService: NoteService
 	) {
 		
 		this.navs.forEach(id => {
 				this.notes[id] = { title: '', content: '' };
 			});
 	}
+	navs: number[] = [];
+	notes: { [id: number]: { title: string; content: string } } = {};
+	active: number | null = null;
+
 	ngOnInit(): void {
-  		const cached = localStorage.getItem('currentProject');
-		if (cached && !this.project) {
-  		this.project = JSON.parse(cached);
-		}
+			const cached = localStorage.getItem('currentProject');
+			if (cached && !this.project) {
+			this.project = JSON.parse(cached);
+			}
 
-  		this.communicationService.projectCom$.subscribe((project) => {
-    		if (project) this.project = project;
-  		});
+			this.communicationService.projectCom$.subscribe((project) => {
+				if (project) this.project = project;
+			});
 
-		this.communicationService.isFolderPanelVisible$.subscribe((visible) => {
-      	this.isFolderPanelVisible = visible;
-    });
-		this.communicationService.noteSelected$.subscribe((note) => {
-			console.log('📄 Nota recibida:', note);
-    	const alreadyExists = this.selectedNotes.some(n => n.id === note.id);
-   	 	if (!alreadyExists) {
-      	this.selectedNotes.push(note);
-		console.log('✅ Notas seleccionadas:', this.selectedNotes);
-    	} else {
-      	console.log('⚠️ Nota ya seleccionada:', note.title);
-    	}
+			this.communicationService.isFolderPanelVisible$.subscribe((visible) => {
+			this.isFolderPanelVisible = visible;
+		});
+			this.communicationService.noteSelected$.subscribe((note) => {
+				if (!note || !note.id) return;
+    // Si ya existe la pestaña, solo la activa
+    if (this.navs.includes(note.id)) {
+      this.active = note.id;
+    } else {
+      this.navs.push(note.id);
+      this.notes[note.id] = { title: note.title, content: note.content };
+      this.active = note.id;
+    }
 	});
 }
 	/*
@@ -76,13 +82,7 @@ export class NoteComponent implements OnInit {
 	*/
 
 
-	navs = [1, 2, 3, 4, 5];
 	counter = this.navs.length + 1;
-	active: number = this.navs[0];
-
-	notes: { [id: number]: { title: string; content: string } } = {};
-
-	
 
 	close(event: MouseEvent, toRemove: number) {
 		this.navs = this.navs.filter((id) => id !== toRemove);
@@ -107,9 +107,25 @@ export class NoteComponent implements OnInit {
 	// Guarda la nota (por ahora solo muestra un alert, puedes implementar persistencia real)
 	saveNote(id: number) {
 		const note = this.notes[id];
-		if (note) {
-			localStorage.setItem(`note_${id}`, JSON.stringify(note));
-			alert('Nota guardada: ' + (note.title || 'Sin título'));
+		if (note && this.project) {
+			const noteToUpdate: Note = {
+				id: id,
+				title: note.title,
+				content: note.content,
+				project: this.project.id,
+				author: 0, // Puedes ajustar esto si tienes el autor
+				created_at: '', // Puedes omitir o ajustar si tienes la fecha
+				updated_at: '',
+				tags: []
+			};
+			this.noteService.updateNote(this.project, noteToUpdate).subscribe({
+				next: () => {
+					alert('Nota guardada correctamente');
+				},
+				error: () => {
+					alert('Error al guardar la nota');
+				}
+			});
 		}
 	}
 }
