@@ -2,10 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FolderPanelComponent } from '../folder-panel/folder-panel.component';
 import { HeaderBackofficeComponent } from '../header-backoffice/header-backoffice.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { RouterOutlet } from '@angular/router';
-import { NgIf, NgClass } from '@angular/common';
+import { Router, RouterOutlet } from '@angular/router';
+import { NgIf, NgClass, AsyncPipe } from '@angular/common';
 import { SettingsComponent } from '../settings/settings.component';
 import { SidebarStatusService } from '../../services/status/sidebar-status.service';
+import { ProjectOptionsSidebarComponent } from '../project-options-sidebar/project-options-sidebar.component';
+import { ComunicationService } from '../../services/comunication/comunication.service';
 
 @Component({
   selector: 'app-layout',
@@ -18,6 +20,9 @@ import { SidebarStatusService } from '../../services/status/sidebar-status.servi
     SettingsComponent,
     NgIf,
     NgClass,
+    ProjectOptionsSidebarComponent,
+    AsyncPipe,
+    
 ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
@@ -28,12 +33,20 @@ export class LayoutComponent  {
 
   constructor(
     private sidebarStatus: SidebarStatusService,
+    private router: Router,
+    public comunicationService: ComunicationService
   ) { }
   handleSidebarToggle() {
   this.isCollapsed = !this.isCollapsed;
 }
-
+isNoteRouteActive(): boolean {
+    console.log('Ruta actual:', this.router.url);
+    return this.router.url === '/backoffice/note';
+    
+  }
   
+
+}
 
 
 
@@ -64,5 +77,5 @@ export class LayoutComponent  {
   //     this.showFolderPanel = false;
   //   }
   // }
-}
+
 

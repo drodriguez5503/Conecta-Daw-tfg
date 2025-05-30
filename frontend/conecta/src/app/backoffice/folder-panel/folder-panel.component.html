@@ -3,14 +3,14 @@
         <div class="panel-header">
             <p>Proyects</p>
             <div class="icons">
-                <i class="file bi bi-file-earmark-plus" (click)="addNote()"></i>
+                <i class="file bi bi-file-earmark-plus" (click)="addNote1()"></i>
                 <i class="folder bi bi-folder-plus"></i>
             </div>
         </div>
         <div class="notes-list notes-list--top">
-            <div *ngFor="let note of notes; let i = index" class="note-row">
+            <div *ngFor="let note of notes; let i = index" class="note-row" >
                 <i class="bi bi-file-earmark-text-fill note-icon"></i>
-                <input 
+                <input (click)="selectNote(note)"
                     class="note-input"
                     [(ngModel)]="note.name"
                     [readonly]="!note.editing"
@@ -24,4 +24,33 @@
         </div>
     </div>
     <div class="resizer" (mousedown)="startResizing($event)"></div>
+</div>
+
+<!-- MODAL PARA CREAR UNA NUEVA NOTA -->
+ <div 
+  class="modal fade show d-block note-modal-backdrop" 
+  tabindex="-1" 
+  role="dialog" 
+  *ngIf="showNoteModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title">Crear nueva nota</h5>
+        <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="cancelNoteCreation()"></button>
+      </div>
+      <div class="modal-body">
+        <input 
+          type="text" 
+          class="form-control" 
+          [(ngModel)]="newNoteTitle" 
+          placeholder="Título de la nota"
+          (keydown.enter)="confirmCreateNote()"
+        />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cancelNoteCreation()">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="confirmCreateNote()">Crear</button>
+      </div>
+    </div>
+  </div>
 </div>

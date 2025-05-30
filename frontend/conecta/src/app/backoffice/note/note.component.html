@@ -1,4 +1,10 @@
-<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" style="margin-bottom: 0;">
+
+<!--<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" style="margin-bottom: 0;">-->
+
+
+<div class="note-wrapper" [ngClass]="{ 'folder-panel-open': isFolderPanelVisible }">
+
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
 	@for (id of navs; track id) {
 		<li [ngbNavItem]="id">
 			<button ngbNavLink style="position: relative;">
@@ -34,3 +40,7 @@
 
 <div [ngbNavOutlet]="nav" class="note-fullscreen"></div>
 
+
+<pre>Active: {{ active }}</pre>
+<p>{{project?.name}}</p>
+</div>

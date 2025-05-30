@@ -1,13 +1,12 @@
 import { Component, Input, input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SidebarStatusService } from '../../services/status/sidebar-status.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { UseStateService } from '../../services/auth/use-state.service';
 import { CredentialsService } from '../../services/auth/credentials.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { ProjectService } from '../../services/notes/project.service';
-import { ProjectCreate } from '../../services/interfaces/project';
+import { Project, ProjectCreate } from '../../services/interfaces/project';
+import { ComunicationService } from '../../services/comunication/comunication.service';
 
 
 @Component({
@@ -25,14 +24,21 @@ export class SidebarComponent implements OnInit {
   showProjectForm: boolean = false;
   projectName: string = '';
   user: any=null;
-  projects: ProjectCreate[] = [];
+  projects: Project[] = [];
   showProjects: boolean = false;
 
 constructor(
   private credentialsService: CredentialsService,
   private cd: ChangeDetectorRef,
-  private projectService: ProjectService
+  private projectService: ProjectService,
+  private communicationService: ComunicationService,
+  private router: Router
 ){}
+
+navigateToProject(project: Project){
+  this.communicationService.sendProject(project);
+  this.router.navigate(['backoffice', 'note']);
+}
  ngOnInit(): void {
       this.credentialsService.getUserInfo().subscribe({
       next: (data) => {
