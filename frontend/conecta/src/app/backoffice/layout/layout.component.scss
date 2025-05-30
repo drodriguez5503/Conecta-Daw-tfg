@@ -18,15 +18,80 @@
 //     transition: margin-left 0.3s ease;
 // }
 
-.web-container{
-    width: 100%;
-    height: calc(100vh - 43px);
-    display: grid;
-    grid-template-columns: 225px 1fr;
-    margin-top: 43px; 
+.web-container {
+  width: 100%;
+  height: calc(100vh - 43px);
+  display: grid;
+  grid-template-columns: auto 1fr; /* Por defecto: sidebar principal y contenido */
+  margin-top: 43px;
 
-    &.collapsed {
-        grid-template-columns: 45px 1fr;
-    }
+  &.collapsed {
+    grid-template-columns: auto 1fr; /* Sidebar principal colapsado y contenido */
+  }
+
+  &.has-project-options {
+    grid-template-columns: auto 1fr; /* Sidebar principal (auto), Contenido (1fr), Sidebar opciones (auto) */
+  }
+   &.folder-panel-open.has-project-options {
+    grid-template-columns: auto 300px 1fr; /* Sidebar principal, Opciones, Folder Panel, Contenido */
+  }
+}
+
+.sidebar-container {
+  width: 225px;
+
+  .web-container.collapsed & {
+    width: 45px;
+  }
+}
+
+
+.project-options-sidebar-container {
+  width: 44px;
+}
+
+
+.main-content {
+  /* Ocupa la segunda columna del grid por defecto */
+  width: auto;
+  box-sizing: border-box;
+}
+
+.folder-panel {
+  width: 300px;
+  position: absolute;
+  top: 43px;
+  height: calc(100vh - 43px);
+  z-index: 2;
+  background-color: #333;
+  color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Cuando el sidebar principal NO está colapsado */
+.web-container:not(.collapsed) .folder-panel {
+  left: calc(44px + 225px); /* Ancho del project-options + Ancho del sidebar principal */
+}
+
+/* Cuando el sidebar principal ESTÁ colapsado */
+.web-container.collapsed .folder-panel {
+  left: calc(44px + 45px); /* Ancho del project-options + Ancho del sidebar principal colapsado */
+}
+
+/* Ajustar el margen izquierdo del main-content cuando el folder panel está abierto */
+.web-container.folder-panel-open.has-project-options .main-content {
+  /* Calculamos el margen basado en si el sidebar principal está colapsado o no */
+  margin-left: calc(44px + 300px + (var(--sidebar-width)));
+}
+
+/* Definimos una variable CSS para el ancho del sidebar principal */
+:root {
+  --sidebar-width-expanded: 225px;
+  --sidebar-width-collapsed: 45px;
+  --sidebar-width: var(--sidebar-width-expanded); /* Por defecto */
+}
+
+.web-container.collapsed {
+  --sidebar-width: var(--sidebar-width-collapsed);
 }
 

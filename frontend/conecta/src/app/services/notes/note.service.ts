@@ -5,6 +5,7 @@ import {Note} from '../interfaces/note';
 import {enviroment} from '../../../enviroments/enviroment';
 import {Link} from '../interfaces/link';
 import {Tag} from '../interfaces/tag';
+import { NoteCreate } from '../interfaces/note';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class NoteService {
 
   constructor(private http: HttpClient) { }
 
-  createNote(project:Project, note:Note){
+  createNote(project:Project, note:NoteCreate){
     return this.http.post<any>(`${enviroment.apiUrl}/projects/${project.id}/notes/`,note );
   }
 
@@ -26,7 +27,7 @@ export class NoteService {
   }
 
   getNotesInProject(project:Project){
-    return this.http.get<any>(`${enviroment.apiUrl}/projects/${project.id}/`);
+    return this.http.get<any>(`${enviroment.apiUrl}/projects/${project.id}/notes/`);
   }
 
   getNoteById(project:Project, note:Note){

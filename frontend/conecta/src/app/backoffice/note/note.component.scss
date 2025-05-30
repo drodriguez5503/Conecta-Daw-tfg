@@ -1,3 +1,22 @@
+
+
+.note-wrapper {
+  transition: margin-left 0.3s ease;
+
+  &.folder-panel-open {
+    margin-left: 335px; // ajusta al ancho de tu folder-panel
+    // O usa width si necesitas que reduzca el área visible
+    // width: calc(100% - 250px);
+  }
+}
+:host {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+
 .grid-stack {
     font-family: "IBM Plex Mono";
     background-color: #2d2d2d;

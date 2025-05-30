@@ -10,6 +10,8 @@ import { authGuard } from './services/guards/auth.guard.service';
 import { NoteComponent } from './backoffice/note/note.component';
 import { ConectionsComponent } from './backoffice/conections/conections.component';
 import { UserComponent } from './backoffice/user/user.component';
+import { ProjectOptionsSidebarComponent } from './backoffice/project-options-sidebar/project-options-sidebar.component';
+import { FolderPanelComponent } from './backoffice/folder-panel/folder-panel.component';
 
 export const routes: Routes = [
 
@@ -25,10 +27,11 @@ export const routes: Routes = [
         path: "backoffice",  component: LayoutComponent, children: [
             {path: "header-backoffice", component: HeaderBackofficeComponent},
             {path: "sidebar", component: SidebarComponent},
-            {path: "note", component: NoteComponent},
             {path: "conections", component: ConectionsComponent},
             {path: "user", component: UserComponent},
-            
+            {path: "project-options", component: ProjectOptionsSidebarComponent},
+            {path: "note", component: NoteComponent },
+            {path: "folder-panel", component: FolderPanelComponent}
         ]
     },
 

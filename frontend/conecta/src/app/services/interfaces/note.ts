@@ -8,3 +8,4 @@ export interface Note {
   updated_at: string;
   tags: string[];
 }
+export type NoteCreate = Pick<Note, 'title'| 'project' | 'content'>;
