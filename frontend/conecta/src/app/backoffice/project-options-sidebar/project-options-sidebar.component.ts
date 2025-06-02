@@ -31,7 +31,18 @@ export class ProjectOptionsSidebarComponent  {
     this.comunicationService.toggleFolderPanelVisibility(); // Llama al servicio para alternar el panel de carpetas
   }
 
-  
+  navigateToConections(): void {
+  const currentProject = this.comunicationService.currentProject;
+
+  if (currentProject) {
+    // vuelve a enviar el proyecto por seguridad (aunque ya esté en el service)
+    this.comunicationService.sendProject(currentProject);
+    this.router.navigate(['/backoffice/conections']);
+  } else {
+    // Aquí podrías mostrar un error o redirigir al selector de proyectos
+    console.warn("No hay un proyecto seleccionado para mostrar conexiones.");
+  }
+}
 }
 
 

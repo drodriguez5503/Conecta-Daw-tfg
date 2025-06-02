@@ -60,12 +60,21 @@
 //     }
 // }
 .sidebar-container {
-  width: 225px;
+  width: 200px;
   height: calc(100vh - 43px); // altura total menos el header
   transition: width 0.3s;
   overflow-x: hidden;
   background-color: #303030;
+  color: #7B7B7B;
+  
+  nav {
+    color: #7B7B7B;
 
+    i{
+      font-size: 2rem; 
+
+    }
+  }
   &.hide-me {
     width: 64px; // ancho colapsado
     span, h2 {
@@ -91,9 +100,7 @@
     border: none;
     cursor: pointer;
 
-    i {
-      font-size: 18px;
-    }
+    
   }
 
   ul {
@@ -107,9 +114,9 @@
       padding: 10px 16px;
       cursor: pointer;
 
-      &:hover {
-        background-color: #f0f0f0;
-      }
+      // &:hover {
+      //   background-color: #f0f0f0;
+      // }
 
       i {
         font-size: 20px;
@@ -150,4 +157,12 @@
   height: 36px;
   border-radius: 50%;
   background-color: #aaa; // simula una foto de perfil
+}
+.hover-click {
+    &:hover {
+        cursor: pointer;
+        color: #ffffff;
+        transform: scale(1.1);
+        transition: transform 0.2s ease-in-out; /* Añade una transición suave */
+    }
 }

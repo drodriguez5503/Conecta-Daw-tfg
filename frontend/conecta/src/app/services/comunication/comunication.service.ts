@@ -22,6 +22,12 @@ export class ComunicationService {
 
   constructor() { }
 
+  
+
+  get currentProject(): Project | null {
+  return this.projectCom.value;
+}
+
   sendProject(project: Project) {
     this.projectCom.next(project);
   }

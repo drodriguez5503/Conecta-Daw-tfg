@@ -39,11 +39,15 @@ export class LayoutComponent  {
   handleSidebarToggle() {
   this.isCollapsed = !this.isCollapsed;
 }
-isNoteRouteActive(): boolean {
-    console.log('Ruta actual:', this.router.url);
-    return this.router.url === '/backoffice/note';
-    
-  }
+shouldShowProjectOptionsSidebar(): boolean {
+  const validRoutes = [
+    '/backoffice/note',
+    '/backoffice/conections',
+    // puedes agregar más aquí si quieres que se muestre también en otras
+  ];
+  return validRoutes.some(route => this.router.url.startsWith(route));
+}
+
   
 
 }
