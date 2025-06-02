@@ -30,10 +30,9 @@ export class FolderPanelComponent {
     private comunicationService: ComunicationService,
     private noteService: NoteService
     ////////////////2
-  
   ) {
-    //this.loadNotes();
-     this.loadNotesFromAPI();
+    this.loadNotes(); // Cargar desde localStorage primero
+    this.loadNotesFromAPI(); // Luego intentar cargar desde backend
   }
   /////////////////////////////////////////////1 funciones sara
    ngOnInit() {
@@ -74,21 +73,18 @@ console.log('📦 Payload enviado a la API:', newNote);
 }
 loadNotesFromAPI() {
   if (!this.currentProject) return;
-
   this.noteService.getNotesInProject(this.currentProject).subscribe({
-
-      
     next: (notesFromApi) => {
-      console.log('📥 Respuesta de la API:', notesFromApi);
       this.notes = notesFromApi.map((note: any) => ({
         ...note,
         name: note.title,
         editing: false
       }));
-      this.saveNotes(); // opcional: guardar en localStorage si quieres conservarlos al refrescar
+      this.saveNotes();
     },
-    error: (err) => {
+    error: (err: any) => {
       console.error('Error al cargar las notas desde la API', err);
+      this.loadNotes(); // Fallback a localStorage si falla la API
     }
   });
 }
