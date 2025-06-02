@@ -6,7 +6,8 @@ import { CredentialsService } from '../../services/auth/credentials.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { ProjectService } from '../../services/notes/project.service';
 import { Project, ProjectCreate } from '../../services/interfaces/project';
-import { ComunicationService } from '../../services/comunication/comunication.service';
+import {ComunicationService} from '../../services/comunication/comunication.service';
+
 
 
 @Component({
