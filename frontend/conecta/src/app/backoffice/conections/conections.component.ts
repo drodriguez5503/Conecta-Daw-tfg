@@ -7,6 +7,7 @@ import { AiAnalysisService } from '../../services/notes/ai-analysis.service';
 import Sigma from 'sigma';
 import Graph from 'graphology';
 import ForceSupervisor from 'graphology-layout-force/worker';
+import { ComunicationService } from '../../services/comunication/comunication.service';
 
 @Component({
   selector: 'app-conections',
@@ -32,20 +33,34 @@ export class ConectionsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private projectService: ProjectService,
     private popUpService: PopUpService,
-    private aiAnalysisService: AiAnalysisService
+    private aiAnalysisService: AiAnalysisService,
+    private comunicationService: ComunicationService
   ) {}
 
-  ngOnInit(): void {
-    this.projectService.getProjects().subscribe({
-      next: async (data) => {
-        this.userProjects = data;
-        await this.chooseProject();
+  // ngOnInit(): void {
+  //   this.projectService.getProjects().subscribe({
+  //     next: async (data) => {
+  //       this.userProjects = data;
+  //       await this.chooseProject();
+  //       this.getAIanalysis();
+  //     },
+  //     error: (error) => console.error(error)
+  //   });
+  // }
+ngOnInit(): void {
+  this.comunicationService.projectCom$.subscribe({
+    next: (project) => {
+      if (project) {
+        this.chosenProject = project;
         this.getAIanalysis();
-      },
-      error: (error) => console.error(error)
-    });
-  }
-
+      } else {
+        // Opcional: podrías redirigir o mostrar una alerta si no hay proyecto
+        console.warn('No hay proyecto seleccionado');
+      }
+    },
+    error: (err) => console.error(err)
+  });
+}
   async chooseProject() {
     const selectedName = await this.popUpService.showOptionDialog(
       "Elige un proyecto",
