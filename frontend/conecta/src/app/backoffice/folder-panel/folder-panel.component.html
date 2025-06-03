@@ -19,7 +19,7 @@
                     placeholder="Nueva nota..."
                 />
                 <i class="bi bi-pencil-square note-edit" (click)="editNote(i)"></i>
-                <i *ngIf="note.name" class="bi bi-x-lg note-delete" (click)="deleteNote(i)"></i>
+                <i *ngIf="note.name" class="bi bi-x-lg note-delete" (click)="deleteNote(i, note)"></i>
             </div>
         </div>
     </div>
@@ -27,10 +27,10 @@
 </div>
 
 <!-- MODAL PARA CREAR UNA NUEVA NOTA -->
- <div 
-  class="modal fade show d-block note-modal-backdrop" 
-  tabindex="-1" 
-  role="dialog" 
+ <div
+  class="modal fade show d-block note-modal-backdrop"
+  tabindex="-1"
+  role="dialog"
   *ngIf="showNoteModal">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content bg-dark text-white">
@@ -39,10 +39,10 @@
         <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="cancelNoteCreation()"></button>
       </div>
       <div class="modal-body">
-        <input 
-          type="text" 
-          class="form-control" 
-          [(ngModel)]="newNoteTitle" 
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="newNoteTitle"
           placeholder="Título de la nota"
           (keydown.enter)="confirmCreateNote()"
         />

@@ -18,18 +18,22 @@ export class ComunicationService {
 
   private noteSelectedSource = new Subject<Note>();
   noteSelected$ = this.noteSelectedSource.asObservable();
-  
+
 
   constructor() { }
 
-  
+
 
   get currentProject(): Project | null {
-  return this.projectCom.value;
-}
+    if (!this.projectCom.value){
+      this.projectCom.next(JSON.parse(<string>localStorage.getItem('project')));
+    }
+    return this.projectCom.value;
+  }
 
   sendProject(project: Project) {
     this.projectCom.next(project);
+    localStorage.setItem('project', JSON.stringify(project));
   }
 
   toggleFolderPanelVisibility() {
@@ -49,6 +53,7 @@ export class ComunicationService {
   selectNote(note: Note) {
     this.noteSelectedSource.next(note);
   }
+
 
   // deleteNote(noteId: string | number) {
   //   const filtered = this.notesSubject.value.filter(n => n.id !== noteId);

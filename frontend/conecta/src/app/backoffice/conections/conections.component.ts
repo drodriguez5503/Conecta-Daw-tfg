@@ -72,7 +72,7 @@ ngOnInit(): void {
   }
 
   getAIanalysis() {
-    if (this.chosenProject) {
+    if (this.chosenProject && this.projectAnalysis.length === 0) {
       this.aiAnalysisService.listAiAnalysis(this.chosenProject).subscribe({
         next: (data) => {
           this.projectAnalysis = data;
