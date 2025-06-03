@@ -1,4 +1,4 @@
-import { Component, HostListener, Renderer2 } from '@angular/core';
+import {Component, HostListener, OnInit, Renderer2} from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -14,32 +14,31 @@ import { NoteCreate } from '../../services/interfaces/note';
   templateUrl: './folder-panel.component.html',
   styleUrl: './folder-panel.component.scss'
 })
-export class FolderPanelComponent {
-  //////1 Variables sara
+export class FolderPanelComponent implements OnInit {
   newNoteTitle = '';
   currentProject: Project | null = null;
   showNoteModal = false;
-  ///////2
-
   private resizing = false;
   notes: Array<{ name: string; editing: boolean }> = [];
 
   constructor(
     private renderer: Renderer2,
-    //////////////1 inyeccion sara
     private comunicationService: ComunicationService,
     private noteService: NoteService
-    ////////////////2
   ) {
-    this.loadNotes(); // Cargar desde localStorage primero
-    this.loadNotesFromAPI(); // Luego intentar cargar desde backend
+    this.loadNotes();
+    this.loadNotesFromAPI();
   }
-  /////////////////////////////////////////////1 funciones sara
+
    ngOnInit() {
     this.comunicationService.projectCom$.subscribe((project) => {
       this.currentProject = project;
-      this.loadNotesFromAPI(); // Cargar notas al iniciar
+      this.loadNotesFromAPI();
     });
+
+    if(!this.currentProject){
+      this.currentProject = this.comunicationService.currentProject;
+    }
   }
 
  addNote1() {
@@ -57,12 +56,12 @@ confirmCreateNote() {
   const newNote = {
     title: this.newNoteTitle,
     project: this.currentProject.id,
-    content: '.', // Asegúrate de enviar contenido si es obligatorio
+    content: '.',
   };
-console.log('📦 Payload enviado a la API:', newNote);
+  console.log('📦 Payload enviado a la API:', newNote);
   this.noteService.createNote(this.currentProject, newNote).subscribe({
     next: (createdNote) => {
-      this.notes.push(createdNote); //{ name: createdNote.title, editing: false } Necesitaba quitar esto para pasar las notas por id
+      this.notes.push(createdNote);
       this.saveNotes();
       this.showNoteModal = false;
     },
@@ -84,19 +83,19 @@ loadNotesFromAPI() {
     },
     error: (err: any) => {
       console.error('Error al cargar las notas desde la API', err);
-      this.loadNotes(); // Fallback a localStorage si falla la API
+      this.loadNotes();
     }
   });
 }
 
 selectNote(note: any) {
   this.comunicationService.selectNote(note);
-  console.log('📄 Nota clicada:', note); 
+  console.log('📄 Nota clicada:', note);
 }
 
 
 
-////////TOCADO POR SARA///////////////////////2
+
   loadNotes() {
     const notesJson = localStorage.getItem('folderPanelNotes');
     if (notesJson) {
@@ -108,10 +107,9 @@ selectNote(note: any) {
     }
   }
 
-  //las notas se guardan en el folder-panel
-  // y se guardan en el localStorage
+
   saveNotes() {
-    localStorage.setItem('folderPanelNotes', JSON.stringify(this.notes)); // Guardar en localStorage 
+    localStorage.setItem('folderPanelNotes', JSON.stringify(this.notes));
   }
 
   startResizing(event: MouseEvent) {
@@ -124,7 +122,7 @@ selectNote(note: any) {
   onMouseMove(event: MouseEvent) {
     if (!this.resizing) return;
 
-    const newWidth = event.clientX - 80; // 80 = sidebar width
+    const newWidth = event.clientX - 80;
     const min = 200;
     const max = 600;
     const width = Math.max(min, Math.min(max, newWidth));
@@ -166,7 +164,7 @@ selectNote(note: any) {
     this.saveNotes();
   }
 
-  deleteNote(index: number) {
+  async deleteNote(index: number, note:any) {
     Swal.fire({
       title: 'Are you sure?',
       html: '<span style="color:rgb(255, 255, 255);">You won\'t be able to revert this!</span>',
@@ -181,8 +179,18 @@ selectNote(note: any) {
         cancelButton: 'swal2-cancel',
         title: 'swal2-title'
       }
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
+        if (this.currentProject) {
+          this.noteService.deleteNote(this.currentProject, note).subscribe({
+            next: (data) => {
+              console.log('Nota eliminada:', data);
+            },
+            error: (err) => {
+              console.error('Error al eliminar la nota', err);
+            }
+          })
+        }
         this.notes.splice(index, 1);
         this.saveNotes();
         Swal.fire({
