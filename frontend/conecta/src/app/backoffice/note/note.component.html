@@ -7,7 +7,7 @@
       @for (id of navs; track id) {
         <li [ngbNavItem]="id">
           <button ngbNavLink style="position: relative;">
-            {{ notes[id].title || 'Untitled' }}
+            <span class="tab-title">{{ notes[id].title || 'Untitled' }}</span>
             <span class="btn-close ms-3 fw-light" (click)="close($event, id)">×</span>
           </button>
           <ng-template ngbNavContent>
