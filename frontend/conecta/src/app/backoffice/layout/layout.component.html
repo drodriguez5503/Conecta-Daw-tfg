@@ -11,13 +11,13 @@
 <app-header-backoffice (toggleSidebar)="handleSidebarToggle()"></app-header-backoffice>
 
 <div class="web-container" [class.collapsed]="isCollapsed" [class.folder-panel-open]="comunicationService.isFolderPanelVisible$ | async">
-  <div class="sidebar-container" *ngIf="!isNoteRouteActive()">
+  <div class="sidebar-container" *ngIf="!shouldShowProjectOptionsSidebar()">
     <app-sidebar [collapsed]="isCollapsed"></app-sidebar>
   </div>
-  <div class="project-options-sidebar-container" *ngIf="isNoteRouteActive()">
+  <div class="project-options-sidebar-container" *ngIf="shouldShowProjectOptionsSidebar()">
     <app-project-options-sidebar></app-project-options-sidebar>
   </div>
-  <div class="main-content" [class.has-project-options]="isNoteRouteActive()">
+  <div class="main-content" [class.has-project-options]="shouldShowProjectOptionsSidebar()">
     <router-outlet></router-outlet>
   </div>
 </div>

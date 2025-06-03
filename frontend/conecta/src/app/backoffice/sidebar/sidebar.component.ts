@@ -6,7 +6,8 @@ import { CredentialsService } from '../../services/auth/credentials.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { ProjectService } from '../../services/notes/project.service';
 import { Project, ProjectCreate } from '../../services/interfaces/project';
-import { ComunicationService } from '../../services/comunication/comunication.service';
+import {ComunicationService} from '../../services/comunication/comunication.service';
+
 
 
 @Component({
@@ -23,7 +24,7 @@ export class SidebarComponent implements OnInit {
   @Input() collapsed: boolean = false;
   showProjectForm: boolean = false;
   projectName: string = '';
-  user: any=null;
+  user: any ;
   projects: Project[] = [];
   showProjects: boolean = false;
 
@@ -42,7 +43,7 @@ navigateToProject(project: Project){
  ngOnInit(): void {
       this.credentialsService.getUserInfo().subscribe({
       next: (data) => {
-        this.user = data;
+        this.user = data.user;
         console.log('Usuario cargado:', data);
         this.cd.detectChanges();
         this.loadProjects();
