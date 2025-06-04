@@ -31,7 +31,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
         return from(credentialsService.refreshToken(refreshToken)).pipe(
           switchMap((tokens: any) => {
             tokenService.saveTokens(tokens.access, tokens.refresh);
-            
+
             const retryReq = req.clone({
               setHeaders: {
                 ...headers,
