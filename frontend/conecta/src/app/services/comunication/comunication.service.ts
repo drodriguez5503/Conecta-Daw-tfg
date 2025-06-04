@@ -9,7 +9,9 @@ import { UserInterface } from '../interfaces/user-interface';
 })
 export class ComunicationService {
 
-  userCom: BehaviorSubject<UserInterface|null> = new BehaviorSubject<UserInterface|null>(null);
+  userCom: BehaviorSubject<UserInterface|null> = new BehaviorSubject<UserInterface|null>(
+  JSON.parse(localStorage.getItem('user') || 'null')
+);
   userCom$ = this.userCom.asObservable();
 
   projectCom:BehaviorSubject<Project|null> = new BehaviorSubject<Project|null>(null);
@@ -30,6 +32,7 @@ export class ComunicationService {
   
   sendUser(user: UserInterface) {
     this.userCom.next(user);
+     localStorage.setItem('user', JSON.stringify(user));
   }
 
   get currentUser(): UserInterface | null {

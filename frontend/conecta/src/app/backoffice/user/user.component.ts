@@ -31,11 +31,8 @@ export class UserComponent implements OnInit {
 
 ngOnInit() {
   this.comunicationService.userCom$.subscribe(user => {
-    if (user) {
-      this.user = user;
-      console.log('Usuario recibido en UserComponent:', this.user);
-      this.cdr.detectChanges();
-    }
+    this.user = user;
+    this.cdr.detectChanges();
   });
 }
   async editarPerfil() {
@@ -44,9 +41,9 @@ ngOnInit() {
       html:
         // `<input id="swal-input1" class="swal2-input" placeholder="Nombre" value="${this.user?.first_name}">` +
         // `<input id="swal-input2" class="swal2-input" placeholder="Nombre" value="${this.user?.last_name}">` +
-        `<input id="swal-input3" class="swal2-input" placeholder="Nombre" value="${this.user?.username}">` +
+        `<input id="swal-input3" class="swal2-input" placeholder="Nombre de usuario" value="${this.user?.username}">` +
         `<input id="swal-input4" class="swal2-input" placeholder="Email" type="email" value="${this.user?.email}">` +
-        `<input id="swal-input5" class="swal2-input" placeholder="Contraseña" value="${this.user?.password }">`,
+        `<input id="swal-input5" class="swal2-input" placeholder="Nueva contraseña" >`,
       focusConfirm: false,
       showCancelButton: true,
       confirmButtonText: 'Save',
@@ -69,8 +66,6 @@ ngOnInit() {
     if (formValues && this.user) {
       const updatedUser: UserInterface = {
       ...this.user,
-      first_name: formValues.first_name,
-      last_name: formValues.last_name,
       email: formValues.email,
       username: formValues.username,
       password: formValues.password,

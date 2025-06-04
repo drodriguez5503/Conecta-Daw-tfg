@@ -40,14 +40,21 @@ export class SignUpComponent {
   GoToSignIn(){
     this.router.navigate(['sign-in']);
   }
-
-  onSubmit(){
+ onSubmit(){
     if(this.registerForm.valid){
       this.CredentialsService.register(this.registerForm.value as UserInterface).subscribe({
         next: (data:any)=>{
           console.log(data);
-          this.tokenService.saveTokens(data.access, data.refresh)
-          this.router.navigate(['sign-in']);
+          this.CredentialsService.login(this.registerForm.value as UserInterface).subscribe({
+            next: (data:any)=>{
+              this.tokenService.saveTokens(data.access, data.refresh)
+              this.router.navigate(['backoffice']);
+            },
+            error: (error:any)=>{
+              console.log(error);
+              alert('Error al iniciar sesion');
+            }
+          })
         },
         error: (error:any)=>{
           console.log(error);
@@ -59,4 +66,5 @@ export class SignUpComponent {
       alert('Registro no valido');
     }
   }
+  
 }
