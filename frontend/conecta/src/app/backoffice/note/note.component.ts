@@ -48,6 +48,20 @@ export class NoteComponent implements OnInit {
 	active: number | null = null;
 
 	ngOnInit(): void {
+		// Restaurar estado de pestañas abiertas y activa desde localStorage
+		const cachedNavs = localStorage.getItem('noteNavs');
+		const cachedNotes = localStorage.getItem('noteNotes');
+		const cachedActive = localStorage.getItem('noteActive');
+		if (cachedNavs) {
+			this.navs = JSON.parse(cachedNavs);
+		}
+		if (cachedNotes) {
+			this.notes = JSON.parse(cachedNotes);
+		}
+		if (cachedActive) {
+			this.active = +cachedActive;
+		}
+
 			const cached = localStorage.getItem('currentProject');
 			if (cached && !this.project) {
 			this.project = JSON.parse(cached);
@@ -62,25 +76,22 @@ export class NoteComponent implements OnInit {
 		});
 			this.communicationService.noteSelected$.subscribe((note) => {
 				if (!note || !note.id) return;
-    // Si ya existe la pestaña, solo la activa
-    if (this.navs.includes(note.id)) {
-      this.active = note.id;
-    } else {
-      this.navs.push(note.id);
-      this.notes[note.id] = { title: note.title, content: note.content };
-      this.active = note.id;
-    }
+				if (this.navs.includes(note.id)) {
+					this.active = note.id;
+				} else {
+					this.navs.push(note.id);
+					this.notes[note.id] = { title: note.title, content: note.content };
+					this.active = note.id;
+				}
+				this.saveTabsState();
 	});
 }
-	/*
-	constructor() {
-			// Inicializa una nota vacía para cada tab
-			this.navs.forEach(id => {
-				this.notes[id] = { title: '', content: '' };
-			});
-		}
-	*/
 
+saveTabsState() {
+	localStorage.setItem('noteNavs', JSON.stringify(this.navs));
+	localStorage.setItem('noteNotes', JSON.stringify(this.notes));
+	localStorage.setItem('noteActive', this.active !== null ? this.active.toString() : '');
+}
 
 	counter = this.navs.length + 1;
 
@@ -89,7 +100,10 @@ export class NoteComponent implements OnInit {
 		delete this.notes[toRemove];
 		if (this.active === toRemove && this.navs.length) {
 			this.active = this.navs[0];
+		} else if (this.navs.length === 0) {
+			this.active = null;
 		}
+		this.saveTabsState();
 		event.preventDefault();
 		event.stopImmediatePropagation();
 	}
@@ -101,6 +115,7 @@ export class NoteComponent implements OnInit {
 		if (!this.active) {
 			this.active = this.navs[0];
 		}
+		this.saveTabsState();
 		event.preventDefault();
 	}
 

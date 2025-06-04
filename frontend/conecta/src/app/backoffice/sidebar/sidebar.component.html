@@ -1,39 +1,39 @@
 <div class="sidebar-container" [class.hide-me]="collapsed">
   <!-- Íconos y contenido del sidebar -->
    <div class="user-profile d-flex align-items-center p-3" *ngIf="user">
-     <div class="avatar me-2"></div>
-     <span class=" text-white fw-bold px-2" >{{ user?.username }}</span>
-   </div>
-   <div class="d-flex flex-column justify-content-between align-items-center p-3">
+    <!--<div class="avatar me-2"></div>-->
+    <span class=" text-white fw-bold px-2" >{{ user?.username }}</span>
+    </div>
+    <div class="d-flex flex-column justify-content-between align-items-center p-3">
     <button style="background-color: #FF8B0F;" class="btn w-100 mb-3 px-1 text-white" (click)="toggleProjectForm()"> <!-- siempre visible -->
       <i class="bi bi-plus-circle px-2"></i>
-      <span>Proyecto</span>
+      <span>Proyect</span>
     </button>
-    <!-- <button style="background-color:#035468;" class="btn w-100 px-1 text-white">
+    <button style="background-color:#696b6b;" class="btn w-100 px-1 text-white">
       <i class="bi bi-people-fill px-2"></i>
-      <span>Crear equipo</span>
-    </button> -->
+      <span>Crete team</span>
+    </button>
   </div>
 
   <nav>
     <ul>
-      <li (click)="toggleProjectsList()">
+      <li (click)="onProjectsIconClick()">
         <div class="hover-click d-flex flex-row align-items-center">
           <i class="bi bi-folder-fill"></i> 
-          <span class="px-2">Proyectos</span>
+          <span class="px-2">Proyects</span>
         </div>
         
       </li>
-      <ul *ngIf="showProjects" class="list-unstyled ps-4 mt-2" style="font-size: 0.9rem;">
+      <ul *ngIf="showProjects && !collapsed" class="list-unstyled ps-4 mt-2" style="font-size: 0.9rem;">
         <li
           *ngFor="let project of projects"
           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
           (click)="navigateToProject(project)"
-    >
-      <i class="bi bi-folder-fill me-2"></i> 
-      <span class="flex-grow-1">{{ project.name }}</span>
-    </li>
-</ul>
+        >
+          <i class="bi bi-folder-fill me-2"></i> 
+          <span class="flex-grow-1">{{ project.name }}</span>
+        </li>
+      </ul>
 
       <!-- <li><i class="bi bi-people-fill"></i> <span>Equipos</span></li> -->
      <li (click)="navigateToProfile()">
@@ -49,24 +49,24 @@
 <!-- MODAL CREATE PROYECT-->
 <div *ngIf="showProjectForm" class="custom-modal-overlay">
   <div class="custom-modal text-black">
-    <h5 class="mb-3">Nuevo Proyecto</h5>
+    <h5 class="mb-3">New Proyect</h5>
     
     <form (ngSubmit)="createProject()" #projectForm="ngForm">
       <div class="mb-3">
-        <label for="projectName" class="form-label">Nombre:</label>
         <input
-          type="text"
-          id="projectName"
-          name="projectName"
-          class="form-control"
-          required
-          [(ngModel)]="projectName"
-        />
+  type="text"
+  id="projectName"
+  name="projectName"
+  class="form-control"
+  required
+  [(ngModel)]="projectName"
+  placeholder="Title"
+/>
       </div>
 
       <div class="d-flex justify-content-end gap-2">
-        <button type="submit" class="btn btn-success" [disabled]="!projectForm.valid">Crear</button>
-        <button type="button" class="btn btn-secondary" (click)="toggleProjectForm()">Cancelar</button>
+        <button type="submit" class="btn btn-success" [disabled]="!projectForm.valid">Create</button>
+        <button type="button" class="btn btn-secondary" (click)="toggleProjectForm()">Cancel</button>
       </div>
     </form>
   </div>

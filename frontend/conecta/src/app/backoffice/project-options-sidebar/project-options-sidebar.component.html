@@ -1,12 +1,14 @@
 <aside class="sidebar z-1 container-fluid d-flex flex-column align-items-center">
     <div class="container-logo-top d-flex flex-column align-items-center">
-        <i class="bi bi-file-earmark-text-fill hover-click" (click)="navigateTo('/backoffice/note')"></i>
-        <i class="bi bi-collection-fill hover-click" (click)="toggleFolderPanel()"></i>
-        <i class="bi bi-diagram-3-fill hover-click"  (click)="navigateToConections()"></i>
+        <i class="bi bi-file-earmark-text-fill hover-click"
+           (click)="navigateTo('/backoffice/note')"
+           title ="Notes"></i>
+        <i class="bi bi-collection-fill hover-click" (click)="toggleFolderPanel()" title="Folder"></i>
+        <i class="bi bi-diagram-3-fill hover-click"  (click)="navigateToConections()" title="Diagrams"></i>
         <!--<i class="bi bi-gear-fill hover-click" (click)="navigateTo('/backoffice/settings')"></i>-->
     </div>
     <div class="container-logo-top d-flex flex-column align-items-center">
-            <i class="bi bi-house-door-fill hover-click" (click)="navigateTo('/backoffice/')"></i>
+            <i class="bi bi-house-door-fill hover-click" (click)="navigateTo('/backoffice/')" title="Home"></i>
     </div>   
     <app-folder-panel *ngIf="comunicationService.isFolderPanelVisible$ | async"></app-folder-panel>
 </aside>

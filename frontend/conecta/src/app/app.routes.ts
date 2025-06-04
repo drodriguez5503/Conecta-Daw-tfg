@@ -18,7 +18,7 @@ import { ContentComponent } from './backoffice/content/content.component';
 export const routes: Routes = [
 
     //home
-    {path: "", component: HomeComponent},
+    {path: "",/*canActivate:[publicGuard],*/ component: HomeComponent},
     {path: "sign-in",canActivate:[publicGuard], component: SignInComponent},
     {path: "sign-up",canActivate:[publicGuard], component: SignUpComponent},
     {path: "contact",canActivate:[publicGuard], component: ContactComponent},

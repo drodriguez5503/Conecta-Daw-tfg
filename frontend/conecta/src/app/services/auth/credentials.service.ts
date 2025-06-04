@@ -23,8 +23,8 @@ export class CredentialsService {
     return this.http.get<any>(`${enviroment.apiUrl}/check-token/`);
   }
 
-  refreshToken(): Observable<any> {
-    return this.http.get<any>(`${enviroment.apiUrl}/token/refresh/`);
+  refreshToken(refresh:string): Observable<any> {
+    return this.http.post<any>(`${enviroment.apiUrl}/token/refresh/`,{refresh:refresh});
   }
 
   getUserByUserName(username:string): Observable<any> {
