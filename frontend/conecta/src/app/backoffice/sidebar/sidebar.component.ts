@@ -36,6 +36,11 @@ constructor(
   private router: Router
 ){}
 
+navigateToProfile() {
+  this.communicationService.sendUser(this.user);
+  this.router.navigate(['/backoffice/user']); // o la ruta que hayas definido
+}
+
 navigateToProject(project: Project){
   this.communicationService.sendProject(project);
   this.router.navigate(['backoffice', 'note']);

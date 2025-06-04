@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Project } from '../interfaces/project';
 import { Note, NoteCreate } from '../interfaces/note';
+import { UserInterface } from '../interfaces/user-interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComunicationService {
+
+  userCom: BehaviorSubject<UserInterface|null> = new BehaviorSubject<UserInterface|null>(null);
+  userCom$ = this.userCom.asObservable();
 
   projectCom:BehaviorSubject<Project|null> = new BehaviorSubject<Project|null>(null);
   projectCom$ = this.projectCom.asObservable();
@@ -23,6 +27,14 @@ export class ComunicationService {
   constructor() { }
 
 
+  
+  sendUser(user: UserInterface) {
+    this.userCom.next(user);
+  }
+
+  get currentUser(): UserInterface | null {
+    return this.userCom.value;
+  }
 
   get currentProject(): Project | null {
     if (!this.projectCom.value){

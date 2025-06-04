@@ -12,6 +12,7 @@ import { ConectionsComponent } from './backoffice/conections/conections.componen
 import { UserComponent } from './backoffice/user/user.component';
 import { ProjectOptionsSidebarComponent } from './backoffice/project-options-sidebar/project-options-sidebar.component';
 import { FolderPanelComponent } from './backoffice/folder-panel/folder-panel.component';
+import { ContentComponent } from './backoffice/content/content.component';
 
 export const routes: Routes = [
 
@@ -24,14 +25,19 @@ export const routes: Routes = [
 
     //backoffice
     {
-        path: "backoffice",  component: LayoutComponent, children: [
+        path: "backoffice",  
+        component: LayoutComponent, 
+        children: [
+            { path: "", redirectTo: "content", pathMatch: "full" },
+            {path: "content", component: ContentComponent},
             {path: "header-backoffice", component: HeaderBackofficeComponent},
             {path: "sidebar", component: SidebarComponent},
             {path: "conections", component: ConectionsComponent},
             {path: "user", component: UserComponent},
             {path: "project-options", component: ProjectOptionsSidebarComponent},
             {path: "note", component: NoteComponent },
-            {path: "folder-panel", component: FolderPanelComponent}
+            {path: "folder-panel", component: FolderPanelComponent},
+
         ]
     },
 
