@@ -8,6 +8,7 @@ import Sigma from 'sigma';
 import Graph from 'graphology';
 import ForceSupervisor from 'graphology-layout-force/worker';
 import { ComunicationService } from '../../services/comunication/comunication.service';
+import {NoteService} from '../../services/notes/note.service';
 
 @Component({
   selector: 'app-conections',
@@ -19,7 +20,6 @@ import { ComunicationService } from '../../services/comunication/comunication.se
 export class ConectionsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('sigmaContainer', { static: false }) sigmaContainer!: ElementRef;
 
-  userProjects: Project[] = [];
   chosenProject: Project | undefined;
   projectAnalysis: AiAnalysis[] = [];
 
@@ -31,22 +31,11 @@ export class ConectionsComponent implements OnInit, AfterViewInit, OnDestroy {
   isDragging = false;
 
   constructor(
-    private projectService: ProjectService,
-    private popUpService: PopUpService,
     private aiAnalysisService: AiAnalysisService,
-    private comunicationService: ComunicationService
+    private comunicationService: ComunicationService,
+    private noteService: NoteService
   ) {}
 
-  // ngOnInit(): void {
-  //   this.projectService.getProjects().subscribe({
-  //     next: async (data) => {
-  //       this.userProjects = data;
-  //       await this.chooseProject();
-  //       this.getAIanalysis();
-  //     },
-  //     error: (error) => console.error(error)
-  //   });
-  // }
 ngOnInit(): void {
   this.comunicationService.projectCom$.subscribe({
     next: (project) => {
@@ -54,22 +43,13 @@ ngOnInit(): void {
         this.chosenProject = project;
         this.getAIanalysis();
       } else {
-        // Opcional: podrías redirigir o mostrar una alerta si no hay proyecto
+
         console.warn('No hay proyecto seleccionado');
       }
     },
     error: (err) => console.error(err)
   });
 }
-  async chooseProject() {
-    const selectedName = await this.popUpService.showOptionDialog(
-      "Elige un proyecto",
-      this.userProjects.map(project => project.name)
-    );
-    if (selectedName) {
-      this.chosenProject = this.userProjects.find(project => project.name === selectedName);
-    }
-  }
 
   getAIanalysis() {
     if (this.chosenProject && this.projectAnalysis.length === 0) {
@@ -84,62 +64,67 @@ ngOnInit(): void {
     }
   }
 
-  createGraphFromNotes(): void {
-    this.graph.clear();
+createGraphFromNotes(): void {
+  this.graph.clear();
 
-    this.projectAnalysis.forEach((item) => {
-      const noteId = item.note.toString();
-      if (!this.graph.hasNode(noteId)) {
-        this.graph.addNode(noteId, {
-          label: `Nota ${noteId}`,
-          x: Math.random(),
-          y: Math.random(),
-          size: 10,
-          color: '#007bff'
+  this.projectAnalysis.forEach((item) => {
+    const noteId = item.note.toString();
+    if (!this.graph.hasNode(noteId)) {
+      this.graph.addNode(noteId, {
+        label: 'Cargando...',
+        x: Math.random(),
+        y: Math.random(),
+        size: 10,
+        color: '#007bff'
+      });
+
+
+      if (this.chosenProject) {
+        this.noteService.getNoteById(this.chosenProject, noteId).subscribe({
+          next: (data) => {
+            this.graph.setNodeAttribute(noteId, 'label', data.title);
+          },
+          error: (error) => {
+            console.error(`Error al cargar el título de la nota ${noteId}:`, error);
+            this.graph.setNodeAttribute(noteId, 'label', 'Error al cargar');
+          }
+        });
+      }
+    }
+  });
+
+  this.projectAnalysis.forEach(item => {
+    const source = item.note.toString();
+    Object.entries(item.noteSimilarity).forEach(([targetNote, similarity]) => {
+      const target = targetNote;
+      const similarityValue = parseFloat(similarity as any);
+      if (similarityValue > 0.6 && source !== target && !this.graph.hasEdge(source, target) && !this.graph.hasEdge(target, source)) {
+        this.graph.addEdge(source, target, {
+          label: null,
+          originalLabel: `${(similarityValue * 100).toFixed(1)}%`,
+          color: '#aaa',
+          weight: similarityValue,
+          size: similarityValue * 2
+        });
+      } else {
+        this.graph.addEdge(source, target, {
+          label: null,
+          originalLabel: null,
+          color: 'rgba(0, 0, 0, 0)',
+          weight: similarityValue,
+          size: 0.0001
         });
       }
     });
+  });
 
-    this.projectAnalysis.forEach(item => {
-      const source = item.note.toString();
-      Object.entries(item.noteSimilarity).forEach(([targetNote, similarity]) => {
-        const target = targetNote;
-        const similarityValue = parseFloat(similarity as any);
-        if (
-          similarityValue > 0.6 &&
-          source !== target &&
-          !this.graph.hasEdge(source, target) &&
-          !this.graph.hasEdge(target, source)
-        ) {
-          this.graph.addEdge(source, target, {
-            label: null,
-            originalLabel: `${(similarityValue * 100).toFixed(1)}%`,
-            color: '#aaa',
-            weight: similarityValue,
-            size: similarityValue * 2
-          });
-        } else {
-          this.graph.addEdge(source, target, {
-            label: null,
-            originalLabel: null,
-            color: 'rgba(0, 0, 0, 0)',
-            weight: similarityValue,
-            size: 0.0001
-          });
+  this.projectAnalysis.forEach((item) => {
+    const noteId = item.note.toString();
+    this.graph.setNodeAttribute(noteId, "x", Math.random() * 10 - 5);
+    this.graph.setNodeAttribute(noteId, "y", Math.random() * 10 - 5);
+  });
 
-        }
-      });
-    });
-
-
-    this.projectAnalysis.forEach((item) => {
-      const noteId = item.note.toString();
-        this.graph.setNodeAttribute(noteId, "x", Math.random() * 10 - 5);
-        this.graph.setNodeAttribute(noteId, "y", Math.random() * 10 - 5);
-
-    });
-
-  }
+}
 
   initSigma(): void {
     const container = this.sigmaContainer?.nativeElement;

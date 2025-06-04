@@ -6,6 +6,7 @@ import {enviroment} from '../../../enviroments/enviroment';
 import {Link} from '../interfaces/link';
 import {Tag} from '../interfaces/tag';
 import { NoteCreate } from '../interfaces/note';
+import {numberOrString} from 'gridstack';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,8 @@ export class NoteService {
     return this.http.get<any>(`${enviroment.apiUrl}/projects/${project.id}/notes/`);
   }
 
-  getNoteById(project:Project, note:Note){
-    return this.http.get<any>(`${enviroment.apiUrl}/projects/${project.id}/notes/${note.id}/`);
+  getNoteById(project:Project, noteId:numberOrString){
+    return this.http.get<any>(`${enviroment.apiUrl}/projects/${project.id}/notes/${noteId}/`);
   }
 
   createLink(originNote:number, destinationNote:number){
