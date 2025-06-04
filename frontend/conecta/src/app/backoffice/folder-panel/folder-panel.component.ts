@@ -30,7 +30,7 @@ export class FolderPanelComponent implements OnInit {
     this.loadNotesFromAPI();
   }
 
-   ngOnInit() {
+  ngOnInit() {
     this.comunicationService.projectCom$.subscribe((project) => {
       this.currentProject = project;
       this.loadNotesFromAPI();
