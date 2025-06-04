@@ -43,6 +43,19 @@ export class ProjectOptionsSidebarComponent  {
     console.warn("No hay un proyecto seleccionado para mostrar conexiones.");
   }
 }
+
+// Devuelve el nombre de la nota activa (o el primer nombre si hay varias)
+getNoteTitle(): string {
+  // Si tienes acceso a la nota activa desde un servicio o input, usa eso
+  // Aquí ejemplo simple: busca en localStorage
+  const notes = localStorage.getItem('noteNotes');
+  const active = localStorage.getItem('noteActive');
+  if (notes && active) {
+    const notesObj = JSON.parse(notes);
+    return notesObj[active]?.title || 'Nota';
+  }
+  return 'Nota';
+}
 }
 
 
