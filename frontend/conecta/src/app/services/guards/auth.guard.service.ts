@@ -20,19 +20,16 @@ export const authGuard: CanActivateFn = async (route, state) => {
 
   if(!accessToken){
     router.navigate(['/auth/login']);
-    return false; //no se permite acceder al usuario
+    return false;
   }
 
   try {
     const response:any = await firstValueFrom(
-      http.post(`${enviroment.apiUrl}/users/check-token`,{
-        username: username,
-        token: accessToken,
-      })
+      http.get(`${enviroment.apiUrl}/check-token/`,)
     );
-  return true; //se permite acceder al usuario
+    return true;
   } catch (error) {
     router.navigate(['/sign-in']);
-    return false; //no se permite acceder al usuario
-  } 
+    return false;
+  }
 }
