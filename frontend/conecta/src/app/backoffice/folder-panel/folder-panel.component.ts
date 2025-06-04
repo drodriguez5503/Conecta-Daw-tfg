@@ -30,7 +30,7 @@ export class FolderPanelComponent implements OnInit {
     this.loadNotesFromAPI();
   }
 
-   ngOnInit() {
+  ngOnInit() {
     this.comunicationService.projectCom$.subscribe((project) => {
       this.currentProject = project;
       this.loadNotesFromAPI();
@@ -41,10 +41,34 @@ export class FolderPanelComponent implements OnInit {
     }
   }
 
- addNote1() {
-  this.newNoteTitle = '';
-  this.showNoteModal = true;
-}
+  async addNote1() {
+    const { value: title } = await Swal.fire({
+      title: 'New note',
+      input: 'text',
+      inputPlaceholder: 'Title of the note',
+      confirmButtonText: 'Create',
+      cancelButtonText: 'Cancel',
+      showCancelButton: true,
+      customClass: {
+        container: 'swal2-container--folder-panel',
+        popup: 'swal2-popup',
+        confirmButton: 'swal2-confirm',
+        cancelButton: 'swal2-cancel',
+        title: 'swal2-title',
+        input: 'swal2-input'
+      },
+      inputValidator: (value) => {
+        if (!value) {
+          return 'The title cannot be empty';
+        }
+        return null;
+      }
+    });
+    if (title) {
+      this.newNoteTitle = title;
+      this.confirmCreateNote();
+    }
+  }
 
 cancelNoteCreation() {
   this.showNoteModal = false;
@@ -58,7 +82,7 @@ confirmCreateNote() {
     project: this.currentProject.id,
     content: '.',
   };
-  console.log('📦 Payload enviado a la API:', newNote);
+  console.log('Payload enviado a la API:', newNote);
   this.noteService.createNote(this.currentProject, newNote).subscribe({
     next: (createdNote) => {
       this.notes.push(createdNote);
@@ -90,7 +114,7 @@ loadNotesFromAPI() {
 
 selectNote(note: any) {
   this.comunicationService.selectNote(note);
-  console.log('📄 Nota clicada:', note);
+  console.log('Nota clicada:', note);
 }
 
 

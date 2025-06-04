@@ -123,8 +123,23 @@
       }
     }
   }
-}
 
+  &.hide-me button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.hide-me button i {
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+}
+//Modal de new proyect
 .custom-modal-overlay {
   position: fixed;
   top: 0;
@@ -135,29 +150,72 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1050; // mayor que el sidebar/header si es necesario
+  z-index: 1050;
+  font-family: "IBM Plex Mono", monospace !important;
 }
 
 .custom-modal {
-  background-color: #fff;
+  background: rgba(29, 29, 29, 0.75) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff !important;
+  font-family: inherit !important;
+  border-radius: 15px !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(172, 172, 172, 0.18);
   padding: 2rem;
-  border-radius: 0.5rem;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
-  
+}
+
+.custom-modal h5 {
+  color: #ff8200 !important;
+  font-size: 1.5rem !important;
+  margin-bottom: 1.5rem;
+}
+
+.custom-modal .form-label {
+  color: #ff8200 !important;
+  font-weight: 600;
+}
+
+.custom-modal .form-control {
+  background-color: #252525 !important;
+  color: #eee !important;
+  border-radius: 15px;
+  border: 1px solid #414141 !important;
+}
+
+.custom-modal .form-control::placeholder {
+  color: #fff !important;
+  opacity: 1 !important;
+}
+
+.custom-modal .btn-success {
+  background-color: #ff8200 !important;
+  color: #ffffff !important;
+  border-radius: 20px !important;
+  font-weight: bold !important;
+  border: none;
+}
+
+.custom-modal .btn-secondary {
+  background-color: transparent !important;
+  color: #ccc !important;
+  border: 1px solid #999 !important;
+  border-radius: 20px !important;
 }
 .user-profile {
   background-color: #272626;
   border-bottom: 1px solid #444;
 }
-
+/*
 .avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
   background-color: #aaa; // simula una foto de perfil
-}
+} */
 .hover-click {
     &:hover {
         cursor: pointer;
