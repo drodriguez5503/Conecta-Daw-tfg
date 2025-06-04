@@ -119,9 +119,10 @@ div {
   background: #272626; //color de la barra de pestañas
   border: none;
   padding: 0;
-  height: 36px;
+  height: 40px; // Igual que el sidebar/header si es de 40px
+  min-height: 40px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   box-shadow: none;
   margin: 0;
   justify-content: flex-start;
@@ -138,13 +139,40 @@ div {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.98rem;
   min-width: 110px;
-  min-height: 32px;
-  padding: 0 18px 0 12px;
+  max-width: 180px; // Limita el ancho máximo de la pestaña
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 32px 0 12px; // Más espacio a la derecha para la X
+  height: 40px;
+  min-height: 40px;
   display: flex;
   align-items: center;
   position: relative;
   transition: background 0.15s, color 0.15s;
   opacity: 0.85;
+}
+
+.nav-tabs .nav-link .tab-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  max-width: 110px; // Ajusta según el espacio que quieras dejar para la X
+  padding-right: 8px; // Espacio extra antes de la X
+  /* Efecto de desvanecimiento a la derecha */
+  position: relative;
+}
+
+.nav-tabs .nav-link .tab-title::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 32px; // igual al espacio de la X
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(to right, rgba(49,52,59,0), rgba(49,52,59,0) 79%); // Desvanecimiento a la derecha
 }
 
 .nav-tabs .nav-link.active {
@@ -164,7 +192,8 @@ div {
 .btn-close {
   color: #bfc7d5;
   opacity: 0.6;
-  margin-left: 10px;
+  margin-left: 0;
+  right: 8px;
   font-size: 1.1em;
   transition: opacity 0.2s, color 0.2s;
   padding: 0 4px;
@@ -174,7 +203,6 @@ div {
   box-shadow: none;
   cursor: pointer;
   position: absolute;
-  right: 2px;
   top: 50%;
   transform: translateY(-50%);
   line-height: 1;
