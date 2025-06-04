@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { ComunicationService } from '../../services/comunication/comunication.service';
 import { UserInterface } from '../../services/interfaces/user-interface';
 import { ChangeDetectorRef } from '@angular/core';
+import { CredentialsService } from '../../services/auth/credentials.service';
 
 
 @Component({
@@ -14,17 +15,15 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './user.component.scss'
 })
 export class UserComponent implements OnInit {
-  name: string = '';
-  username: string = '';
-  email: string = '';
-  password: string = '';
+  
   user: UserInterface | null = null;
 
 
   constructor(
     private router: Router,
     private comunicationService: ComunicationService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private credentialsService: CredentialsService
   ) {}
   closeUser() {
   this.router.navigate(['/backoffice']); // o a donde quieras volver
@@ -43,10 +42,11 @@ ngOnInit() {
     const { value: formValues } = await Swal.fire({
       title: 'Edit profile',
       html:
-        `<input id="swal-input1" class="swal2-input" placeholder="Nombre" value="${this.user?.fullName}">` +
-        `<input id="swal-input1" class="swal2-input" placeholder="Nombre" value="${this.user?.username}">` +
-        `<input id="swal-input2" class="swal2-input" placeholder="Email" type="email" value="${this.user?.email}">` +
-        `<input id="swal-input3" class="swal2-input" placeholder="Contraseña" type="password" value="${this.user?.password || ''}">`,
+        // `<input id="swal-input1" class="swal2-input" placeholder="Nombre" value="${this.user?.first_name}">` +
+        // `<input id="swal-input2" class="swal2-input" placeholder="Nombre" value="${this.user?.last_name}">` +
+        `<input id="swal-input3" class="swal2-input" placeholder="Nombre" value="${this.user?.username}">` +
+        `<input id="swal-input4" class="swal2-input" placeholder="Email" type="email" value="${this.user?.email}">` +
+        `<input id="swal-input5" class="swal2-input" placeholder="Contraseña" value="${this.user?.password }">`,
       focusConfirm: false,
       showCancelButton: true,
       confirmButtonText: 'Save',
@@ -56,31 +56,39 @@ ngOnInit() {
       },
       preConfirm: () => {
         return {
-          name: (document.getElementById('swal-input1') as HTMLInputElement).value,
-          username: (document.getElementById('swal-input1') as HTMLInputElement).value,
-          email: (document.getElementById('swal-input2') as HTMLInputElement).value,
-          password: (document.getElementById('swal-input3') as HTMLInputElement).value
+          // first_name: (document.getElementById('swal-input1') as HTMLInputElement).value,
+          // last_name: (document.getElementById('swal-input2') as HTMLInputElement).value,
+          username: (document.getElementById('swal-input3') as HTMLInputElement).value,
+          email: (document.getElementById('swal-input4') as HTMLInputElement).value,
+          password: (document.getElementById('swal-input5') as HTMLInputElement).value
         };
       }
     });
     
 
-    if (formValues) {
-      // Actualizamos los datos en pantalla
-      this.name = formValues.name;
-      this.email = formValues.email;
-      this.username = formValues.username;
-      this.password = formValues.password;
+    if (formValues && this.user) {
+      const updatedUser: UserInterface = {
+      ...this.user,
+      first_name: formValues.first_name,
+      last_name: formValues.last_name,
+      email: formValues.email,
+      username: formValues.username,
+      password: formValues.password,
       // this.password = '*'.repeat(formValues.password.length || 8); // Opcional: ocultamos la contraseña
-
-      this.user = {
-        ...this.user,
-        fullName: formValues.name,
-        username: formValues.username,
-        email: formValues.email,
-        password: formValues.password
       };
-      this.comunicationService.sendUser(this.user);
+
+      this.credentialsService.updateUser(updatedUser).subscribe({
+        next: (res) => {
+          console.log('Respuesta del backend al guardar:', res);
+          this.user = res;
+          this.comunicationService.sendUser(res);
+          Swal.fire('Guardado', 'Tu perfil ha sido actualizado correctamente.', 'success');
+        },
+        error: (err) => {
+          console.error('Error al actualizar el perfil', err);
+          Swal.fire('Error', 'Error al actualizar el perfil', 'error');
+        }
+      });
     }
   }
 }

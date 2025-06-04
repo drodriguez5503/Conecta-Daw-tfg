@@ -38,4 +38,8 @@ export class CredentialsService {
   getUserInfo(): Observable<any> {
     return this.http.get<any>(`${enviroment.apiUrl}/users/info/`);
   }
+
+  updateUser(user: UserInterface): Observable<any> {
+    return this.http.put<any>(`${enviroment.apiUrl}/users/update/`, user);
+  }
 }
