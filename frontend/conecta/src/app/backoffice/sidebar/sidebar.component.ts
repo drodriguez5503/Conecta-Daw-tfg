@@ -1,4 +1,4 @@
-import { Component, Input, input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +22,7 @@ import {ComunicationService} from '../../services/comunication/comunication.serv
 })
 export class SidebarComponent implements OnInit, OnChanges {
   @Input() collapsed: boolean = false;
+  @Output() collapsedChange = new EventEmitter<boolean>();
   showProjectForm: boolean = false;
   projectName: string = '';
   user: any ;
@@ -110,6 +111,17 @@ ngOnChanges(changes: SimpleChanges): void {
   if (changes['collapsed'] && changes['collapsed'].currentValue === true) {
     this.showProjects = false;
     // Si tienes otras carpetas/listas anidadas, ciérralas aquí también
+  }
+}
+
+onProjectsIconClick() {
+  if (this.collapsed) {
+    this.collapsedChange.emit(false); // Pide al padre que abra el sidebar
+    setTimeout(() => {
+      this.showProjects = true;
+    }, 250); // Espera a que el sidebar se expanda visualmente
+  } else {
+    this.toggleProjectsList();
   }
 }
 }

@@ -12,7 +12,7 @@
 
 <div class="web-container" [class.collapsed]="isCollapsed" [class.folder-panel-open]="comunicationService.isFolderPanelVisible$ | async">
   <div class="sidebar-container" *ngIf="!shouldShowProjectOptionsSidebar()">
-    <app-sidebar [collapsed]="isCollapsed"></app-sidebar>
+    <app-sidebar [collapsed]="isCollapsed" (collapsedChange)="isCollapsed = $event"></app-sidebar>
   </div>
   <div class="project-options-sidebar-container" *ngIf="shouldShowProjectOptionsSidebar()">
     <app-project-options-sidebar></app-project-options-sidebar>

@@ -17,23 +17,23 @@
 
   <nav>
     <ul>
-      <li (click)="toggleProjectsList()">
+      <li (click)="onProjectsIconClick()">
         <div class="hover-click d-flex flex-row align-items-center">
           <i class="bi bi-folder-fill"></i> 
           <span class="px-2">Proyects</span>
         </div>
         
       </li>
-      <ul *ngIf="showProjects" class="list-unstyled ps-4 mt-2" style="font-size: 0.9rem;">
+      <ul *ngIf="showProjects && !collapsed" class="list-unstyled ps-4 mt-2" style="font-size: 0.9rem;">
         <li
           *ngFor="let project of projects"
           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
           (click)="navigateToProject(project)"
-    >
-      <i class="bi bi-folder-fill me-2"></i> 
-      <span class="flex-grow-1">{{ project.name }}</span>
-    </li>
-</ul>
+        >
+          <i class="bi bi-folder-fill me-2"></i> 
+          <span class="flex-grow-1">{{ project.name }}</span>
+        </li>
+      </ul>
 
       <li><i class="bi bi-people-fill hover-click"></i> <span>Teams</span></li>
       <li><i class="bi bi-person-fill hover-click"></i> <span>Profile</span></li>
@@ -48,15 +48,15 @@
     
     <form (ngSubmit)="createProject()" #projectForm="ngForm">
       <div class="mb-3">
-        <label for="projectName" class="form-label">Name:</label>
         <input
-          type="text"
-          id="projectName"
-          name="projectName"
-          class="form-control"
-          required
-          [(ngModel)]="projectName"
-        />
+  type="text"
+  id="projectName"
+  name="projectName"
+  class="form-control"
+  required
+  [(ngModel)]="projectName"
+  placeholder="Title"
+/>
       </div>
 
       <div class="d-flex justify-content-end gap-2">
