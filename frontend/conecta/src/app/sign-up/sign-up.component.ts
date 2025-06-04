@@ -47,7 +47,7 @@ export class SignUpComponent {
       this.CredentialsService.register(this.registerForm.value as UserInterface).subscribe({
         next: (data:any)=>{
           console.log(data);
-          this.tokenService.saveTokens(data.token, "234")
+          this.tokenService.saveTokens(data.access, data.refresh)
           this.router.navigate(['sign-in']);
         },
         error: (error:any)=>{
