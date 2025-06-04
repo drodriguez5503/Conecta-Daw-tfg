@@ -45,7 +45,6 @@ export class SignInComponent {
           this.tokenService.saveTokens(data.access, data.refresh)
           this.useStateService.save(data.user)
           this.router.navigate(['backoffice']);
-          console.log('Enviando login:', this.loginForm.value);
         },
         error: (error:any)=>{
           console.log(error);
