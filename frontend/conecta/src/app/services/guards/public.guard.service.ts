@@ -10,9 +10,9 @@ export const publicGuard: CanActivateFn = (route, state) => {
   const refreshToken = tokenService.getRefreshToken();
 
   if (accessToken) {
-    router.navigate(['/']);
-    return false; // No se permite acceder al usuario
+    router.navigate(['/backoffice']);
+    return false;
   }
 
-  return true; // Se permite acceder al usuario
+  return true;
 }

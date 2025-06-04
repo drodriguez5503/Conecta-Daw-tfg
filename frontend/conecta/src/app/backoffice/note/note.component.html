@@ -1,43 +1,43 @@
-<!--<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" style="margin-bottom: 0;">-->
+	<!--<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" style="margin-bottom: 0;">-->
 
 
-<div class="note-wrapper" [ngClass]="{ 'folder-panel-open': isFolderPanelVisible, 'note-empty-bg': navs.length === 0 }">
-  <ng-container *ngIf="navs.length > 0; else emptyBg">
-    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
-      @for (id of navs; track id) {
-        <li [ngbNavItem]="id">
-          <button ngbNavLink style="position: relative;">
-            {{ notes[id].title || 'Untitled' }}
-            <span class="btn-close ms-3 fw-light" (click)="close($event, id)">×</span>
-          </button>
-          <ng-template ngbNavContent>
-            <div class="note-fullscreen">
-              <div class="note-header">
-                <input 
-                  type="text" 
-                  class="note-title-input" 
-                  placeholder="Note title" 
-                  [(ngModel)]="notes[id].title" 
-                  name="title-{{id}}"
-                  required
-                />
-                <button class="note-save-btn" type="button" (click)="saveNote(id)">Save</button>
-              </div>
-              <textarea 
-                class="note-content-full" 
-                placeholder="Write your note here..." 
-                [(ngModel)]="notes[id].content" 
-                name="content-{{id}}"
-                rows="20"
-              ></textarea>
-            </div>
-          </ng-template>
-        </li>
-      }
-    </ul>
-    <div [ngbNavOutlet]="nav" class="note-fullscreen"></div>
-  </ng-container>
-  <ng-template #emptyBg>
-    <i class="bi bi-fingerprint"></i>
-  </ng-template>
-</div>
+	<div class="note-wrapper" [ngClass]="{ 'folder-panel-open': isFolderPanelVisible, 'note-empty-bg': navs.length === 0 }">
+	<ng-container *ngIf="navs.length > 0; else emptyBg">
+		<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+		@for (id of navs; track id) {
+			<li [ngbNavItem]="id">
+			<button ngbNavLink style="position: relative;">
+				<span class="tab-title">{{ notes[id].title || 'Untitled' }}</span>
+				<span class="btn-close ms-3 fw-light" (click)="close($event, id)">×</span>
+			</button>
+			<ng-template ngbNavContent>
+				<div class="note-fullscreen">
+				<div class="note-header">
+					<input 
+					type="text" 
+					class="note-title-input" 
+					placeholder="Note title" 
+					[(ngModel)]="notes[id].title" 
+					name="title-{{id}}"
+					required
+					/>
+					<button class="note-save-btn" type="button" (click)="saveNote(id)">Save</button>
+				</div>
+				<textarea 
+					class="note-content-full" 
+					placeholder="Write your note here..." 
+					[(ngModel)]="notes[id].content" 
+					name="content-{{id}}"
+					rows="20"
+				></textarea>
+				</div>
+			</ng-template>
+			</li>
+		}
+		</ul>
+		<div [ngbNavOutlet]="nav" class="note-fullscreen"></div>
+	</ng-container>
+	<ng-template #emptyBg>
+		<i class="bi bi-fingerprint"></i>
+	</ng-template>
+	</div>

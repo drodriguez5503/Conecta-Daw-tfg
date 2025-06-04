@@ -12,20 +12,21 @@ import { ConectionsComponent } from './backoffice/conections/conections.componen
 import { UserComponent } from './backoffice/user/user.component';
 import { ProjectOptionsSidebarComponent } from './backoffice/project-options-sidebar/project-options-sidebar.component';
 import { FolderPanelComponent } from './backoffice/folder-panel/folder-panel.component';
+import {publicGuard} from './services/guards/public.guard.service';
 import { ContentComponent } from './backoffice/content/content.component';
 
 export const routes: Routes = [
 
     //home
-    {path: "", component: HomeComponent},
-    {path: "sign-in", component: SignInComponent},
-    {path: "sign-up", component: SignUpComponent},
-    {path: "contact", component: ContactComponent},    
-    
+    {path: "",canActivate:[publicGuard], component: HomeComponent},
+    {path: "sign-in",canActivate:[publicGuard], component: SignInComponent},
+    {path: "sign-up",canActivate:[publicGuard], component: SignUpComponent},
+    {path: "contact",canActivate:[publicGuard], component: ContactComponent},
+
 
     //backoffice
     {
-        path: "backoffice",  
+        path: "backoffice",canActivate:[authGuard],  
         component: LayoutComponent, 
         children: [
             { path: "", redirectTo: "content", pathMatch: "full" },
