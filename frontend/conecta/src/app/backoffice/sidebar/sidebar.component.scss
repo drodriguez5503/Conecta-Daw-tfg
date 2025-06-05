@@ -1,20 +1,24 @@
-
 .sidebar-container {
   width: 200px;
   height: calc(100vh - 43px); // altura total menos el header
+  display: flex;
+  flex-direction: column;
   transition: width 0.3s;
-  overflow: visible !important;
+  overflow: visible;
   background-color: #303030;
   color: #7B7B7B;
+  position: relative;
+
+  // nav {
+  //   flex: 1 1 auto;
+  //   overflow-y: auto;
+  //   min-height: 0;
+  //   color: #7B7B7B;
+  //   /* Ocultar scrollbar en todos los navegadores */
+   
+  // }
   
-  nav {
-    color: #7B7B7B;
 
-    i{
-      font-size: 2rem; 
-
-    }
-  }
   &.hide-me {
     width: 64px; // ancho colapsado
     span, h2 {
@@ -149,13 +153,7 @@
   background-color: #272626;
   border-bottom: 1px solid #444;
 }
-/*
-.avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: #aaa; // simula una foto de perfil
-} */
+
 .hover-click {
     &:hover {
         cursor: pointer;
@@ -167,4 +165,11 @@
 .custom-dropdown {
   left: 30px !important; /* o usa right: 10px si anclas desde la derecha */
   width: 100px;
+}
+.dropdown {
+  position: relative;
+  z-index: 10000; // Asegúrate de estar por encima de .content-wrapper
+}
+.list-group-item {
+  position: relative; // 🔥 Esto permite que el menú "flote" sobre todo
 }

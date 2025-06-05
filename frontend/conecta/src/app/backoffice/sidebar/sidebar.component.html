@@ -9,10 +9,6 @@
       <i class="bi bi-plus-circle px-2"></i>
       <span>Proyect</span>
     </button>
-    <button style="background-color:#696b6b;" class="btn w-100 px-1 text-white">
-      <i class="bi bi-people-fill px-2"></i>
-      <span>Crete team</span>
-    </button>
   </div>
 
   <nav>
@@ -37,12 +33,10 @@
     <!-- Menú de 3 puntos -->
     <div class="dropdown" >
       <button class="btn btn-sm btn-link text-light" (click)="toggleProjectMenu(project)">
-        <i class="bi bi-three-dots-vertical">
-          
-        </i>
+        <i class="bi bi-three-dots-vertical"></i>
       </button>
-      <ul *ngIf="activeProject === project" class="dropdown-menu show custom-dropdown w-50" style="position: absolute; right: 0; top: 100%; z-index: 9999; background-color: #696b6b; ">
-        <li>
+      <ul *ngIf="activeProject === project" class="dropdown-menu show custom-dropdown w-50" style="position: absolute; right: 0; top: 100%; z-index: 10000; background-color: #696b6b; ">
+        <li class="list-group-item">
           <button class="dropdown-item" (click)="addUserToProject(project)">
             <div class="d-flex flex-row align-items-center justify-content-between">
               <i class="bi bi-plus-circle"></i>
@@ -50,7 +44,7 @@
             </div>
           </button>
         </li>
-        <li>
+        <li class="list-group-item">
           <button class="dropdown-item" (click)="deleteProject(project)">
             <div class="d-flex flex-row align-items-center justify-content-between">
               <i class="bi bi-trash"></i>

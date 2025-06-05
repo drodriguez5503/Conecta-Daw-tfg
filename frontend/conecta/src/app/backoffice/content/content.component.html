@@ -1,14 +1,33 @@
-<div class="p-4" style="background-color: #434343; height: calc(100vh - 43px);">
- 
-  <div>Your projects</div>
- 
+<div class="content-wrapper" >
+  <span class="fingerprint-bg">
+    <i class="bi bi-fingerprint"></i>
+  </span>
+
+  <h2 class="projects-title text-white">
+    <span class="material-icons "></span>
+    Your Projects
+  </h2>
 
   <div class="card-grid">
-    <div class="card">Total de proyectos: {{ projects?.length }}</div>
+    <div class="card card-total">
+      <span class="material-icons card-icon">Full proyects</span>
+      <div class="card-total-text">
+        <span class="card-total-number">{{ projects.length }}</span>
+        <span class="card-total-label"></span>
+      </div>
+    </div>
   </div>
 
-  <div *ngFor=" let project of projects" class="card ">
-    <h3 class="text-black">{{ project?.name }}</h3>
-  <div> {{ project?.users?.length }} </div>
+  <div class="card-grid">
+    <div *ngFor="let project of projects" class="card project-card">
+      <div class="project-header">
+        <span class="material-icons project-avatar">Folder</span>
+        <h3>{{ project?.name }}</h3>
+      </div>
+      <div class="project-users">
+        <span class="material-icons">group</span>
+        {{ project?.users?.length }} miembros
+      </div>
+    </div>
   </div>
 </div>

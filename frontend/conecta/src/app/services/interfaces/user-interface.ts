@@ -8,4 +8,6 @@ export interface UserInterface {
 }
 
 export type LoginInterface = Pick<UserInterface, "username" | "password">
+export type UpdateDataInterface = Pick<UserInterface, "username" | "email">
+
 
