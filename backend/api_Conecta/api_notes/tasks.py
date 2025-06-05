@@ -14,7 +14,7 @@ def sync_data_from_firebase():
         projects = projects_ref.get()
 
         if not projects:
-            logger.warning("⚠️ No hay proyectos en Firebase")
+            logger.warning("No hay proyectos en Firebase")
             return "No hay proyectos en Firebase"
 
         firebase_note_ids = set()
@@ -26,7 +26,7 @@ def sync_data_from_firebase():
                     try:
                         firebase_note_ids.add(int(note_id))
                     except ValueError:
-                        logger.warning(f"⚠️ ID de nota inválido en Firebase: {note_id}")
+                        logger.warning(f"ID de nota inválido en Firebase: {note_id}")
 
         local_note_ids = set(Note.objects.values_list('id', flat=True))
         notes_to_delete = local_note_ids - firebase_note_ids
