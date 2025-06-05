@@ -202,7 +202,6 @@ createGraphFromNotes(): void {
             note = data;
             this.comunicationService.selectNote(note);
             this.router.navigate(['backoffice/note']);
-            console.log('Nota clicada:', note);
           },
           error: (error) => {
             console.error(`Error al cargar la nota ${e.node}:`, error);
