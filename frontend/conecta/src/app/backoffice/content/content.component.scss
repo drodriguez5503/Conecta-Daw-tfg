@@ -1,0 +1,26 @@
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+
+.card {
+  background-color: transparent;
+  border: 2px solid #FF8B0F;
+  border-radius: 8px;
+  padding: 1rem;
+  width: fit-content;
+  max-width: 300px;
+  min-width: 200px;
+  color: white;
+  margin-right: 1rem;  // separación horizontal extra si hiciera falta
+  margin-bottom: 2rem; // separación vertical entre filas
+
+  h3 {
+    color: #FF8B0F;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+}

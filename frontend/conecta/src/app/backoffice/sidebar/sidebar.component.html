@@ -25,15 +25,44 @@
         
       </li>
       <ul *ngIf="showProjects && !collapsed" class="list-unstyled ps-4 mt-2" style="font-size: 0.9rem;">
-        <li
-          *ngFor="let project of projects"
-          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-          (click)="navigateToProject(project)"
-        >
-          <i class="bi bi-folder-fill me-2"></i> 
-          <span class="flex-grow-1">{{ project.name }}</span>
+  <li
+    *ngFor="let project of projects"
+    class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative"
+  >
+    <div class="d-flex align-items-center flex-grow-1" (click)="navigateToProject(project)">
+      <i class="bi bi-folder-fill me-2"></i>
+      <span>{{ project.name }}</span>
+    </div>
+
+    <!-- Menú de 3 puntos -->
+    <div class="dropdown" >
+      <button class="btn btn-sm btn-link text-light" (click)="toggleProjectMenu(project)">
+        <i class="bi bi-three-dots-vertical">
+          
+        </i>
+      </button>
+      <ul *ngIf="activeProject === project" class="dropdown-menu show custom-dropdown w-50" style="position: absolute; right: 0; top: 100%; z-index: 9999; background-color: #696b6b; ">
+        <li>
+          <button class="dropdown-item" (click)="addUserToProject(project)">
+            <div class="d-flex flex-row align-items-center justify-content-between">
+              <i class="bi bi-plus-circle"></i>
+              <div>Add user</div>
+            </div>
+          </button>
         </li>
+        <li>
+          <button class="dropdown-item" (click)="deleteProject(project)">
+            <div class="d-flex flex-row align-items-center justify-content-between">
+              <i class="bi bi-trash"></i>
+              <div>Delete</div>
+            </div>
+          </button>
+      </li>
       </ul>
+    </div>
+  </li>
+</ul>
+
 
       <!-- <li><i class="bi bi-people-fill"></i> <span>Equipos</span></li> -->
      <li (click)="navigateToProfile()">

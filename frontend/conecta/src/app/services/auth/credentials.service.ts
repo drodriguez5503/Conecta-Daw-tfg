@@ -28,7 +28,7 @@ export class CredentialsService {
   }
 
   getUserByUserName(username:string): Observable<any> {
-    return this.http.get<any>(`${enviroment.apiUrl}/users/${username}/`);
+    return this.http.get<any>(`${enviroment.apiUrl}/users/${username}`);
   }
 
   getUserById(id:string): Observable<any> {

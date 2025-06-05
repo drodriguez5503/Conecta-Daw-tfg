@@ -1,11 +1,14 @@
-<h2 class="text-white">Bienvenida, {{ user?.username }}</h2>
-<p class="text-light">Este es tu espacio de trabajo. Comienza creando un proyecto o revisando tus equipos.</p>
+<div class="p-4" style="background-color: #434343; height: calc(100vh - 43px);">
+ 
+  <div>Your projects</div>
+ 
 
-<div class="card-grid">
-  <div class="card">Total de proyectos: {{ projects?.length }}</div>
-</div>
+  <div class="card-grid">
+    <div class="card">Total de proyectos: {{ projects?.length }}</div>
+  </div>
 
-<div *ngFor=" let project of projects" class="card">
-  <h3 class="text-black">{{ project?.name }}</h3>
- <div> {{ project?.users?.length }} </div>
+  <div *ngFor=" let project of projects" class="card ">
+    <h3 class="text-black">{{ project?.name }}</h3>
+  <div> {{ project?.users?.length }} </div>
+  </div>
 </div>

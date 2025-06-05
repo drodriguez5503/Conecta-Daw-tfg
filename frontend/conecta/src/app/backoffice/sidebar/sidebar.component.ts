@@ -7,7 +7,9 @@ import { ChangeDetectorRef } from '@angular/core';
 import { ProjectService } from '../../services/notes/project.service';
 import { Project, ProjectCreate } from '../../services/interfaces/project';
 import {ComunicationService} from '../../services/comunication/comunication.service';
-
+import Swal from 'sweetalert2';
+import { firstValueFrom } from 'rxjs';
+import { HostListener, ElementRef } from '@angular/core';
 
 
 @Component({
@@ -28,14 +30,79 @@ export class SidebarComponent implements OnInit, OnChanges {
   user: any ;
   projects: Project[] = [];
   showProjects: boolean = false;
+  activeProject: Project | null = null;
 
 constructor(
   private credentialsService: CredentialsService,
   private cd: ChangeDetectorRef,
   private projectService: ProjectService,
   private communicationService: ComunicationService,
-  private router: Router
+  private router: Router,
+  private eRef: ElementRef
 ){}
+
+
+
+async deleteProject(project: Project) {
+  const result = await Swal.fire({
+    title: `¿Eliminar "${project.name}"?`,
+    text: 'Esta acción no se puede deshacer.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  });
+
+  if (result.isConfirmed) {
+    this.projectService.deleteProject(project.id).subscribe({
+      next: () => {
+        this.projects = this.projects.filter(p => p.id !== project.id);
+        this.activeProject = null;
+        Swal.fire('Eliminado', 'El proyecto ha sido eliminado.', 'success');
+      },
+      error: (err) => {
+        console.error('Error al eliminar proyecto', err);
+        Swal.fire('Error', 'No se pudo eliminar el proyecto.', 'error');
+      }
+    });
+  }
+}
+
+
+async addUserToProject(project: Project) {
+  const { value: username } = await Swal.fire({
+    title: 'Añadir usuario al proyecto',
+    input: 'text',
+    inputLabel: 'Nombre de usuario',
+    inputPlaceholder: 'usuario123',
+    showCancelButton: true,
+    confirmButtonText: 'Buscar',
+    cancelButtonText: 'Cancelar'
+  });
+
+  if (!username) return;
+
+  try {
+    const userResponse = await firstValueFrom(this.credentialsService.getUserByUserName(username));
+    const user = userResponse.user;
+
+    if (!user) {
+      await Swal.fire('Usuario no encontrado', `No existe un usuario llamado "${username}".`, 'warning');
+      return;
+    }
+
+    await firstValueFrom(this.projectService.addUserToProject(project, user.id));
+    await Swal.fire('Añadido', `Usuario "${username}" fue añadido correctamente al proyecto.`, 'success');
+
+    this.activeProject = null;
+
+  } catch (error) {
+    console.error('Error al añadir usuario al proyecto:', error);
+    await Swal.fire('Error', 'No se pudo añadir el usuario al proyecto.', 'error');
+  }
+}
 
 navigateToProfile() {
   this.communicationService.sendUser(this.user);
@@ -127,6 +194,22 @@ onProjectsIconClick() {
     }, 250); // Espera a que el sidebar se expanda visualmente
   } else {
     this.toggleProjectsList();
+  }
+}
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    const clickedInside = this.eRef.nativeElement.contains(event.target);
+    if (!clickedInside) {
+      this.activeProject = null;
+    }
+  }
+
+toggleProjectMenu(project: Project) {
+  if (this.activeProject === project) {
+    this.activeProject = null;
+  } else {
+    this.activeProject = project;
   }
 }
 }
