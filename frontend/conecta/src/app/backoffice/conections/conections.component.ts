@@ -9,6 +9,7 @@ import Graph from 'graphology';
 import ForceSupervisor from 'graphology-layout-force/worker';
 import { ComunicationService } from '../../services/comunication/comunication.service';
 import {NoteService} from '../../services/notes/note.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-conections',
@@ -33,7 +34,8 @@ export class ConectionsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private aiAnalysisService: AiAnalysisService,
     private comunicationService: ComunicationService,
-    private noteService: NoteService
+    private noteService: NoteService,
+    private router:Router
   ) {}
 
 ngOnInit(): void {
@@ -98,14 +100,33 @@ createGraphFromNotes(): void {
     Object.entries(item.noteSimilarity).forEach(([targetNote, similarity]) => {
       const target = targetNote;
       const similarityValue = parseFloat(similarity as any);
-      if (similarityValue > 0.6 && source !== target && !this.graph.hasEdge(source, target) && !this.graph.hasEdge(target, source)) {
-        this.graph.addEdge(source, target, {
-          label: null,
-          originalLabel: `${(similarityValue * 100).toFixed(1)}%`,
-          color: '#aaa',
-          weight: similarityValue,
-          size: similarityValue * 2
-        });
+      if (similarityValue > 0.4 && source !== target && !this.graph.hasEdge(source, target) && !this.graph.hasEdge(target, source)) {
+        if (similarityValue > 0.8) {
+          this.graph.addEdge(source, target, {
+            label: null,
+            originalLabel: `${(similarityValue * 100).toFixed(1)}%`,
+            color: '#3354b9',
+            weight: similarityValue,
+            size: similarityValue * 2
+          });
+        } else if (similarityValue > 0.6) {
+          this.graph.addEdge(source, target, {
+            label: null,
+            originalLabel: `${(similarityValue * 100).toFixed(1)}%`,
+            color: '#858585',
+            weight: similarityValue,
+            size: similarityValue * 2
+          });
+        } else {
+          this.graph.addEdge(source, target, {
+            label: null,
+            originalLabel: `${(similarityValue * 100).toFixed(1)}%`,
+            color: '#ea0b0b',
+            weight: similarityValue,
+            size: similarityValue * 2,
+            // añadir tipo dashed
+          });
+        }
       } else {
         this.graph.addEdge(source, target, {
           label: null,
@@ -129,7 +150,6 @@ createGraphFromNotes(): void {
   initSigma(): void {
     const container = this.sigmaContainer?.nativeElement;
     if (!container) return;
-
 
     this.sig = new Sigma(this.graph, container, {
       minCameraRatio: 0.1,
@@ -172,6 +192,24 @@ createGraphFromNotes(): void {
 
     this.sig.on("upNode", release);
     this.sig.on("upStage", release);
+
+    this.sig.on("clickNode", (e) => {
+      let note;
+      if (this.chosenProject) {
+
+        this.noteService.getNoteById(this.chosenProject, e.node).subscribe({
+          next: (data) => {
+            note = data;
+            this.comunicationService.selectNote(note);
+            this.router.navigate(['backoffice/note']);
+          },
+          error: (error) => {
+            console.error(`Error al cargar la nota ${e.node}:`, error);
+          }
+        })
+
+      }
+    })
   }
 
   ngAfterViewInit(): void {

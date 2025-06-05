@@ -15,4 +15,16 @@
       background-color: #f0f0f0;
     }
   }
+
+
+}
+
+#sigmaContainer {
+  ::ng-deep {
+    .dashed-edge {
+      stroke-dasharray: 5, 5; // Esto crea el efecto de línea discontinua
+      stroke-width: 1;
+    }
+
+  }
 }
