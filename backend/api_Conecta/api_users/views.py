@@ -4,7 +4,7 @@ from rest_framework import generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 
-from .serializers import UserSerializer, LoginSerializer, TokenSerializer
+from .serializers import UserSerializer, LoginSerializer, TokenSerializer, UserProfileUpdateSerializer
 
 User = get_user_model()
 
@@ -60,7 +60,7 @@ class GetUserInformationView(APIView):
 
 class UpdateUserInformationView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserProfileUpdateSerializer
     permission_classes = [IsAuthenticated]
     lookup_field = 'pk'
 

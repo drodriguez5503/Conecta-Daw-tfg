@@ -35,130 +35,86 @@ ngOnInit() {
     this.cdr.detectChanges();
   });
 }
-  async editarPerfil() {
-    const { value: formValues, isDismissed } = await Swal.fire({
-      title: 'Edit profile',
-      html:
-        `<input id="swal-input3" class="swal2-input" placeholder="Nombre de usuario" value="${this.user?.username}">` +
-        `<input id="swal-input4" class="swal2-input" placeholder="Email" type="email" value="${this.user?.email}">` +
-        `<button id="swal-change-password" type="button" 
-        style="
-        margin-top:12px;width:60.5%;padding:10px 0;border-radius:15px;background:#232323;color:#ff8200;font-weight:bold;border:2px solid #ff8200;font-family:'IBM Plex Mono',monospace;font-size:1rem;">Change password</button>`,
-      focusConfirm: false,
+ async editarPerfil() {
+  const formResult = await Swal.fire({
+    title: 'Edit profile',
+    html:
+      `<input id="swal-input3" class="swal2-input" placeholder="Nombre de usuario" value="${this.user?.username}">` +
+      `<input id="swal-input4" class="swal2-input" placeholder="Email" type="email" value="${this.user?.email}">`,
+    focusConfirm: false,
+    showCancelButton: true,
+    confirmButtonText: 'Next',
+    cancelButtonText: 'Cancel',
+    customClass: { container: 'swal2-container--dark' },
+    preConfirm: () => {
+      const username = (document.getElementById('swal-input3') as HTMLInputElement).value;
+      const email = (document.getElementById('swal-input4') as HTMLInputElement).value;
+      if (!username || !email) {
+        Swal.showValidationMessage('Please fill in both fields.');
+        return;
+      }
+      return { username, email };
+    }
+  });
+
+  if (!formResult.isConfirmed || !formResult.value || !this.user) return;
+
+  const passwordResult = await Swal.fire({
+    title: 'Do you want to change your password?',
+    text: 'Click Yes to change it, or Cancel to skip.',
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'No',
+    customClass: { container: 'swal2-container--dark' }
+  });
+
+  let password = '';
+
+  if (passwordResult.isConfirmed) {
+    const result = await Swal.fire({
+      title: 'New Password',
+      input: 'password',
+      inputPlaceholder: 'Enter new password',
+      inputAttributes: { autocapitalize: 'off', autocorrect: 'off' },
       showCancelButton: true,
       confirmButtonText: 'Save',
-      cancelButtonText: 'Cancel',
-      customClass: {
-        container: 'swal2-container--dark'
-      },
-      didOpen: () => {
-        const btn = document.getElementById('swal-change-password');
-        if (btn) {
-          btn.addEventListener('click', () => {
-            Swal.fire({
-              title: 'Change password',
-              input: 'password',
-              inputPlaceholder: 'New password',
-              showCancelButton: true,
-              confirmButtonText: 'Save',
-              cancelButtonText: 'Cancel',
-              customClass: { container: 'swal2-container--dark' }
-            }).then(result => {
-              if (result.isConfirmed && result.value) {
-                (document.getElementById('swal-change-password') as HTMLButtonElement).setAttribute('data-password', result.value);
-                (document.getElementById('swal-change-password') as HTMLButtonElement).textContent = 'Password changed';
-              }
-            });
-          });
+      customClass: { container: 'swal2-container--dark' },
+      preConfirm: (value) => {
+        if (!value) {
+          Swal.showValidationMessage('Password cannot be empty');
         }
-      },
-      preConfirm: () => {
-        const passwordBtn = document.getElementById('swal-change-password') as HTMLButtonElement;
-        return {
-          username: (document.getElementById('swal-input3') as HTMLInputElement).value,
-          email: (document.getElementById('swal-input4') as HTMLInputElement).value,
-          password: passwordBtn?.getAttribute('data-password') || ''
-        };
+        return value;
       }
     });
-    if (isDismissed) {
-      return; // Si se cancela, no hacer nada más
-    }
-    if (formValues && this.user) {
-      const updatedUser: UserInterface = {
-      ...this.user,
-      email: formValues.email,
-      username: formValues.username,
-      password: formValues.password,
-      };
 
-      this.credentialsService.updateUser(updatedUser).subscribe({
-        next: (res) => {
-          this.user = res;
-          this.comunicationService.sendUser(res);
-          Swal.fire('Save', 'Your profile has been successfully updated.');
-        },
-        error: (err) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Error updating profile',
-            customClass: { container: 'swal2-container--dark' }
-          });
-        }
-      });
-    } else if (!formValues) {
-      // Mostrar popup para cambiar contraseña si los campos están vacíos
-      const result = await Swal.fire({
-        title: 'Change password',
-        html:
-          `<input id="swal-new-password" class="swal2-input" type="password" placeholder="Nueva contraseña">` +
-          `<input id="swal-confirm-password" class="swal2-input" type="password" placeholder="Confirm new password">`,
-        focusConfirm: false,
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        cancelButtonText: 'Cancel',
-        customClass: { container: 'swal2-container--dark' },
-        preConfirm: () => {
-          const newPass = (document.getElementById('swal-new-password') as HTMLInputElement).value;
-          const confirmPass = (document.getElementById('swal-confirm-password') as HTMLInputElement).value;
-          if (!newPass || !confirmPass) {
-            Swal.showValidationMessage('Please fill in both fields.');
-            return false;
-          }
-          if (newPass !== confirmPass) {
-            Swal.showValidationMessage('The passwords do not match.');
-            return false;
-          }
-          return newPass;
-        }
-      });
-      if (result.isConfirmed && result.value && this.user) {
-        const updatedUser: UserInterface = {
-          ...this.user,
-          password: result.value
-        };
-        this.credentialsService.updateUser(updatedUser).subscribe({
-          next: (res) => {
-            this.user = res;
-            this.comunicationService.sendUser(res);
-            Swal.fire({
-              icon: 'success',
-              title: 'Updated password',
-              text: 'Your password has been successfully updated.',
-              customClass: { container: 'swal2-container--dark' }
-            });
-          },
-          error: (err) => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'Error updating password',
-              customClass: { container: 'swal2-container--dark' }
-            });
-          }
-        });
-      }
+    if (result.isConfirmed && result.value) {
+      password = result.value;
     }
   }
+
+  const updatedUser: UserInterface = {
+    ...this.user,
+    username: formResult.value.username,
+    email: formResult.value.email,
+    ...(password ? { password } : {})  // only add password if changed
+  };
+
+  this.credentialsService.updateUser(updatedUser).subscribe({
+    next: (res) => {
+      this.user = res;
+      this.comunicationService.sendUser(res);
+      Swal.fire('Saved', 'Your profile has been successfully updated.', 'success');
+    },
+    error: () => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to update profile.',
+        customClass: { container: 'swal2-container--dark' }
+      });
+    }
+  });
+}
+
+
 }
