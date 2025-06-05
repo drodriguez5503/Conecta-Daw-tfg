@@ -1,10 +1,17 @@
+// Breakpoints
+$breakpoint-xs: 350px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 769px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
 .content-wrapper {
   padding: 2.5rem 2rem 2rem 2rem;
   background: #434343;
   min-height: calc(100vh - 43px);
   position: relative;
   overflow: auto;
-  z-index: 1;
 }
 
 .fingerprint-bg {
@@ -23,6 +30,19 @@
   max-width: 100vw;
   max-height: 100vh;
   overflow: hidden;
+
+  @media (max-width: $breakpoint-lg) {
+    font-size: 80vw;
+  }
+  @media (max-width: $breakpoint-md) {
+    font-size: 120vw;
+  }
+  @media (max-width: $breakpoint-sm) {
+    font-size: 180vw;
+  }
+  @media (max-width: $breakpoint-xs) {
+    font-size: 220vw;
+  }
 }
 
 .projects-title {
@@ -35,6 +55,22 @@
   gap: 0.7rem;
   margin-bottom: 2.5rem;
   letter-spacing: 0.5px;
+
+  @media (max-width: $breakpoint-xl) {
+    font-size: 2rem;
+  }
+  @media (max-width: $breakpoint-lg) {
+    font-size: 1.7rem;
+  }
+  @media (max-width: $breakpoint-md) {
+    font-size: 1.3rem;
+  }
+  @media (max-width: $breakpoint-sm) {
+    font-size: 1.1rem;
+  }
+  @media (max-width: $breakpoint-xs) {
+    font-size: 1rem;
+  }
 }
 
 .card-grid {
@@ -42,6 +78,32 @@
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 2rem;
   margin-bottom: 2.5rem;
+
+  @media (max-width: $breakpoint-xxl) {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  @media (max-width: $breakpoint-xl) {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem;
+  }
+  @media (max-width: $breakpoint-lg) {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.7rem;
+  }
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  @media (max-width: $breakpoint-xs) {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .card {
@@ -54,12 +116,34 @@
   padding: 1.5rem 1.2rem 1.2rem 1.2rem;
   color: #fff;
   transition: transform 0.15s, box-shadow 0.15s;
-  min-width: 220px;
-  max-width: 340px;
-  width: 100%;
-  margin: 0 auto;
+  min-width: 0;
+  max-width: 100%;
+  padding: 1.2rem 0.7rem 1rem 0.7rem;
+  font-size: 1rem;
+
+  @media (max-width: $breakpoint-xl) {
+    padding: 1rem 0.5rem 0.8rem 0.5rem;
+    font-size: 0.95rem;
+  }
+  @media (max-width: $breakpoint-lg) {
+    padding: 0.8rem 0.3rem 0.7rem 0.3rem;
+    font-size: 0.92rem;
+  }
+  @media (max-width: $breakpoint-md) {
+    padding: 0.7rem 0.2rem 0.6rem 0.2rem;
+    font-size: 0.9rem;
+  }
+  @media (max-width: $breakpoint-sm) {
+    padding: 0.6rem 0.1rem 0.5rem 0.1rem;
+    font-size: 0.88rem;
+  }
+  @media (max-width: $breakpoint-xs) {
+    padding: 0.5rem 0.05rem 0.4rem 0.05rem;
+    font-size: 0.85rem;
+  }
+
   position: relative;
-  z-index: 2;
+  z-index: 0;
 }
 .card:hover {
   transform: translateY(-4px) scale(1.03);

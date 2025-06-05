@@ -1,20 +1,26 @@
-
 .sidebar-container {
   width: 200px;
   height: calc(100vh - 43px); // altura total menos el header
+  display: flex;
+  flex-direction: column;
   transition: width 0.3s;
-  overflow: visible !important;
+  overflow: hidden;
   background-color: #303030;
   color: #7B7B7B;
-  
+
   nav {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0;
     color: #7B7B7B;
-
-    i{
-      font-size: 2rem; 
-
-    }
+    /* Ocultar scrollbar en todos los navegadores */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
   }
+  nav::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
   &.hide-me {
     width: 64px; // ancho colapsado
     span, h2 {
