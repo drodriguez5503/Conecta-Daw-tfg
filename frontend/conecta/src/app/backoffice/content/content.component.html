@@ -4,3 +4,8 @@
 <div class="card-grid">
   <div class="card">Total de proyectos: {{ projects?.length }}</div>
 </div>
+
+<div *ngFor=" let project of projects" class="card">
+  <h3 class="text-black">{{ project?.name }}</h3>
+ <div> {{ project?.users?.length }} </div>
+</div>
