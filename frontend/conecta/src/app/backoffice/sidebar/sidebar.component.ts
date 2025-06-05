@@ -38,7 +38,8 @@ constructor(
   private projectService: ProjectService,
   private communicationService: ComunicationService,
   private router: Router,
-  private eRef: ElementRef
+  private eRef: ElementRef,
+  
 ){}
 
 
@@ -212,4 +213,7 @@ toggleProjectMenu(project: Project) {
     this.activeProject = project;
   }
 }
+
+
+
 }

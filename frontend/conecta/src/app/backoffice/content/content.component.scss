@@ -12,6 +12,7 @@ $breakpoint-xxl: 1400px;
   min-height: calc(100vh - 43px);
   position: relative;
   overflow: auto;
+  z-index: 0;
 }
 
 .fingerprint-bg {
