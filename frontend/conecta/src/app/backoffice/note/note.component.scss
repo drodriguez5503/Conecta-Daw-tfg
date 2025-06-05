@@ -12,7 +12,7 @@
   &.folder-panel-open {
     margin-left: 335px; // ajusta al ancho de tu folder-panel
     // O usa width si necesitas que reduzca el área visible
-    // width: calc(100% - 250px);
+    width: calc(100% - 335px);
   }
 }
 :host {
