@@ -19,7 +19,11 @@ export class ProjectService {
     return this.http.get<any>(`${enviroment.apiUrl}/projects/`);
   }
 
-  addUserToProject(project:Project, user_id:string){
+  addUserToProject(project:Project, user_id:number){
     return this.http.put(`${enviroment.apiUrl}/projects/${project.id}/add_user/`, {user_id})
+  }
+
+  deleteProject( project_id:number){
+    return this.http.delete(`${enviroment.apiUrl}/projects/${project_id}/`);
   }
 }
